@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <?php include("__ROOT__/common/html/bar.html"); ?>
+    <link href="/common/css/course.css" rel="stylesheet" />
+</head>
+<body class="course_bg">
+
+<div class="container">
+
+    <!-- left -->
+    <div class="course_left">
+        <div class="course_slide">
+            <img src="__ROOT__/common/image/course.jpg">
+        </div>
+        <br>
+        <div class="course_article">
+            {notempty name="blog"}
+            {volist name="blog" id="item"}
+            <div class="course_line"></div>
+            <div class="course_article_one container">
+                <a href="{:url('/index/index/toBlog?id='.$item['id'])}" class="course_article_des" style="color: #0f0f0f;text-decoration:none">
+                    <div class="course_article_title container">
+                        {$item.title}
+                    </div>
+                    <div class="course_describe">
+                        {$item.content}
+                    </div>
+                </a>
+                <div class="course_icon">
+                    <!--<div class="course_ico">-->
+                        <!--<span class="glyphicon glyphicon-thumbs-up">{$item.like}</span>-->
+                    <!--</div>-->
+                    <div class="course_ico" onclick="likeBlog('{$item.id}')">
+                        <span class="glyphicon glyphicon-heart-empty" id="{$item.id}">{$item.like}</span>
+                    </div>
+                    <div class="course_ico">
+                        <span class="glyphicon glyphicon-eye-open">{$item.count}</span>
+                    </div>
+                </div>
+            </div>
+            {/volist}
+            {/notempty}
+        </div>
+    </div>
+    <!-- left -->
+
+    <!-- right -->
+    <div class="course_right">
+        <div class="course_list container">
+            <span class="glyphicon glyphicon-flag">&nbsp</span>
+            RANKING LIST
+        </div>
+        <div class="course_list_line"></div>
+        {notempty name="list"}
+        {volist name="list" id="item"}
+        <a href="{:url('/index/index/toBlog?id='.$item['id'])}" style="color: #0f0f0f;text-decoration: none">
+            <div class="course_title container">
+                {$item.title}
+            </div>
+        </a>
+        {/volist}
+        {/notempty}
+    </div>
+    <!-- //right -->
+
+</div>
+</body>
+<script type="text/javascript">
+    $(function () {
+        //输出文章内容时，超出62个字时显示...
+        $(".course_describe").each(function() {
+            var str = $(this).html();
+            var subStr = str.substring(0, 62);
+            $(this).html(subStr + (str.length > 62 ? '...' : ''));
+        });
+    });
+</script>
+<?php include("__ROOT__/common/html/footer.html"); ?>
+</html>

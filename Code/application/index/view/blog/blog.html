@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <?php include("__ROOT__/common/html/bar.html"); ?>
+    <link href="/common/css/blog.css" rel="stylesheet" />
+</head>
+<body class="blog_bg">
+<div class="container blog_container">
+    <br>
+    <div class="blog_author container">
+        <a href="{:url('/index/Personal/toUser?id='.$user['id'])}">
+            <div class="blog_head">
+                <img src={$user.img} class="img-circle blog_img" id="personal">
+            </div>
+        </a>
+        <div class="blog_name">
+            {$user.nick_name}
+        </div>
+        <div class="blog_sign">
+            {$user.signature}
+        </div>
+    </div>
+    <div class="blog_article container">
+        <div class="blog_title">
+            {$blog.title}
+        </div>
+        {if $blog.type eq 1}
+        <div class="blog_label">
+            <div>标签：{$blog.label_id}</div>
+        </div>
+        {/if}
+        <div class="blog_content">
+            {$blog.content}
+        </div>
+        <div class="blog_l"></div>
+    </div>
+
+    <div class="blog_comment">
+        <div class="blog_line"></div>
+        <div class="blog_input">
+            <input type="text" id="comment" placeholder="想对作者说些什么" class="form-control blog_i">
+            <button type="submit" id="submit" class="btn btn-default" style="margin-left: 20px">Submit</button>
+        </div>
+        {notempty name="comment"}
+        {volist name="comment" id="item"}
+        <div class="blog_line"></div>
+        <div class="blog_people">
+            <div class="blog_who">
+                <img src="{$item.img}" class="img-circle blog_people_head">
+            </div>
+            <div class="blog_people_content container">
+                {$item.content}
+            </div>
+        </div>
+        {/volist}
+        {/notempty}
+    </div>
+</div>
+</body>
+<?php include("__ROOT__/common/html/footer.html"); ?>
+</html>
+<script type="text/javascript">
+    $("#submit").click(function (e) {
+        var comment = document.getElementById("comment").value;
+        var blog = {:json_encode($blog)};
+        console.log(blog.id);
+        $.ajax({
+            url: '/index/Comment/commentBlog',
+            type: 'post',
+            data: {
+                blogId: blog.id,
+                comment: comment
+            },
+            success: function (data) {
+                console.log('success');
+                alert('评论成功');
+                window.location.reload();
+            },
+            error: function (data) {
+                console.log('error');
+                alert('评论失败');
+            }
+        })
+    })
+</script>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <?php include("__ROOT__/common/html/bar.html"); ?>
+    <link href="/common/css/invitation.css" rel="stylesheet" />
+</head>
+<body class="bar_bg">
+<div class="container">
+    <div class="invitation_building container">
+        <div class="invitation_right">
+            <div class="invitation_left">
+                <div class="invitation_person">
+                    <div class="invitation_head">
+                        <img src="{$user.img}" class="img-circle">
+                    </div>
+                    <div class="invitation_name">
+                        {$user.nick_name}
+                    </div>
+                </div>
+            </div>
+            <div class="invitation_icon">
+                {$forum.content}
+            </div>
+        </div>
+    </div>
+    {notempty name="comment"}
+    {volist name="comment" id="item"}
+    <div class="invitation_line container"></div>
+    <div class="invitation_building container">
+        <div class="invitation_right">
+            <div class="invitation_left">
+                <div class="invitation_person">
+                    <div class="invitation_head">
+                        <img src="{$item.img}" class="img-circle">
+                    </div>
+                    <div class="invitation_name">
+                        {$item.nick_name}
+                    </div>
+                </div>
+            </div>
+            <div class="invitation_icon">
+                {$item.content}
+            </div>
+        </div>
+    </div>
+    {/volist}
+    {/notempty}
+    <div class="invitation_line container"></div>
+    <div class="invitation_comment container">
+        <div class="invitation_input">
+            <input type="text" id="comment" placeholder="想对作者说些什么" class="form-control invitation_i">
+            <button type="submit" id="submit" class="btn btn-default" style="margin-left: 20px">Submit</button>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script type="text/javascript">
+    $("#submit").click(function (e) {
+        var comment = document.getElementById("comment").value;
+        var forum = {:json_encode($forum)};
+        console.log(forum.id);
+        $.ajax({
+            url: '/index/Comment/commentForum',
+            type: 'post',
+            data: {
+                forumId: forum.id,
+                comment: comment
+            },
+            success: function (data) {
+                console.log('success');
+                alert('评论成功');
+                window.location.reload();
+            },
+            error: function (data) {
+                console.log('error');
+                alert('评论失败');
+            }
+        })
+    })
+</script>
+<?php include("__ROOT__/common/html/footer.html"); ?>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <?php include("/common/html/bar.html"); ?>
+    <link href="/common/css/personal.css" rel="stylesheet" />
+    <link href="/common/css/article.css" rel="stylesheet" />
+</head>
+<body class="bg">
+<!-- background_images -->
+<div id="home" class="bg-img">
+    <div class="box"></div>
+    <div class="come_up">
+        <div class="container">
+            <div class="image_div">
+                <img class="img-circle image" src="/common/image/account.jpg" alt="头像"/>
+            </div>
+            <div class="div_right">
+                <br>
+                <p>{$user->nickName}</p>
+                <div class="div_fans">
+                    <span>Focus </span>{$user->focus}
+                    <span> | </span>
+                    <span>Fans </span>{$user->fans}
+                </div>
+                <div class="div_signature">
+                    <p>狂欢是一群人的孤单，孤单是一个人的狂欢
+                        <a href="/index/Personal/toAlter" style="color: white">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                    </p>
+
+                </div>
+                <div class="my_tab">
+                    <div class="tab_menu">
+                        <ul id="test">
+                            <li>Photo</li>
+                            <li>Blog</li>
+                            <li>Chat</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //background_images -->
+<div class="blank"></div>
+
+<script type="text/javascript">
+    $(function () {
+        //页面卡片
+        var $div_li =$("div.tab_menu ul li");
+        $div_li.click(function(){
+            $(this).addClass("selected")            //当前<li>元素高亮
+                .siblings().removeClass("selected");  //去掉其它同辈<li>元素的高亮
+            var index =  $div_li.index(this);  // 获取当前点击的<li>元素 在 全部li元素中的索引。
+            $("div.tab_box > div")     //选取子节点。不选取子节点的话，会引起错误。如果里面还有div
+                .eq(index).removeClass("hide")
+                .show()   //显示 <li>元素对应的<div>元素
+                .siblings().hide(); //隐藏其它几个同辈的<div>元素
+        });
+
+        //获取点击后的li的内容
+        var obj_lis = document.getElementById("test").getElementsByTagName("li");
+        for(var i = 0; i < obj_lis.length; i++){
+            obj_lis[i].onclick = function(){
+                if(this.innerHTML == "Photo")
+                {
+                    window.location.href = "/index/personal/toPersonal";
+                }
+                else if(this.innerHTML == "Blog")
+                {
+                    window.location.href = "/index/personal/toArticle";
+                }
+            }
+        }
+
+    })
+</script>
+</body>
+</html>

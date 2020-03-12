@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <?php include("__ROOT__/common/html/bar.html"); ?>
+    <link href="/common/css/forum.css" rel="stylesheet" />
+</head>
+<body class="forum_bg">
+<!-- header -->
+<div class="headerpage"></div>
+<!-- //header -->
+
+<div class="container">
+
+    <!-- left -->
+    <div class="forum_left">
+        <div class="forum_slide">
+            <img src="__ROOT__/common/image/personal_bg.jpg">
+        </div>
+        <br>
+        <div class="forum_new container">The New Post</div>
+        <div class="forum_quiz container">
+            <a href="/index/forum/toEditor" style="color: #FFCC33;text-decoration:none">Go to quiz</a>
+        </div>
+        <div class="forum_invitation container">
+            <table class="table">
+                <tr>
+                    <th>Title</th>
+                    <th>Quizzer</th>
+                    <th>Replies</th>
+                    <th>Page View</th>
+                </tr>
+                {notempty name="forum"}
+                {volist name="forum" id="item"}
+                <tr>
+                    <td>
+                        <a href="{:url('/index/Forum/toInvitation?id='.$item['id'])}" style="color: #0f0f0f;text-decoration: none">
+                            {$item.title}
+                        </a>
+                    </td>
+                    <td>{$item.user_id}</td>
+                    <td>{$item.like}</td>
+                    <td>{$item.count}</td>
+                </tr>
+                {/volist}
+                {/notempty}
+            </table>
+        </div>
+    </div>
+    <!-- left -->
+
+    <!-- right -->
+    <div class="forum_right">
+        <div class="forum_list">
+            <span class="glyphicon glyphicon-bullhorn">&nbsp</span>
+            Bulletin Board
+        </div>
+        <div class="forum_list_line"></div>
+        {notempty name="board"}
+        {volist name="board" id="item"}
+        <a href="{:url('/index/Forum/toInvitation?id='.$item['id'])}" style="color: #0f0f0f;text-decoration: none">
+            <div class="forum_title">
+                {$item.title}
+            </div>
+        </a>
+        {/volist}
+        {/notempty}
+
+    </div>
+    <!-- //right -->
+
+</div>
+</body>
+<script type="text/javascript">
+    $(function () {
+        //页面卡片
+        var $div_li =$("div.course_tab ul li");
+        $div_li.click(function(){
+            $(this).addClass("selected")            //当前<li>元素高亮
+                .siblings().removeClass("selected");  //去掉其它同辈<li>元素的高亮
+            var index =  $div_li.index(this);  // 获取当前点击的<li>元素 在 全部li元素中的索引。
+            $("div.tab_box > div")     //选取子节点。不选取子节点的话，会引起错误。如果里面还有div
+                .eq(index).removeClass("hide")
+                .show()   //显示 <li>元素对应的<div>元素
+                .siblings().hide(); //隐藏其它几个同辈的<div>元素
+        });
+
+        //输出文章内容时，超出200个字时显示...
+        $(".course_describe").each(function() {
+            var str = $(this).html();
+            var subStr = str.substring(0, 200);
+            $(this).html(subStr + (str.length > 200 ? '...' : ''));
+        });
+    })
+</script>
+<?php include("__ROOT__/common/html/footer.html"); ?>
+</html>

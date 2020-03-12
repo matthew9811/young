@@ -1,0 +1,119 @@
+.select_bg{
+    background-color: #F4F7F9;
+}
+.select_left{
+    width: 800px;
+    min-height: 100px;
+    /*background-color: #FFCC33;*/
+    float: left;
+}
+.select_right{
+    width: 320px;
+    min-height: 100px;
+    background-color: white;
+    float: right;
+}
+.select_nav{
+    /*background-color: white;*/
+    width: 100%;
+    height: 35px
+}
+.select_tab {
+    clear: both;
+}
+.select_tab li {
+    width: 150px;
+    height: 100%;
+    font-size: 20px;
+    color: #0f0f0f;
+    float:left;
+    /*text-align:center;*/
+    cursor: pointer;
+    /*align-content: center;*/
+    list-style:none;
+    border-bottom:none;
+}
+.select_tab li.selected {
+    color:#FFCC33;
+}
+.select_article{
+    width: 100%;
+    min-height: 100px;
+    /*background-color: #880000;*/
+}
+.select_article_one{
+    width: 100%;
+    height: 110px;
+    background-color: white;
+}
+.select_line{
+    width: 100%;
+    height: 6px;
+    background-color: #F4F7F9;
+}
+.select_article_des {
+    width: 100%;
+    float: left;
+    height: 80px;
+}
+.select_article_title{
+    /*background-color: #880000;*/
+    width: 100%;
+    height: 30px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    /*justify-content: center;*/
+    text-indent:1em;
+    color: #0f0f0f;
+}
+.select_describe{
+    width: 100%;
+    height: 50px;
+    font-size: 16px;
+    text-indent:2em;
+    color: #555555;
+    /*background-color: #F4F7F9;*/
+}
+.select_icon{
+    float: right;
+    width: 30%;
+    height: 20px;
+    font-size: 18px;
+    /*background-color: #880000;*/
+}
+.select_ico{
+    width: 70px;
+    /*background-color: white;*/
+    float: left;
+}
+.select_list{
+    height: 52px;
+    width: 100%;
+    /*background-color: #880000;*/
+    font-size: 25px;
+    text-align: center;
+    color: #FFCC33;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*font-weight: bold;*/
+}
+.select_list span{
+    font-size: 25px;
+    color: #FFCC33;
+}
+.select_title{
+    width: 100%;
+    height: 60px;
+    /*background-color: #F4F7F9;*/
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.select_list_line{
+    width: 100%;
+    height: 3px;
+    background-color: #FFCC33;
+}

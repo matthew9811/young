@@ -1,0 +1,199 @@
+/*页面顶部*/
+.bar_bg{
+    background-color: #F4F7F9
+}
+.bar_blank{
+    height: 15px;
+    width: 100%
+}
+.bar_a{
+    font-size: 30px;
+    color: black;
+}
+.bar_title{
+    font-size: 50px;
+    color: #FFCC33;
+    font-style: italic;
+    font-family: STLiti
+}
+.bar_ul{
+    font-size: 20px;
+}
+.bar_nav{
+    color: black;
+}
+.bar_one{
+    width: 320px;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    /*align-items: center;*/
+    /*background-color: #880000;*/
+    float: right;
+}
+.bar_search{
+    float: left;
+    padding-top:10px;
+    width: 200px;
+}
+.bar_button {
+    margin: 0;
+    padding: 0;
+    border: 1px solid transparent;  //自定义边框
+    outline: none;
+}
+.bar_message {
+    width:70px;
+    height:50px;
+    list-style: none;
+    margin:0;
+    padding:0;
+}
+.bar_message li{
+    width:70px;
+    margin:0 10px;
+    float: left;
+}
+.bar_message li a{
+    width:70px;
+    height:50px;
+    padding:0 20px;
+    font-size: 12px;
+    line-height:50px;
+    display: inline-block;
+}
+.bar_out{
+    width: 120px;
+    height: 40px;
+    font-size: 15px;
+    float: right;
+    /*background-color: #880000;*/
+}
+.bar_log{
+    height: 60px;
+    width: 60px;
+    /*float: right;*/
+    background-color: white;
+    padding-left:20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.bar_log1{
+    height: 60px;
+    width: 60px;
+    float: right;
+    background-color: white;
+    padding-right:20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+*{
+    margin:0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+#navs{
+    width: 100px;
+    height: 40px;
+    margin: 0 auto;
+}
+.messages li{
+    float:left;
+    display:flex;
+    height: 40px;
+    line-height: 10px;
+    font-size: 15px;
+    padding: 0 7px;
+    position: relative;
+    color: #9d9d9d;
+    align-items: center;
+    justify-content: center;
+
+    /*background-color: red;*/
+}
+.messages li a{
+    color: #9d9d9d;
+    text-decoration: none;
+    cursor:pointer
+}
+.messages li a{
+    color: #9d9d9d;
+    text-decoration: none;
+    cursor:pointer
+}
+/*.messages li:hover{*/
+    /*!*background: #cea;*!*/
+/*}*/
+/*.messages li ul li{*/
+    /*font-size: 12px;*/
+    /*height: 16px;*/
+    /*margin: 0px;*/
+    /*border: 0;*/
+    /*float: none;*/
+/*}*/
+/*关键一：将二级菜单设置为display：none;*/
+/*.messages li ul{*/
+    /*position: absolute;*/
+    /*top: 18px;*/
+    /*left: 0;*/
+    /*display: none;*/
+/*}*/
+/*.messages li ul li:hover{*/
+    /*!*background: red;*!*/
+/*}*/
+/*!*关键二：在划过二级菜单从属的一级菜单时，设置为display:block;*!*/
+/*.messages li:hover ul{*/
+    /*display: block;*/
+/*}*/
+/*#seeUserInfo .modal-dialog {*/
+    /*max-width: 450px;*/
+/*}*/
+/*页面顶部*/
+
+
+/*页面底部*/
+.footer_end{
+    text-align: center;
+    font-size: 25px;
+    color: #9d9d9d;
+    font-family: 'Arial Rounded MT Bold';
+}
+.footer_size{
+    background-color: white;
+    width: 100%;
+    height: 150px
+}
+.footer_container{
+    text-align: center;
+}
+.footer_ps{
+    font-size: 33px
+}
+.footer_left{
+    float:  left
+}
+.footer_icon{
+    color: #FFCC33;
+    font-size: 30px
+}
+.footer_p{
+    text-align: center;
+    font-size: 15px
+}
+/*页面底部*/
+
+
+/*富文本编辑*/
+.editor_toolbar {
+    border: 1px solid #ccc;/*设置下拉棒*/
+}
+.w-e-text-container{
+    height: 400px !important;/*!important是重点，因为原div是行内样式设置的高度300px*/
+}
+.w-e-toolbar{
+    flex-wrap:wrap;
+}
+/*富文本编辑*/
