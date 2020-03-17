@@ -15,46 +15,46 @@ class Index extends Controller
 {
     public function index()
     {
-        $blogs = Db::table('blog')->where('type','0')
-            ->where('status','1')->where('delete_flag','0')
-            ->limit(3)->select();
-        $course = Db::table('blog')->where('type','1')
-            ->where('status','1')->where('delete_flag','0')
-            ->limit(4)->select();
-        $hot = Db::table('blog')->where('delete_flag','0')
-            ->limit(5)->select();
-        for ($i = 0; $i < count($blogs); $i = $i + 1) {
-            $blog = $blogs[$i];
-            $content = fopen(iconv("UTF-8", "gbk", $blog['content']),"r");
-            if ($content) {
-                $content = file_get_contents(iconv("UTF-8", "gbk", $blog['content']));
-                $blog['content'] = $content;
-            }
-            $blogs[$i] = $blog;
-        }
-        for ($i = 0; $i < count($course); $i = $i + 1) {
-            $blog = $course[$i];
-            $content = fopen(iconv("UTF-8", "gbk", $blog['content']),"r");
-            if ($content) {
-                $content = file_get_contents(iconv("UTF-8", "gbk", $blog['content']));
-                $blog['content'] = $content;
-            }
-            $course[$i] = $blog;
-        }
-        $nickName = Session::get("nickName");
-        $this->assign("blog",$blogs);
-        $this->assign("course1",$course[0]);
-        $this->assign("course2",$course[1]);
-        $this->assign("course3",$course[2]);
-        $this->assign("course4",$course[3]);
-        $this->assign("hot",$hot);
-        if ($nickName) {
-            $this->assign("blog",$blogs);
-            $this->assign("course",$course);
-            $this->assign("hot",$hot);
-            return view("index/home");
-        }
-        return view("index/content");
+//        $blogs = Db::table('blog')->where('type','0')
+//            ->where('status','1')->where('delete_flag','0')
+//            ->limit(3)->select();
+//        $course = Db::table('blog')->where('type','1')
+//            ->where('status','1')->where('delete_flag','0')
+//            ->limit(4)->select();
+//        $hot = Db::table('blog')->where('delete_flag','0')
+//            ->limit(5)->select();
+//        for ($i = 0; $i < count($blogs); $i = $i + 1) {
+//            $blog = $blogs[$i];
+//            $content = fopen(iconv("UTF-8", "gbk", $blog['content']),"r");
+//            if ($content) {
+//                $content = file_get_contents(iconv("UTF-8", "gbk", $blog['content']));
+//                $blog['content'] = $content;
+//            }
+//            $blogs[$i] = $blog;
+//        }
+//        for ($i = 0; $i < count($course); $i = $i + 1) {
+//            $blog = $course[$i];
+//            $content = fopen(iconv("UTF-8", "gbk", $blog['content']),"r");
+//            if ($content) {
+//                $content = file_get_contents(iconv("UTF-8", "gbk", $blog['content']));
+//                $blog['content'] = $content;
+//            }
+//            $course[$i] = $blog;
+//        }
+//        $nickName = Session::get("nickName");
+//        $this->assign("blog",$blogs);
+//        $this->assign("course1",$course[0]);
+//        $this->assign("course2",$course[1]);
+//        $this->assign("course3",$course[2]);
+//        $this->assign("course4",$course[3]);
+//        $this->assign("hot",$hot);
+//        if ($nickName) {
+//            $this->assign("blog",$blogs);
+//            $this->assign("course",$course);
+//            $this->assign("hot",$hot);
+//            return view("index/home");
+//        }
+        return view("index/index");
     }
 
     public function loginSelect()
@@ -64,27 +64,28 @@ class Index extends Controller
 
     public function toReg()
     {
-        return view('register/register');
+        return view('loginReg/register');
     }
 
     public function toLogin()
     {
-        return view('register/login');
+
+        return view('loginReg/login');
     }
 
     public function toAbout()
     {
-        $blogs = Db::table('blog')->where('type','0')
-            ->where('status','1')->where('delete_flag','0')
+        $blogs = Db::table('blog')->where('type', '0')
+            ->where('status', '1')->where('delete_flag', '0')
             ->limit(3)->select();
-        $course = Db::table('blog')->where('type','1')
-            ->where('status','1')->where('delete_flag','0')
+        $course = Db::table('blog')->where('type', '1')
+            ->where('status', '1')->where('delete_flag', '0')
             ->limit(4)->select();
-        $hot = Db::table('blog')->where('delete_flag','0')
+        $hot = Db::table('blog')->where('delete_flag', '0')
             ->limit(5)->select();
         for ($i = 0; $i < count($blogs); $i = $i + 1) {
             $blog = $blogs[$i];
-            $content = fopen(iconv("UTF-8", "gbk", $blog['content']),"r");
+            $content = fopen(iconv("UTF-8", "gbk", $blog['content']), "r");
             if ($content) {
                 $content = file_get_contents(iconv("UTF-8", "gbk", $blog['content']));
                 $blog['content'] = $content;
@@ -93,75 +94,71 @@ class Index extends Controller
         }
         for ($i = 0; $i < count($course); $i = $i + 1) {
             $blog = $course[$i];
-            $content = fopen(iconv("UTF-8", "gbk", $blog['content']),"r");
+            $content = fopen(iconv("UTF-8", "gbk", $blog['content']), "r");
             if ($content) {
                 $content = file_get_contents(iconv("UTF-8", "gbk", $blog['content']));
                 $blog['content'] = $content;
             }
             $course[$i] = $blog;
         }
-        $this->assign("blog",$blogs);
-        $this->assign("course1",$course[0]);
-        $this->assign("course2",$course[1]);
-        $this->assign("course3",$course[2]);
-        $this->assign("course4",$course[3]);
-        $this->assign("hot",$hot);
+        $this->assign("blog", $blogs);
+        $this->assign("course1", $course[0]);
+        $this->assign("course2", $course[1]);
+        $this->assign("course3", $course[2]);
+        $this->assign("course4", $course[3]);
+        $this->assign("hot", $hot);
         return view('index/home');
     }
 
     public function toBlog()
     {
         $id = input()['id'];
-        $blog = Db::table('blog')->where('id',$id)->select()[0];
-        $user = Db::table('user')->where('id',$blog['user_id'])->select()[0];
-        $content = fopen(iconv("UTF-8", "gbk", $blog['content']),"r");
+        $blog = Db::table('blog')->where('id', $id)->select()[0];
+        $user = Db::table('user')->where('id', $blog['user_id'])->select()[0];
+        $content = fopen(iconv("UTF-8", "gbk", $blog['content']), "r");
         if ($content) {
             $content = file_get_contents(iconv("UTF-8", "gbk", $blog['content']));
             $blog['content'] = $content;
         }
         if ($blog['label_id'] == 1) {
             $blog['label_id'] = 'photo';
-        }
-        else if ($blog['label_id'] == 2) {
+        } else if ($blog['label_id'] == 2) {
             $blog['label_id'] = 'camera';
-        }
-        else if ($blog['label_id'] == 3) {
+        } else if ($blog['label_id'] == 3) {
             $blog['label_id'] = 'color';
-        }
-        else if ($blog['label_id'] == 4) {
+        } else if ($blog['label_id'] == 4) {
             $blog['label_id'] = 'light';
-        }
-        else {
+        } else {
             $blog['label_id'] = '';
         }
-        $comment = Db::table('comment')->where('type','1')
-            ->where('type_id',$blog['id'])->select();
-        for ($i = 0;$i < count($comment);$i = $i + 1) {
+        $comment = Db::table('comment')->where('type', '1')
+            ->where('type_id', $blog['id'])->select();
+        for ($i = 0; $i < count($comment); $i = $i + 1) {
             $userId = $comment[$i];
-            $commentor = Db::table('user')->where('id',$userId['user_id'])
+            $commentor = Db::table('user')->where('id', $userId['user_id'])
                 ->select()[0];
             $userId['img'] = $commentor['img'];
             $comment[$i] = $userId;
         }
-        $this->assign('user',$user);
-        $this->assign('blog',$blog);
-        $this->assign('comment',$comment);
+        $this->assign('user', $user);
+        $this->assign('blog', $blog);
+        $this->assign('comment', $comment);
         return view('blog/blog');
     }
 
     public function Content()
     {
-        $blogs = Db::table('blog')->where('type','0')
-            ->where('status','1')->where('delete_flag','0')
+        $blogs = Db::table('blog')->where('type', '0')
+            ->where('status', '1')->where('delete_flag', '0')
             ->limit(3)->select();
-        $course = Db::table('blog')->where('type','1')
-            ->where('status','1')->where('delete_flag','0')
+        $course = Db::table('blog')->where('type', '1')
+            ->where('status', '1')->where('delete_flag', '0')
             ->limit(4)->select();
-        $hot = Db::table('blog')->where('delete_flag','0')
+        $hot = Db::table('blog')->where('delete_flag', '0')
             ->limit(5)->select();
         for ($i = 0; $i < count($blogs); $i = $i + 1) {
             $blog = $blogs[$i];
-            $content = fopen(iconv("UTF-8", "gbk", $blog['content']),"r");
+            $content = fopen(iconv("UTF-8", "gbk", $blog['content']), "r");
             if ($content) {
                 $content = file_get_contents(iconv("UTF-8", "gbk", $blog['content']));
                 $blog['content'] = $content;
@@ -170,36 +167,36 @@ class Index extends Controller
         }
         for ($i = 0; $i < count($course); $i = $i + 1) {
             $blog = $course[$i];
-            $content = fopen(iconv("UTF-8", "gbk", $blog['content']),"r");
+            $content = fopen(iconv("UTF-8", "gbk", $blog['content']), "r");
             if ($content) {
                 $content = file_get_contents(iconv("UTF-8", "gbk", $blog['content']));
                 $blog['content'] = $content;
             }
             $course[$i] = $blog;
         }
-        $this->assign("blog",$blogs);
-        $this->assign("course1",$course[0]);
-        $this->assign("course2",$course[1]);
-        $this->assign("course3",$course[2]);
-        $this->assign("course4",$course[3]);
-        $this->assign("hot",$hot);
+        $this->assign("blog", $blogs);
+        $this->assign("course1", $course[0]);
+        $this->assign("course2", $course[1]);
+        $this->assign("course3", $course[2]);
+        $this->assign("course4", $course[3]);
+        $this->assign("hot", $hot);
         return view('index/login_content');
 
     }
 
     public function toHome()
     {
-        $blogs = Db::table('blog')->where('type','0')
-            ->where('status','1')->where('delete_flag','0')
+        $blogs = Db::table('blog')->where('type', '0')
+            ->where('status', '1')->where('delete_flag', '0')
             ->limit(3)->select();
-        $course = Db::table('blog')->where('type','1')
-            ->where('status','1')->where('delete_flag','0')
+        $course = Db::table('blog')->where('type', '1')
+            ->where('status', '1')->where('delete_flag', '0')
             ->limit(4)->select();
-        $hot = Db::table('blog')->where('delete_flag','0')
+        $hot = Db::table('blog')->where('delete_flag', '0')
             ->limit(5)->select();
         for ($i = 0; $i < count($blogs); $i = $i + 1) {
             $blog = $blogs[$i];
-            $content = fopen(iconv("UTF-8", "gbk", $blog['content']),"r");
+            $content = fopen(iconv("UTF-8", "gbk", $blog['content']), "r");
             if ($content) {
                 $content = file_get_contents(iconv("UTF-8", "gbk", $blog['content']));
                 $blog['content'] = $content;
@@ -208,19 +205,19 @@ class Index extends Controller
         }
         for ($i = 0; $i < count($course); $i = $i + 1) {
             $blog = $course[$i];
-            $content = fopen(iconv("UTF-8", "gbk", $blog['content']),"r");
+            $content = fopen(iconv("UTF-8", "gbk", $blog['content']), "r");
             if ($content) {
                 $content = file_get_contents(iconv("UTF-8", "gbk", $blog['content']));
                 $blog['content'] = $content;
             }
             $course[$i] = $blog;
         }
-        $this->assign("blog",$blogs);
-        $this->assign("course1",$course[0]);
-        $this->assign("course2",$course[1]);
-        $this->assign("course3",$course[2]);
-        $this->assign("course4",$course[3]);
-        $this->assign("hot",$hot);
+        $this->assign("blog", $blogs);
+        $this->assign("course1", $course[0]);
+        $this->assign("course2", $course[1]);
+        $this->assign("course3", $course[2]);
+        $this->assign("course4", $course[3]);
+        $this->assign("hot", $hot);
         return view('index/home');
     }
 
@@ -230,8 +227,6 @@ class Index extends Controller
         $user = new User();
         $post = $request->post();
         $req = Request::instance();
-        $ip = $req->ip();
-        $aes = new AES();
         /**当登录成功
          * 将用户的nickname存进session
          * 为校验数据进行
@@ -240,8 +235,7 @@ class Index extends Controller
         if ($result[0]) {
             Db::table('user')->where('nick_Name', $post['nickName'])
                 ->update([
-                    'ip' => $ip,
-                    'create_time' => date("Y-m-d H:i:s",time())
+                    'create_time' => date("Y-m-d H:i:s", time())
                 ]);
 //            halt(date("Y-m-d H:i:s",time()));
             if ($result[0]['password'] == $aes->encode($post['password'])) {
@@ -284,17 +278,18 @@ class Index extends Controller
     }
 
     //全文检索
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         $post = $request->post();
         $search = $post['search'];
         $listUser = Db::table('user')
-            ->whereLike('nick_name', '%'.$search.'%')
-            ->where('delete_flag','0')->select();
-        $listBlog = Db::table('blog')->whereLike('title', '%'.$search.'%')
-            ->where('delete_flag','0')->select();
+            ->whereLike('nick_name', '%' . $search . '%')
+            ->where('delete_flag', '0')->select();
+        $listBlog = Db::table('blog')->whereLike('title', '%' . $search . '%')
+            ->where('delete_flag', '0')->select();
         for ($i = 0; $i < count($listBlog); $i = $i + 1) {
             $blog = $listBlog[$i];
-            $content = fopen(iconv("UTF-8", "gbk", $blog['content']),"r");
+            $content = fopen(iconv("UTF-8", "gbk", $blog['content']), "r");
             if ($content) {
                 $content = file_get_contents(iconv("UTF-8", "gbk", $blog['content']));
                 $blog['content'] = $content;
