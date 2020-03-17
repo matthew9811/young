@@ -134,7 +134,7 @@ class Index extends Controller
         $comment = Db::table('comment')->where('type', '1')
             ->where('type_id', $blog['id'])->select();
         for ($i = 0; $i < count($comment); $i = $i + 1) {
-            $userId = $comment[$i];
+            $userId = $comment[$i   ];
             $commentor = Db::table('user')->where('id', $userId['user_id'])
                 ->select()[0];
             $userId['img'] = $commentor['img'];
