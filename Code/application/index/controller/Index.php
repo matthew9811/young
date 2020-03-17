@@ -73,6 +73,21 @@ class Index extends Controller
         return view('loginReg/login');
     }
 
+    public function toArtList()
+    {
+        return view('artList/artList');
+    }
+
+    public function toAddition()
+    {
+        return view('addition/addition');
+    }
+
+    public function toMine()
+    {
+        return view('person/mine');
+    }
+
     public function toAbout()
     {
         $blogs = Db::table('blog')->where('type', '0')

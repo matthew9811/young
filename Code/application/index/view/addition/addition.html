@@ -10,12 +10,12 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <!-- CSS FILES -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="css/fontawesome.css" rel="stylesheet" type="text/css">
-    <link href="css/slick.css" rel="stylesheet" type="text/css">
-    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="/common/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/common/css/fontawesome.css" rel="stylesheet" type="text/css">
+    <link href="/common/css/slick.css" rel="stylesheet" type="text/css">
+    <link href="/common/css/style.css" rel="stylesheet" type="text/css">
     <!--summernote富文本编辑器-->
-    <link href="summernote/summernote-lite.css" rel="stylesheet">
+    <link href="/static/summernote/summernote-lite.css" rel="stylesheet">
 </head>
 
 <body>
@@ -36,7 +36,7 @@
                     <!-- LOGO -->
                     <div id="eskimo-logo-cell" class="w-100">
                         <a class="eskimo-logo-link" href="index.html">
-                            <img src="images/logo.png" class="eskimo-logo" alt="eskimo"/>
+                            <img src="/common/image/logo.png" class="eskimo-logo" alt="eskimo" />
                         </a>
                     </div>
                     <!-- MENU CONTAINER -->
@@ -46,29 +46,16 @@
                         <!-- MENU -->
                         <nav id="eskimo-main-menu" class="menu-main-menu-container">
                             <ul class="eskimo-menu-ul">
-                                <li><a href="#">Home</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="index.html">Demo 1</a></li>
-                                        <li><a href="index2.html">Demo 2</a></li>
-                                        <li><a href="index3.html">Demo 3</a></li>
-                                    </ul>
+                                <li>
+                                    <a href="index/index/index">首页</a>
                                 </li>
-                                <li><a href="#">About Me</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="about.html">Demo 1</a></li>
-                                        <li><a href="about-2.html">Demo 2</a></li>
-                                    </ul>
+                                <li>
+                                    <a href='index/Index/toArtList'>日记</a>
                                 </li>
-                                <li><a href="#">Blog</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="blog.html">Full Width</a></li>
-                                        <li><a href="blog-2-column.html">2 Column</a></li>
-                                        <li><a href="blog-3-column.html">3 Column</a></li>
-                                        <li><a href="single-post.html">Single Post</a></li>
-                                    </ul>
+                                <li>
+                                    <a href="index/Index/toAddition">分享</a>
                                 </li>
-                                <li><a href="galleries.html">Galleries</a></li>
-                                <li><a href="other-features.html">Other Features</a></li>
+                                <li><a href="index/Index/toMine">我的</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -76,7 +63,7 @@
                     <div id="eskimo-social-cell" class="mt-auto w-100">
                         <div id="eskimo-social-inner">
                             <ul class="eskimo-social-icons">
-                                <li><a href="#">登录/退出</a></li>
+                                <li><a href='index/Index/toLogin'>登录</a></li>
                             </ul>
                             <div class="clearfix"></div>
                         </div>
@@ -110,7 +97,7 @@
                     <textarea id="summernote" name="editordata"></textarea>
                     <br>
                     <div class="col-12 col-lg-6">
-                        <button id="submit" type="submit" class="btn btn-lg w-100">登录注册</button>
+                        <button id="submit" type="submit" class="btn btn-lg w-100">发布</button>
                     </div>
             </div>
 
@@ -130,7 +117,7 @@
             <!-- AUTHOR BOX -->
             <div class="eskimo-author-box eskimo-widget">
                 <div class="eskimo-author-img">
-                    <img src="uploads/2018/05/img.jpg" alt="JOHN DOE"/>
+                    <img src="/common/uploads/2018/05/img.jpg" alt="JOHN DOE"/>
                 </div>
                 <h3><span>无心人</span></h3>
                 <p class="eskimo-author-description">questions!</p>
@@ -210,16 +197,16 @@
 </div>
 
 <!-- JS FILES -->
-<script src="js/jquery-3.3.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/salvattore.min.js"></script>
-<script src="js/slick.min.js"></script>
-<script src="js/panel.js"></script>
-<script src="js/reading-position-indicator.js"></script>
-<script src="js/custom.js"></script>
-<script src="summernote/summernote-lite.js"></script>
+<script src="/common/js/jquery-3.3.1.min.js"></script>
+<script src="/common/js/bootstrap.min.js"></script>
+<script src="/common/js/salvattore.min.js"></script>
+<script src="/common/js/slick.min.js"></script>
+<script src="/common/js/panel.js"></script>
+<script src="/common/js/reading-position-indicator.js"></script>
+<script src="/common/js/custom.js"></script>
+<script src="/static/summernote/summernote-lite.js"></script>
 <!--photoupload-->
-<script src="js/upload.js"></script>
+<script src="/common/js/upload.js"></script>
 <!-- POST SLIDER -->
 <script>
     (function ($) {
