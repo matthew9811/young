@@ -270,18 +270,16 @@ class Index extends Controller
         $req = $request->post();
         $user = new User();
         $user->nick_name = $req["nickName"];
-        $user->mobile = $req["mobile"];
         $user->password = $aes->encode($req["password"]);
-        $user->delete_flag = '0';
-        $user->img = '/root/images/head.jpg';
+        $user->photo = '/common/uploads/2018/05/img2.jpg';
         $user->signature = 'noting';
-        $user->templete_img = '/root/images/bg.jpg';
         $result = $user->save();
         if ($result) {
-            return json("/index/index/Content");
+            return json("/index/index/index");
         } else {
             return json("error");
         }
+
 
     }
 
