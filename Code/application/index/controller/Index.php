@@ -88,6 +88,22 @@ class Index extends Controller
         return view('person/mine');
     }
 
+    public function adminLogin() {
+        return view('loginReg/adminLogin');
+    }
+
+    public function toLikeArtList() {
+        return view('artList/likeArtList');
+    }
+
+    public function toMineArtList() {
+        return view('artList/mineArtList');
+    }
+
+    public function toOther() {
+        return view('person/other');
+    }
+
     public function toAbout()
     {
         $blogs = Db::table('blog')->where('type', '0')

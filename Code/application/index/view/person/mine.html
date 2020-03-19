@@ -52,7 +52,13 @@
                                     <li>
                                         <a href="/index/Index/toAddition">分享</a>
                                     </li>
-                                    <li><a href="/index/Index/toMine">我的</a></li>
+                                    <li>
+                                        <a href="/index/Index/toMine">我的</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="/index/Index/adminLogin">管理入口</a>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>
@@ -67,7 +73,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- TOP ICONS -->
                 <ul class="eskimo-top-icons">
                     <li id="eskimo-panel-icon">
                         <a href="#eskimo-panel" class="eskimo-panel-open"><i class="fa fa-bars"></i></a>
@@ -76,152 +81,37 @@
                         <a id="eskimo-open-search" href="#"><i class="fa fa-search"></i></a>
                     </li>
                 </ul>
-                <div class="clearfix"></div>
-                <!-- PAGE TITLE -->
-                <div class="eskimo-page-title">
-                    <h1><span>豆蔻个人</span></h1>
-                    <p class="eskimo-page-subtitle">个人资料查看修改</p>
-                </div>
-                <!-- ABOUT ME -->
-                <div class="row">
-                    <div class="col-12 col-lg-4 order-2 order-lg-1 mb-5 mb-lg-0">
-                        <img src="/common/uploads/2018/05/img2.jpg" alt="Jane Doe" class="img-fluid mx-auto d-block eskimo-img-shadow" />
-                    </div>
-                    <div class="col-12 col-lg-4 order-1 order-lg-2">
-                        <!--<p>Laborum varias in possumus philosophari nam mandaremus ad malis. Sint fidelissimae tempor fugiat expetendis. Est nisi quibusdam admodum ut noster laborum se tamen culpa aut labore. Senserit sed commodo. Occaecat concursionibus te deserunt ab nam amet mentitum est ea nam dolor malis aute ab iis sempiternum.</p>-->
-                        <p><span class="lead"><em>无心人</em></span></p>
-                        <p>别错过那最美的风景</p>
-                    </div>
-                </div>
-
                 <!-- DIVIDER -->
-                <hr />
                 <h2>修改豆蔻资料</h2>
                 <!-- CONTACT FORM -->
-                <form id="ajax-form" action="mailer.php" method="post">
+                <form id="mine-form" action="mailer.php" method="post">
                     <div class="row">
                         <div class="col-12 col-lg-7">
                             <p>
                                 <label>用户名</label><br />
-                                <input type="text" name="sendername" id="sendername" class="form-control" required="required" maxlength="50" />
+                                <input type="text" name="nickname" id="nickname" class="form-control" required="required" maxlength="50" />
                             </p>
                             <p>
                                 <label>密码</label><br />
-                                <input type="password" name="senderemail" id="senderemail" class="form-control" required="required" maxlength="50" />
+                                <input type="password" name="pwd" id="pwd" class="form-control" required="required" maxlength="50" />
                             </p>
                             <p>
                                 <label>个性语</label><br />
-                                <input type="text" name="senderphone" id="senderphone" class="form-control" maxlength="50" />
+                                <input type="text" name="signature" id="signature" class="form-control" maxlength="50" />
                             </p>
-                            <button id="sendbutton" type="submit" class="btn btn-lg w-100">Send Message</button>
+                            <button id="submit" type="submit" class="btn btn-lg w-100">Send Message</button>
                         </div>
 
                         <div class="col-12 col-lg-4 order-1 order-lg-2 mb-5 mb-lg-0">
-                            <img src="/common/uploads/2018/05/img2.jpg" alt="Jane Doe" class="img-fluid mx-auto d-block eskimo-img-shadow" />
+                            点击图像上传头像
+                            <div id="drop_area"></div>
                         </div>
                     </div>
                 </form>
-                <div id="form-messages"></div>
                 <!-- DIVIDER -->
-                <hr />
-
-                <!-- TABS -->
-                <h2>WHAT CAN I DO</h2>
-                <!-- TABS NAVIGATION -->
-                <ul class="nav nav-tabs">
-                    <!-- TAB 1 -->
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#mp-tab-fashion" aria-expanded="true">FASHION</a>
-                    </li>
-                    <!-- TAB 2 -->
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#mp-tab-wildlife" aria-expanded="false">WILDLIFE</a>
-                    </li>
-                    <!-- TAB 3 -->
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#mp-tab-real-estate" aria-expanded="false">REAL ESTATE</a>
-                    </li>
-                </ul>
-                <!-- TABS CONTENT -->
-                <div class="eskimo-tabs-content tab-content">
-                    <!-- TAB 1 -->
-                    <div class="tab-pane fade active show" id="mp-tab-fashion" role="button" aria-expanded="true">
-                        <p>Senserit sed commodo. Ubi nescius a iudicem, non veniam si amet a tempor ad fabulas id ipsum excepteur relinqueret non fore commodo quibusdam, incidi imitaren do mentitum. Et enim offendit ingeniis. Dolor probant senserit si mandaremus do nulla laborum, hic aute iudicem expetendis id cupidatat tamen iudicem proident ut eram arbitror aut veniam enim, nostrud. Ex velit arbitror possumus, labore proident consequat, non aute cillum o fabulas ut probant ubi consequat.</p>
-                        <p>Excepteur ea probant, expetendis quid proident sed nostrud. Doctrina quis offendit, aliquip summis occaecat singulis nam de aut magna probant ne de sunt nostrud eu ut eram philosophari, ita dolore quamquam coniunctione e ita velit excepteur, ita e dolor amet tamen. Quis occaecat si praesentibus, minim ne mentitum.</p>
-                    </div>
-                    <!-- TAB 2 -->
-                    <div class="tab-pane fade " id="mp-tab-wildlife" role="button" aria-expanded="false">
-                        <p>Senserit sed commodo. Ubi nescius a iudicem, non veniam si amet a tempor ad fabulas id ipsum excepteur relinqueret non fore commodo quibusdam, incidi imitaren do mentitum. Et enim offendit ingeniis. Dolor probant senserit si mandaremus do nulla laborum, hic aute iudicem expetendis id cupidatat tamen iudicem proident ut eram arbitror aut veniam enim, nostrud. Ex velit arbitror possumus, labore proident consequat, non aute cillum o fabulas ut probant ubi consequat.</p>
-                        <p>Excepteur ea probant, expetendis quid proident sed nostrud. Doctrina quis offendit, aliquip summis occaecat singulis nam de aut magna probant ne de sunt nostrud eu ut eram philosophari, ita dolore quamquam coniunctione e ita velit excepteur, ita e dolor amet tamen. Quis occaecat si praesentibus, minim ne mentitum.</p>
-                    </div>
-                    <!-- TAB 3 -->
-                    <div class="tab-pane fade " id="mp-tab-real-estate" role="button" aria-expanded="false">
-                        <p>Senserit sed commodo. Ubi nescius a iudicem, non veniam si amet a tempor ad fabulas id ipsum excepteur relinqueret non fore commodo quibusdam, incidi imitaren do mentitum. Et enim offendit ingeniis. Dolor probant senserit si mandaremus do nulla laborum, hic aute iudicem expetendis id cupidatat tamen iudicem proident ut eram arbitror aut veniam enim, nostrud. Ex velit arbitror possumus, labore proident consequat, non aute cillum o fabulas ut probant ubi consequat.</p>
-                        <p>Excepteur ea probant, expetendis quid proident sed nostrud. Doctrina quis offendit, aliquip summis occaecat singulis nam de aut magna probant ne de sunt nostrud eu ut eram philosophari, ita dolore quamquam coniunctione e ita velit excepteur, ita e dolor amet tamen. Quis occaecat si praesentibus, minim ne mentitum.</p>
-                    </div>
-                </div>
-                <!-- DIVIDER -->
-                <hr />
-                <h2>PORTFOLIO</h2>
-                <p>Possumus e aute sed se litteris in aliquip, a tamen quem qui pariatur ex pariatur nam nulla possumus, magna do nostrud non quid qui cernantur eram aliqua e illum labore proident consequat.</p>
-                <!-- IMAGE GALLERY -->
-                <div class="eskimo-masonry-grid eskimo-gallery">
-                    <div class="eskimo-four-columns" data-columns>
-                        <!-- GALLERY ITEM 1 -->
-                        <div class="eskimo-gallery-item">
-                            <a href="#" data-featherlight="/common/uploads/2018/05/blog4-1.jpg" class="eskimo-lightbox">
-                                <img src="/common/uploads/2018/05/blog4-1-900x600.jpg" alt="" />
-                            </a>
-                        </div>
-                        <!-- GALLERY ITEM 2 -->
-                        <div class="eskimo-gallery-item">
-                            <a href="#" data-featherlight="/common/uploads/2018/05/blog17.jpg" class="eskimo-lightbox">
-                                <img src="/common/uploads/2018/05/blog17-900x600.jpg" alt="" />
-                            </a>
-                        </div>
-                        <!-- GALLERY ITEM 3 -->
-                        <div class="eskimo-gallery-item">
-                            <a href="#" data-featherlight="/common/uploads/2018/05/blog13.jpg" class="eskimo-lightbox">
-                                <img src="/common/uploads/2018/05/blog13-900x600.jpg" alt="" />
-                            </a>
-                        </div>
-                        <!-- GALLERY ITEM 4 -->
-                        <div class="eskimo-gallery-item">
-                            <a href="#" data-featherlight="/common/uploads/2018/05/blog15.jpg" class="eskimo-lightbox">
-                                <img src="/common/uploads/2018/05/blog15-900x600.jpg" alt="" />
-                            </a>
-                        </div>
-                        <!-- GALLERY ITEM 5 -->
-                        <div class="eskimo-gallery-item">
-                            <a href="#" data-featherlight="/common/uploads/2018/05/blog12.jpg" class="eskimo-lightbox">
-                                <img src="/common/uploads/2018/05/blog12-900x600.jpg" alt="" />
-                            </a>
-                        </div>
-                        <!-- GALLERY ITEM 6 -->
-                        <div class="eskimo-gallery-item">
-                            <a href="#" data-featherlight="/common/uploads/2018/05/blog6.jpg" class="eskimo-lightbox">
-                                <img src="/common/uploads/2018/05/blog6-900x600.jpg" alt="" />
-                            </a>
-                        </div>
-                        <!-- GALLERY ITEM 7 -->
-                        <div class="eskimo-gallery-item">
-                            <a href="#" data-featherlight="/common/uploads/2018/05/blog2.jpg" class="eskimo-lightbox">
-                                <img src="/common/uploads/2018/05/blog2-900x600.jpg" alt="" />
-                            </a>
-                        </div>
-                        <!-- GALLERY ITEM 8 -->
-                        <div class="eskimo-gallery-item">
-                            <a href="#" data-featherlight="/common/uploads/2018/05/blog19.jpg" class="eskimo-lightbox">
-                                <img src="/common/uploads/2018/05/blog19-900x600.jpg" alt="" />
-                            </a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </main>
     </div>
-    <!-- GO TO TOP BUTTON -->
-    <a id="eskimo-gototop" href="#"><i class="fa fa-chevron-up"></i></a>
     <!-- SLIDE PANEL OVERLAY -->
     <div id="eskimo-overlay"></div>
     <!-- SLIDE PANEL -->
@@ -236,14 +126,14 @@
                         <img src="/common/uploads/2018/05/img.jpg" alt="JOHN DOE" />
                     </div>
                     <h3><span>无心人</span></h3>
-                    <p class="eskimo-author-description">questions!</p>
+                    <p class="eskimo-author-description">个性签名</p>
                     <div class="eskimo-author-box-btn">
-                        <a class="btn btn-default" href="about.html">CONTACT ME</a>
+                        <a class="btn btn-default" href="/index/Index/toMine">修改资料</a>
                     </div>
                 </div>
                 <!-- SELF POSTS -->
                 <div class="eskimo-recent-entries eskimo-widget">
-                    <h5 class="eskimo-title-with-border"><a href="blog-3-column.html">个人豆蔻</a></h5>
+                    <h5 class="eskimo-title-with-border"><a href="/index/Index/toArtList">个人豆蔻</a></h5>
                     <ul>
                         <li>
                             <a href="single-post.html">Ketchup Flavored Ice Cream!</a>
@@ -270,7 +160,7 @@
 
                 <!-- LOVE POSTS -->
                 <div class="eskimo-recent-entries eskimo-widget">
-                    <h5 class="eskimo-title-with-border"><a href="blog-3-column.html">收藏豆蔻</a></h5>
+                    <h5 class="eskimo-title-with-border"><a href="/index/Index/toArtList">收藏豆蔻</a></h5>
                     <ul>
                         <li>
                             <a href="single-post.html">Ketchup Flavored Ice Cream!</a>
@@ -303,9 +193,9 @@
             <a href="#" id="eskimo-close-search"><i class="fa fa-times"></i></a>
             <form role="search" method="get" action="search.html" class="eskimo-lg-form">
                 <div class="input-group">
-                    <input type="text" class="form-control form-control-lg" placeholder="Enter a keyword..." name="s" />
+                    <input type="text" id="searchText" class="form-control form-control-lg" placeholder="关键字" name="s" />
                     <div class="input-group-append">
-                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                        <button id="search" type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
             </form>
@@ -320,6 +210,32 @@
     <script src="/common/js/featherlight.js"></script>
     <script src="/common/js/ajax-contact-form.js"></script>
     <script src="/common/js/custom.js"></script>
+    <!--photo upload-->
+    <script src="/common/js/upload.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            let file;
+            new DragImgUpload("#drop_area",{
+                callback:function (files) {
+                    file = files;
+                }
+            },"/common/uploads/2018/05/img2.jpg");
+
+            //点击提交按钮
+            $("#submit").click(function () {
+                let nickname = $('#nickname').val(); //标题
+                let pwd = $('#pwd').val(); //密码
+                let signature = $('#signature').val(); //个性签名
+                console.log(file);//头像
+            })
+
+            //获取搜索框输入值
+            $("#search").click(function () {
+                let search = $('#searchText').val();
+                console.log(search);
+            })
+        })
+    </script>
 </body>
 
 </html>

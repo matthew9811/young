@@ -1,10 +1,10 @@
-function DragImgUpload(id,options) {
+function DragImgUpload(id,options,src) {
     this.me = $(id);
     var defaultOpt = {
         boxWidth:'200px',
         boxHeight:'auto'
     }
-    this.preview = $('<div id="preview"><img src="/common/image/upload.png" class="img-responsive"  style="width: 100%;height: auto;" alt="" title=""> </div>');
+    this.preview = $('<div id="preview"><img src=' +  src + ' class="img-responsive"  style="width: 100%;height: auto;" alt="" title=""> </div>');
     this.opts=$.extend(true, defaultOpt,{
     }, options);
     this.init();

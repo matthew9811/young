@@ -55,7 +55,12 @@
                                 <li>
                                     <a href="/index/Index/toAddition">分享</a>
                                 </li>
-                                <li><a href="/index/Index/toMine">我的</a></li>
+                                <li>
+                                    <a href="/index/Index/toMine">修改资料</a>
+                                </li>
+                                <li>
+                                    <a href="/index/Index/adminLogin">管理入口</a>
+                                </li>
                             </ul>
                         </nav>
                     </div>
@@ -84,7 +89,7 @@
                 <div class="col-12 col-lg-12">
                     <p>
                         <label>标题</label><br />
-                        <input type="text" name="sendername" id="sendername" class="form-control" required="required" maxlength="50" />
+                        <input type="text" name="title" id="title" class="form-control" required="required" maxlength="50" />
                     </p>
                     <p>
                         <label>封面</label>
@@ -117,17 +122,17 @@
             <!-- AUTHOR BOX -->
             <div class="eskimo-author-box eskimo-widget">
                 <div class="eskimo-author-img">
-                    <img src="/common/uploads/2018/05/img.jpg" alt="JOHN DOE"/>
+                    <img src="/common/uploads/2018/05/img.jpg" alt="JOHN DOE" />
                 </div>
                 <h3><span>无心人</span></h3>
-                <p class="eskimo-author-description">questions!</p>
+                <p class="eskimo-author-description">个性签名</p>
                 <div class="eskimo-author-box-btn">
-                    <a class="btn btn-default" href="about.html">CONTACT ME</a>
+                    <a class="btn btn-default" href="/index/Index/toMine">修改资料</a>
                 </div>
             </div>
             <!-- SELF POSTS -->
             <div class="eskimo-recent-entries eskimo-widget">
-                <h5 class="eskimo-title-with-border"><a href="blog-3-column.html">个人豆蔻</a></h5>
+                <h5 class="eskimo-title-with-border"><a href="/index/Index/toArtList">个人豆蔻</a></h5>
                 <ul>
                     <li>
                         <a href="single-post.html">Ketchup Flavored Ice Cream!</a>
@@ -154,7 +159,7 @@
 
             <!-- LOVE POSTS -->
             <div class="eskimo-recent-entries eskimo-widget">
-                <h5 class="eskimo-title-with-border"><a href="blog-3-column.html">收藏豆蔻</a></h5>
+                <h5 class="eskimo-title-with-border"><a href="/index/Index/toArtList">收藏豆蔻</a></h5>
                 <ul>
                     <li>
                         <a href="single-post.html">Ketchup Flavored Ice Cream!</a>
@@ -187,9 +192,9 @@
         <a href="#" id="eskimo-close-search"><i class="fa fa-times"></i></a>
         <form role="search" method="get" action="search.html" class="eskimo-lg-form">
             <div class="input-group">
-                <input type="text" class="form-control form-control-lg" placeholder="Enter a keyword..." name="s"/>
+                <input type="text" id="searchText" class="form-control form-control-lg" placeholder="关键字" name="s" />
                 <div class="input-group-append">
-                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                    <button id="search" type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                 </div>
             </div>
         </form>
@@ -205,7 +210,7 @@
 <script src="/common/js/reading-position-indicator.js"></script>
 <script src="/common/js/custom.js"></script>
 <script src="/static/summernote/summernote-lite.js"></script>
-<!--photoupload-->
+<!--photo upload-->
 <script src="/common/js/upload.js"></script>
 <!-- POST SLIDER -->
 <script>
@@ -260,23 +265,38 @@
 
 <script type="text/javascript">
     $(function () {
+        let file;
         $(document).ready(function() {
+            //富文本编辑器设置
             $('#summernote').summernote({
                 lang: 'zh-CN',
                 height: 500
-            });
-            $("#submit").click(function () {
-                let code = $('#summernote').summernote('code');
-                console.log(code);
             })
         });
-        var dragImgUpload = new DragImgUpload("#drop_area",{
+
+        //封面上传组件
+        new DragImgUpload("#drop_area",{
             callback:function (files) {
-                //回调函数，可以传递给后台等等
-                var file = files[0];
-                console.log(files);
+                file = files;
             }
-        });
+        },"/common/image/upload.png");
+
+        //点击提交按钮
+        $("#submit").click(function () {
+            let code = $('#summernote').summernote('code');
+            console.log(code); //编辑器内容（含html标签）
+            let title = $('#title').val(); //标题
+            console.log(file); //封面base64
+            if (title == '') {
+                alert("标题不可为空");
+            }
+        })
+
+        //获取搜索框输入值
+        $("#search").click(function () {
+            let search = $('#searchText').val();
+            console.log(search);
+        })
 
     })
 </script>
