@@ -269,7 +269,7 @@ class Index extends Controller
         $result = $user->where('nick_Name', $post['nickName'])->select();
         //存在数据
         if ($result[0]) {
-            if ($result[0]['password'] == $post['password']) {
+            if ($result[0]['pwd'] == $post['password']) {
                 Session::set("nickName", $result[0]['nick_name']);
                 Session::set("id", $result[0]['id']);
                 session('loginTime', time());
