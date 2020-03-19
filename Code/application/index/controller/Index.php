@@ -88,19 +88,23 @@ class Index extends Controller
         return view('person/mine');
     }
 
-    public function adminLogin() {
+    public function adminLogin()
+    {
         return view('loginReg/adminLogin');
     }
 
-    public function toLikeArtList() {
+    public function toLikeArtList()
+    {
         return view('artList/likeArtList');
     }
 
-    public function toMineArtList() {
+    public function toMineArtList()
+    {
         return view('artList/mineArtList');
     }
 
-    public function toOther() {
+    public function toOther()
+    {
         return view('person/other');
     }
 
@@ -165,7 +169,7 @@ class Index extends Controller
         $comment = Db::table('comment')->where('type', '1')
             ->where('type_id', $blog['id'])->select();
         for ($i = 0; $i < count($comment); $i = $i + 1) {
-            $userId = $comment[$i   ];
+            $userId = $comment[$i];
             $commentor = Db::table('user')->where('id', $userId['user_id'])
                 ->select()[0];
             $userId['img'] = $commentor['img'];
@@ -263,17 +267,14 @@ class Index extends Controller
          * 为校验数据进行
          */
         $result = $user->where('nick_Name', $post['nickName'])->select();
+        //存在数据
         if ($result[0]) {
-            Db::table('user')->where('nick_Name', $post['nickName'])
-                ->update([
-                    'create_time' => date("Y-m-d H:i:s", time())
-                ]);
-//            halt(date("Y-m-d H:i:s",time()));
-            if ($result[0]['password'] == $aes->encode($post['password'])) {
+            if ($result[0]['password'] == $post['password']) {
                 Session::set("nickName", $result[0]['nick_name']);
                 Session::set("id", $result[0]['id']);
                 session('loginTime', time());
-                return json("/index/index/toHome");
+                //登录成功
+                return view('index/index');
             }
         }
         return json("error");

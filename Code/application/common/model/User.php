@@ -8,6 +8,10 @@ class User extends Model
 {
     protected $table = "user";
     protected $id = 'id';
+    protected $nickName = 'nick_name';
+    protected $pwd = 'pwd';
+    protected $photo = 'photo';
+    protected $signature = 'signature';
 
     /**
      * @return string
@@ -40,6 +44,40 @@ class User extends Model
     {
         $this->id = $id;
     }
+
+    /**
+     * @return string
+     */
+    public function getNickName()
+    {
+        return $this->nickName;
+    }
+
+    /**
+     * @param string $nickName
+     */
+    public function setNickName($nickName)
+    {
+        $this->nickName = $nickName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPwd()
+    {
+        return $this->pwd;
+    }
+
+    /**
+     * @param string $pwd
+     */
+    public function setPwd($pwd)
+    {
+        $this->pwd = $pwd;
+    }
+
+
 
 
     public function jsonSerialize()

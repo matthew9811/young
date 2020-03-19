@@ -69,7 +69,7 @@
                 </div>
                 <h2>登录——豆蔻年华 EIGHTEEN</h2>
                 <!-- CONTACT FORM -->
-                <form id="login-form">
+                <form id="login-form" action="/index/Index/login" method="post">
                     <div class="row">
                         <div class="col-12 col-lg-6">
                             <p>
@@ -108,7 +108,7 @@
                 var nickName = $("#login-form input[name=nickName]").val();//用户名
                 var password = $("#login-form input[name=password]").val();//密码
                 var data = $("#login-form").serializeArray();
-                console.log(data);
+                console.log(nickName);
             })
         })(jQuery);
     </script>
