@@ -244,20 +244,17 @@ class Index extends Controller
     //用户注册
     public function reg(Request $request)
     {
-        $aes = new AES();
         $req = $request->post();
         $user = new User();
         $user->nick_name = $req["nickName"];
-        $user->password = $aes->encode($req["password"]);
-        $user->photo = '/common/uploads/2018/05/img2.jpg';
+        $user->pwd = $req["password"];
         $user->signature = 'noting';
         $result = $user->save();
         if ($result) {
-            return json("/index/index/index");
+            return view('loginReg/login');
         } else {
             return json("error");
         }
-
 
     }
 
@@ -268,29 +265,6 @@ class Index extends Controller
         return view("index/index");
     }
 
-    //全文检索
-    public function search(Request $request)
-    {
-        $post = $request->post();
-        $search = $post['search'];
-        $listUser = Db::table('user')
-            ->whereLike('nick_name', '%' . $search . '%')
-            ->where('delete_flag', '0')->select();
-        $listBlog = Db::table('blog')->whereLike('title', '%' . $search . '%')
-            ->where('delete_flag', '0')->select();
-        for ($i = 0; $i < count($listBlog); $i = $i + 1) {
-            $blog = $listBlog[$i];
-            $content = fopen(iconv("UTF-8", "gbk", $blog['content']), "r");
-            if ($content) {
-                $content = file_get_contents(iconv("UTF-8", "gbk", $blog['content']));
-                $blog['content'] = $content;
-            }
-            $listBlog[$i] = $blog;
-        }
-        $this->assign("blog", $listBlog);
-        $this->assign("user", $listUser);
-        return view('select/select');
-    }
 
 
 }

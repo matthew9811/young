@@ -70,7 +70,7 @@
             </div>
             <h2>注册——豆蔻年华 EIGHTEEN</h2>
             <!-- CONTACT FORM -->
-            <form id="register_form" action="/index/index/reg" method="post">
+            <form id="register_form" action="/index/Index/reg" method="post">
                 <div class="row">
                     <div class="col-12 col-lg-6">
                         <p>
@@ -112,31 +112,30 @@
 <script src="/common/js/custom.js"></script>
 
 <script>
-    (function ($) {
-        $("#sendbutton").on("click", function () {
-            var nickName = $("#register_form input[name=nickName]").val();//用户名
-            var password = $("#register_form input[name=password]").val();//密码
-            var confirm = $("#register_form input[name=confirm]").val();//再次输入的密码
-            if (password != confirm) {
-                alert("密码不一样！");
-            }
-            console.log(nickName + "," + password);
-            // var data = $("#register_form").serializeArray();
-            // console.log(data);
-            // $.ajax({
-            //     url: "/index/index/reg",
-            //     type: 'post',
-            //     data: data,
-            //     success: function (data) {
-            //         alert(data.msg);
-            //     },
-            //     error: function (data) {
-            //         alert(data.status);
-            //         console.log(data);
-            //     }
-            // });
-        })
-    })(jQuery);
+    // (function ($) {
+    //     $("#sendbutton").on("click", function () {
+    //         var nickName = $("#register_form input[name=nickName]").val();//用户名
+    //         var password = $("#register_form input[name=password]").val();//密码
+    //         var confirm = $("#register_form input[name=confirm]").val();//再次输入的密码
+    //         if (password != confirm) {
+    //             alert("密码不一样！");
+    //         }
+    //         console.log(nickName + "," + password);
+    //         var data = $("#register_form").serializeArray();
+    //         $.ajax({
+    //             url: "/index/index/reg",
+    //             type: 'post',
+    //             data: data,
+    //             success: function (data) {
+    //
+    //             },
+    //             error: function (data) {
+    //                 alert(data.status);
+    //                 console.log(data);
+    //             }
+    //         });
+    //     })
+    // })(jQuery);
 </script>
 </body>
 
