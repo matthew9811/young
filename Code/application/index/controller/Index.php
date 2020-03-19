@@ -8,8 +8,8 @@ use think\Db;
 use think\Request;
 use think\Session;
 use DateTime;
-use app\common\util\AES;
-use think\View;
+use app\common\util\JsonUtil;
+use app\common\util\CosUtil;
 
 class Index extends Controller
 {
@@ -69,154 +69,6 @@ class Index extends Controller
         return view('person/other');
     }
 
-    public function toAbout()
-    {
-        $blogs = Db::table('blog')->where('type', '0')
-            ->where('status', '1')->where('delete_flag', '0')
-            ->limit(3)->select();
-        $course = Db::table('blog')->where('type', '1')
-            ->where('status', '1')->where('delete_flag', '0')
-            ->limit(4)->select();
-        $hot = Db::table('blog')->where('delete_flag', '0')
-            ->limit(5)->select();
-        for ($i = 0; $i < count($blogs); $i = $i + 1) {
-            $blog = $blogs[$i];
-            $content = fopen(iconv("UTF-8", "gbk", $blog['content']), "r");
-            if ($content) {
-                $content = file_get_contents(iconv("UTF-8", "gbk", $blog['content']));
-                $blog['content'] = $content;
-            }
-            $blogs[$i] = $blog;
-        }
-        for ($i = 0; $i < count($course); $i = $i + 1) {
-            $blog = $course[$i];
-            $content = fopen(iconv("UTF-8", "gbk", $blog['content']), "r");
-            if ($content) {
-                $content = file_get_contents(iconv("UTF-8", "gbk", $blog['content']));
-                $blog['content'] = $content;
-            }
-            $course[$i] = $blog;
-        }
-        $this->assign("blog", $blogs);
-        $this->assign("course1", $course[0]);
-        $this->assign("course2", $course[1]);
-        $this->assign("course3", $course[2]);
-        $this->assign("course4", $course[3]);
-        $this->assign("hot", $hot);
-        return view('index/home');
-    }
-
-    public function toBlog()
-    {
-        $id = input()['id'];
-        $blog = Db::table('blog')->where('id', $id)->select()[0];
-        $user = Db::table('user')->where('id', $blog['user_id'])->select()[0];
-        $content = fopen(iconv("UTF-8", "gbk", $blog['content']), "r");
-        if ($content) {
-            $content = file_get_contents(iconv("UTF-8", "gbk", $blog['content']));
-            $blog['content'] = $content;
-        }
-        if ($blog['label_id'] == 1) {
-            $blog['label_id'] = 'photo';
-        } else if ($blog['label_id'] == 2) {
-            $blog['label_id'] = 'camera';
-        } else if ($blog['label_id'] == 3) {
-            $blog['label_id'] = 'color';
-        } else if ($blog['label_id'] == 4) {
-            $blog['label_id'] = 'light';
-        } else {
-            $blog['label_id'] = '';
-        }
-        $comment = Db::table('comment')->where('type', '1')
-            ->where('type_id', $blog['id'])->select();
-        for ($i = 0; $i < count($comment); $i = $i + 1) {
-            $userId = $comment[$i];
-            $commentor = Db::table('user')->where('id', $userId['user_id'])
-                ->select()[0];
-            $userId['img'] = $commentor['img'];
-            $comment[$i] = $userId;
-        }
-        $this->assign('user', $user);
-        $this->assign('blog', $blog);
-        $this->assign('comment', $comment);
-        return view('blog/blog');
-    }
-
-    public function Content()
-    {
-        $blogs = Db::table('blog')->where('type', '0')
-            ->where('status', '1')->where('delete_flag', '0')
-            ->limit(3)->select();
-        $course = Db::table('blog')->where('type', '1')
-            ->where('status', '1')->where('delete_flag', '0')
-            ->limit(4)->select();
-        $hot = Db::table('blog')->where('delete_flag', '0')
-            ->limit(5)->select();
-        for ($i = 0; $i < count($blogs); $i = $i + 1) {
-            $blog = $blogs[$i];
-            $content = fopen(iconv("UTF-8", "gbk", $blog['content']), "r");
-            if ($content) {
-                $content = file_get_contents(iconv("UTF-8", "gbk", $blog['content']));
-                $blog['content'] = $content;
-            }
-            $blogs[$i] = $blog;
-        }
-        for ($i = 0; $i < count($course); $i = $i + 1) {
-            $blog = $course[$i];
-            $content = fopen(iconv("UTF-8", "gbk", $blog['content']), "r");
-            if ($content) {
-                $content = file_get_contents(iconv("UTF-8", "gbk", $blog['content']));
-                $blog['content'] = $content;
-            }
-            $course[$i] = $blog;
-        }
-        $this->assign("blog", $blogs);
-        $this->assign("course1", $course[0]);
-        $this->assign("course2", $course[1]);
-        $this->assign("course3", $course[2]);
-        $this->assign("course4", $course[3]);
-        $this->assign("hot", $hot);
-        return view('index/login_content');
-
-    }
-
-    public function toHome()
-    {
-        $blogs = Db::table('blog')->where('type', '0')
-            ->where('status', '1')->where('delete_flag', '0')
-            ->limit(3)->select();
-        $course = Db::table('blog')->where('type', '1')
-            ->where('status', '1')->where('delete_flag', '0')
-            ->limit(4)->select();
-        $hot = Db::table('blog')->where('delete_flag', '0')
-            ->limit(5)->select();
-        for ($i = 0; $i < count($blogs); $i = $i + 1) {
-            $blog = $blogs[$i];
-            $content = fopen(iconv("UTF-8", "gbk", $blog['content']), "r");
-            if ($content) {
-                $content = file_get_contents(iconv("UTF-8", "gbk", $blog['content']));
-                $blog['content'] = $content;
-            }
-            $blogs[$i] = $blog;
-        }
-        for ($i = 0; $i < count($course); $i = $i + 1) {
-            $blog = $course[$i];
-            $content = fopen(iconv("UTF-8", "gbk", $blog['content']), "r");
-            if ($content) {
-                $content = file_get_contents(iconv("UTF-8", "gbk", $blog['content']));
-                $blog['content'] = $content;
-            }
-            $course[$i] = $blog;
-        }
-        $this->assign("blog", $blogs);
-        $this->assign("course1", $course[0]);
-        $this->assign("course2", $course[1]);
-        $this->assign("course3", $course[2]);
-        $this->assign("course4", $course[3]);
-        $this->assign("hot", $hot);
-        return view('index/home');
-    }
-
     //用户登录
     public function login(Request $request)
     {
@@ -251,7 +103,7 @@ class Index extends Controller
         $user->signature = 'noting';
         $result = $user->save();
         if ($result) {
-            return json('success');
+            return JsonUtil::jsonData(200, 1, "data");
         } else {
             return json("error");
         }
