@@ -32,7 +32,7 @@
                     <div id="eskimo-sidebar-wrapper" class="d-flex align-items-start flex-column h-100 w-100">
                         <!-- LOGO -->
                         <div id="eskimo-logo-cell" class="w-100">
-                            <a class="eskimo-logo-link" href="index.html">
+                            <a class="eskimo-logo-link" href="/index/Index/index">
                                 <img src="/common/image/logo.png" class="eskimo-logo" alt="eskimo" />
                             </a>
                         </div>
@@ -44,7 +44,7 @@
                             <nav id="eskimo-main-menu" class="menu-main-menu-container">
                                 <ul class="eskimo-menu-ul">
                                     <li>
-                                        <a href="/index/index/index">首页</a>
+                                        <a href="index/Index/index">首页</a>
                                     </li>
                                     <li>
                                         <a href='/index/Index/toArtList'>日记</a>
@@ -52,7 +52,13 @@
                                     <li>
                                         <a href="/index/Index/toAddition">分享</a>
                                     </li>
-                                    <li><a href="/index/Index/toMine">我的</a></li>
+                                    <li>
+                                        <a href="/index/Index/toMine">修改资料</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="/index/Index/adminLogin">管理入口</a>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>
@@ -60,6 +66,8 @@
                         <div id="eskimo-social-cell" class="mt-auto w-100">
                             <div id="eskimo-social-inner">
                                 <ul class="eskimo-social-icons">
+                                    <li><a href='/index/Index/toLogin'>登录</a></li>
+                                    <li><a style="color: #FFFFFF">/</a></li>
                                     <li><a href='/index/Index/toReg'>注册</a></li>
                                 </ul>
                                 <div class="clearfix"></div>
@@ -69,7 +77,7 @@
                 </div>
                 <h2>登录——豆蔻年华 EIGHTEEN</h2>
                 <!-- CONTACT FORM -->
-                <form id="login-form" action="/index/Index/login" method="post">
+                <div id="login-form">
                     <div class="row">
                         <div class="col-12 col-lg-6">
                             <p>
@@ -86,7 +94,7 @@
                             <img src="/common/uploads/2018/05/img2.jpg" alt="Jane Doe" class="img-fluid mx-auto d-block eskimo-img-shadow" />
                         </div>
                     </div>
-                </form>
+                </div>
                 <div id="form-messages"></div>
             </div>
         </main>
@@ -107,8 +115,26 @@
             $("#sendbutton").on("click", function () {
                 var nickName = $("#login-form input[name=nickName]").val();//用户名
                 var password = $("#login-form input[name=password]").val();//密码
-                var data = $("#login-form").serializeArray();
-                console.log(nickName);
+                var data = {
+                    nickName: nickName,
+                    password: password
+                };
+                $.ajax({
+                    url: "/index/Index/login",
+                    type: 'post',
+                    data: data,
+                    success: function (data) {
+                        if (data == 'success') {
+                            window.location.href = 'index/index/index';
+                        } else {
+                            alert(data);
+                        }
+                    },
+                    error: function (data) {
+                        alert(data);
+                    }
+                });
+
             })
         })(jQuery);
     </script>

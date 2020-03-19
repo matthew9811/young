@@ -235,10 +235,10 @@ class Index extends Controller
                 Session::set("id", $result[0]['id']);
                 session('loginTime', time());
                 //登录成功
-                return view('index/index');
+                return json('success');
             }
         }
-        return json("error");
+        return json("账号密码错误");
     }
 
     //用户注册
@@ -251,7 +251,7 @@ class Index extends Controller
         $user->signature = 'noting';
         $result = $user->save();
         if ($result) {
-            return view('loginReg/login');
+            return json('success');
         } else {
             return json("error");
         }
