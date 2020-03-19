@@ -6,10 +6,12 @@ use app\common\model\User;
 use think\Controller;
 use think\Db;
 use think\Request;
+use think\Response;
 use think\Session;
 use DateTime;
 use app\common\util\JsonUtil;
 use app\common\util\CosUtil;
+use app\common\model\Article;
 
 class Index extends Controller
 {
@@ -103,7 +105,7 @@ class Index extends Controller
         $user->signature = 'noting';
         $result = $user->save();
         if ($result) {
-            return JsonUtil::jsonData(200, 1, "data");
+            return json("success");
         } else {
             return json("error");
         }
@@ -118,5 +120,38 @@ class Index extends Controller
     }
 
 
+    /**
+     * 新增日记
+     * @param Request $request
+     * @param Response $response
+     * @return msg
+     */
+    public function addition(Request $request, Response $response)
+    {
+        $post = $request->post();
+        //标题
+        $title = $post['title'];
+        //内容
+        $content = $post['code'];
+        //封面base64
+        $file = $post['file'];
+        $fileKey = str_replace('.', '', uniqid('', true)) . '.html';
+        sleep(0.01);
+        $contentKey = str_replace('.', '', uniqid('', true)) . '.html';
+        $cos = new CosUtil();
+        $cos->uploadString($fileKey, $file);
+        $cos->uploadString($contentKey, $content);
+        $article = new Article();
+        $article->setContent($contentKey);
+        $article->setCover($fileKey);
+        $article->setTitle($title);
+        $article->setIssuingTime();
+        $result = $article->save();
+        if ($result > 0) {
+            return json("success");
+        } else {
+            return json("error");
+        }
+    }
 
 }

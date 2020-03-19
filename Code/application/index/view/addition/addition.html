@@ -287,20 +287,29 @@
         //点击提交按钮
         $("#submit").click(function () {
             let code = $('#summernote').summernote('code');
-            console.log(code); //编辑器内容（含html标签）
             let title = $('#title').val(); //标题
-            console.log(title);
-            console.log(file); //封面base64
             if (title == '') {
                 alert("标题不可为空");
+                return;
             }
-        })
+            $.ajax({
+                url: "/index/Index/addition",
+                type: 'post',
+                data: {title: title, code: code, file: file},
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        });
 
         //获取搜索框输入值
         $("#search").click(function () {
             let search = $('#searchText').val();
             console.log(search);
-        })
+        });
 
     })
 </script>
