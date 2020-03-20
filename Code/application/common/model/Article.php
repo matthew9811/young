@@ -8,7 +8,7 @@ use think\Model;
 
 class Article extends Model
 {
-    protected $table = "user";
+    protected $table = "article";
     protected $id = 'id';
     protected $title = 'title';
     protected $customerId = 'customer_id';

@@ -86,22 +86,22 @@
                 <!-- DIVIDER -->
                 <h2>修改豆蔻资料</h2>
                 <!-- CONTACT FORM -->
-                <form id="mine-form" action="mailer.php" method="post">
+                <div id="mine-form">
                     <div class="row">
                         <div class="col-12 col-lg-7">
                             <p>
                                 <label>用户名</label><br />
-                                <input type="text" name="nickname" id="nickname" class="form-control" required="required" maxlength="50" />
+                                <input type="text" name="nickname" id="nickname" class="form-control" required="required" maxlength="50" value={$user.nick_name}/>
                             </p>
                             <p>
                                 <label>密码</label><br />
-                                <input type="password" name="pwd" id="pwd" class="form-control" required="required" maxlength="50" />
+                                <input type="password" name="pwd" id="pwd" class="form-control" required="required" maxlength="50" value={$user.pwd}/>
                             </p>
                             <p>
                                 <label>个性语</label><br />
-                                <input type="text" name="signature" id="signature" class="form-control" maxlength="50" />
+                                <input type="text" name="signature" id="signature" class="form-control" maxlength="50" value={$user.signature}/>
                             </p>
-                            <button id="submit" type="submit" class="btn btn-lg w-100">Send Message</button>
+                            <button id="submit" type="submit" class="btn btn-lg w-100">上传修改</button>
                         </div>
 
                         <div class="col-12 col-lg-4 order-1 order-lg-2 mb-5 mb-lg-0">
@@ -109,7 +109,7 @@
                             <div id="drop_area"></div>
                         </div>
                     </div>
-                </form>
+                </div>
                 <!-- DIVIDER -->
             </div>
         </main>
@@ -127,8 +127,8 @@
                     <div class="eskimo-author-img">
                         <img src="/common/uploads/2018/05/img.jpg" alt="JOHN DOE" />
                     </div>
-                    <h3><span>无心人</span></h3>
-                    <p class="eskimo-author-description">个性签名</p>
+                    <h3><span>{$user.nick_name}</span></h3>
+                    <p class="eskimo-author-description">{$user.signature}</p>
                     <div class="eskimo-author-box-btn">
                         <a class="btn btn-default" href="/index/Index/toMine">修改资料</a>
                     </div>
@@ -228,7 +228,30 @@
                 let nickname = $('#nickname').val(); //标题
                 let pwd = $('#pwd').val(); //密码
                 let signature = $('#signature').val(); //个性签名
-                console.log(file);//头像
+                if (!file) {
+                    file = 0
+                }
+                var data = {
+                    nickname: nickname,
+                    password: pwd,
+                    signature: signature,
+                    file: file
+                };
+                console.log(data);
+                $.ajax({
+                    url: "/index/Person/setPerson",
+                    type: 'post',
+                    data: data,
+                    success: function (data) {
+                        console.log(data);
+                        if (data.msg == "success") {
+                            alert("修改成功！");
+                        }
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                })
             })
 
             //获取搜索框输入值

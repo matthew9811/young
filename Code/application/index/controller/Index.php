@@ -48,7 +48,17 @@ class Index extends Controller
 
     public function toMine()
     {
+        $id = Session::get("id");
+        $user = $this->getUser($id);
+        $user = $user[0];
+        $this->assign("user", $user);
         return view('person/mine');
+    }
+
+    protected function getUser($id)
+    {
+        $user = model("common/User")->where("id", $id)->select();
+        return $user;
     }
 
     public function adminLogin()
@@ -142,12 +152,13 @@ class Index extends Controller
         $cos->uploadString($fileKey, $file);
         $cos->uploadString($contentKey, $content);
         $article = new Article();
+        $article->setCustomerId(Session::get("id"));
         $article->setContent($contentKey);
         $article->setCover($fileKey);
         $article->setTitle($title);
-        $article->setIssuingTime();
+        $article->setIssuingTime(date('Y-m-d H:i:s',time()));
         $result = $article->save();
-        if ($result > 0) {
+        if ($result) {
             return json("success");
         } else {
             return json("error");

@@ -77,7 +77,7 @@
             </div>
             <h2>管理员入口——豆蔻年华 EIGHTEEN</h2>
             <!-- CONTACT FORM -->
-            <form id="login-form">
+            <div id="login-form">
                 <div class="row">
                     <div class="col-12 col-lg-6">
                         <p>
@@ -94,7 +94,7 @@
                         <img src="/common/uploads/2018/05/img2.jpg" alt="Jane Doe" class="img-fluid mx-auto d-block eskimo-img-shadow" />
                     </div>
                 </div>
-            </form>
+            </div>
             <div id="form-messages"></div>
         </div>
     </main>
@@ -115,8 +115,27 @@
         $("#sendbutton").on("click", function () {
             var nickName = $("#login-form input[name=nickName]").val();//用户名
             var password = $("#login-form input[name=password]").val();//密码
-            var data = $("#login-form").serializeArray();
+            var data = {
+                nickName: nickName,
+                password: password
+            };
             console.log(data);
+            $.ajax({
+                url: "/index/Admin/adminLogin",
+                type: 'post',
+                data: data,
+                success: function (data) {
+                    console.log(data);
+                    if (data == 'success') {
+                        // window.location.href = 'index/index/index';
+                    } else {
+                        alert(data);
+                    }
+                },
+                error: function (data) {
+                    alert(data);
+                }
+            });
         })
     })(jQuery);
 </script>
