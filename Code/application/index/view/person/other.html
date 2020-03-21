@@ -89,7 +89,7 @@
             <!-- PAGE TITLE -->
             <div class="eskimo-page-title">
                 <h1><span>豆蔻个人</span></h1>
-                <p class="eskimo-page-subtitle">他人主页</p>
+                <p class="eskimo-page-subtitle">{$user.nick_name}主页</p>
             </div>
             <!-- ABOUT ME -->
             <div class="row">
@@ -98,8 +98,8 @@
                 </div>
                 <div class="col-12 col-lg-4 order-1 order-lg-2">
                     <!--<p>Laborum varias in possumus philosophari nam mandaremus ad malis. Sint fidelissimae tempor fugiat expetendis. Est nisi quibusdam admodum ut noster laborum se tamen culpa aut labore. Senserit sed commodo. Occaecat concursionibus te deserunt ab nam amet mentitum est ea nam dolor malis aute ab iis sempiternum.</p>-->
-                    <p><span class="lead"><em>无心人</em></span></p>
-                    <p>别错过那最美的风景</p>
+                    <p><span class="lead"><em>{$user.nick_name}</em></span></p>
+                    <p>{$user.signature}</p>
                 </div>
             </div>
 
@@ -107,103 +107,37 @@
             <hr class="section-divider" />
             <!-- CAROUSEL -->
             <div class="eskimo-widget-title">
-                <h3 class="eskimo-carousel-title"><span>个人豆蔻文章</span></h3>
+                <h3 class="eskimo-carousel-title"><span>{$user.nick_name}豆蔻文章</span></h3>
             </div>
             <div class="eskimo-carousel-container">
                 <div class="eskimo-carousel-view-more">
                     <a href="blog.html">VIEW ALL</a>
                 </div>
                 <div id="eskimo-post-carousel" class="eskimo-carousel">
+                    {notempty name="article"}
+                    {volist name="article" id="item"}
                     <!-- CAROUSEL ITEM 1 -->
                     <div>
                         <div class="card-masonry card-small">
                             <div class="card">
-                                <a href="single-post.html">
+                                <a href="{:url('/index/Article/toArticle?id='.$item['id'])}">
                                     <img class="card-vertical-img" src="/common/uploads/2018/05/blog4-1-900x600.jpg" alt="Ketchup Flavored Ice Cream!" />
                                 </a>
                                 <div class="card-border">
                                     <div class="card-body">
                                         <div class="card-category">
-                                            <a href="single-post.html">May 28, 2018</a>
+                                            <a href="{:url('/index/Article/toArticle?id='.$item['id'])}">{$item.issuing_time}</a>
                                         </div>
-                                        <h5 class="card-title"><a href="single-post.html">Ketchup Flavored Ice Cream!</a></h5>
+                                        <h5 class="card-title">
+                                            <a href="{:url('/index/Article/toArticle?id='.$item['id'])}">{$item.title}</a>
+                                        </h5>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- CAROUSEL ITEM 2 -->
-                    <div>
-                        <div class="card-masonry card-small">
-                            <div class="card">
-                                <a href="single-post.html">
-                                    <img class="card-vertical-img" src="/common/uploads/2018/05/blog1-900x600.jpg" alt="Hair You've Always Dreamed Of" />
-                                </a>
-                                <div class="card-border">
-                                    <div class="card-body">
-                                        <div class="card-category">
-                                            <a href="single-post.html">May 27, 2018</a>
-                                        </div>
-                                        <h5 class="card-title"><a href="single-post.html">Hair You've Always Dreamed Of</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- CAROUSEL ITEM 3 -->
-                    <div>
-                        <div class="card-masonry card-small">
-                            <div class="card">
-                                <a href="single-post.html">
-                                    <img class="card-vertical-img" src="/common/uploads/2018/05/blog-900x600.jpg" alt="15 Of The World's Best Carnivals" />
-                                </a>
-                                <div class="card-border">
-                                    <div class="card-body">
-                                        <div class="card-category">
-                                            <a href="single-post.html">May 25, 2018</a>
-                                        </div>
-                                        <h5 class="card-title"><a href="single-post.html">15 Of The World's Best Carnivals</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- CAROUSEL ITEM 4 -->
-                    <div>
-                        <div class="card-masonry card-small">
-                            <div class="card">
-                                <a href="single-post.html">
-                                    <img class="card-vertical-img" src="/common/uploads/2018/05/blog19-900x600.jpg" alt="5 Ways to a Healthy Lifestyle" />
-                                </a>
-                                <div class="card-border">
-                                    <div class="card-body">
-                                        <div class="card-category">
-                                            <a href="single-post.html">May 25, 2018</a>
-                                        </div>
-                                        <h5 class="card-title"><a href="single-post.html">5 Ways to a Healthy Lifestyle</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- CAROUSEL ITEM 5 -->
-                    <div>
-                        <div class="card-masonry card-small">
-                            <div class="card">
-                                <a href="single-post.html">
-                                    <img class="card-vertical-img" src="/common/uploads/2018/05/blog5-900x600.jpg" alt="Best Breakfast In The World" />
-                                </a>
-                                <div class="card-border">
-                                    <div class="card-body">
-                                        <div class="card-category">
-                                            <a href="single-post.html">May 23, 2018</a>
-                                        </div>
-                                        <h5 class="card-title"><a href="single-post.html">Best Breakfast In The World</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {/volist}
+                    {/notempty}
                 </div>
             </div>
         </div>

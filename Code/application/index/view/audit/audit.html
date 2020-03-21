@@ -86,221 +86,37 @@
             <div class="clearfix"></div>
             <!-- PAGE TITLE -->
             <div class="eskimo-page-title">
-                <h1 class="no-border">豆蔻精选</h1>
+                <h1 class="no-border">审核列表</h1>
             </div>
             <!-- BLOG POSTS -->
             <div class="eskimo-masonry-grid small-masonry">
                 <div class="eskimo-three-columns" data-columns>
                     <!-- POST 1 -->
+                    {notempty name="audit"}
+                    {volist name="audit" id="item"}
                     <div class="card-masonry card-small">
                         <div class="card">
-                            <a href="single-post.html">
-                                <img class="card-vertical-img" src="/common/uploads/2018/05/blog4-1-900x600.jpg" alt="Ketchup Flavored Ice Cream!" />
+                            <a href="{:url('/index/Admin/toAuditArt?id='.$item['id'])}">
+                                <img class="card-vertical-img" src="https://47-1256569009.cos-website.ap-chengdu.myqcloud.com/{$item.cover}" alt="Ketchup Flavored Ice Cream!" />
                             </a>
                             <div class="card-border">
                                 <div class="card-body">
                                     <div class="card-category">
-                                        <a href="single-post.html">May 28, 2018</a>
+                                        <a href="{:url('/index/Admin/toAuditArt?id='.$item['id'])}">{$item.issuing_time}</a>
                                     </div>
                                     <h5 class="card-title">
-                                        <a href="single-post.html">Ketchup Flavored Ice Cream!</a>
+                                        <a href="{:url('/index/Admin/toAuditArt?id='.$item['id'])}">{$item.title}</a>
                                     </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- POST 2 -->
-                    <div class="card-masonry card-small">
-                        <div class="card">
-                            <a href="single-post.html">
-                                <img class="card-vertical-img" src="/common/uploads/2018/05/blog1-900x600.jpg" alt="Hair You've Always Dreamed Of" />
-                            </a>
-                            <div class="card-border">
-                                <div class="card-body">
                                     <div class="card-category">
-                                        <a href="single-post.html">May 27, 2018</a>
+                                        <a href="">审核图标</a>
+                                        <a href="">审核图标</a>
                                     </div>
-                                    <h5 class="card-title"><a href="single-post.html">Hair You've Always Dreamed Of</a></h5>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- POST 3 -->
-                    <div class="card-masonry card-small">
-                        <div class="card">
-                            <a href="single-post.html">
-                                <img class="card-vertical-img" src="/common/uploads/2018/05/blog-900x600.jpg" alt="15 Of The World's Best Carnivals" />
-                            </a>
-                            <div class="card-border">
-                                <div class="card-body">
-                                    <div class="card-category">
-                                        <a href="single-post.html">May 25, 2018</a>
-                                    </div>
-                                    <h5 class="card-title">
-                                        <a href="single-post.html">15 Of The World's Best Carnivals</a>
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- POST 4 -->
-                    <div class="card-masonry card-small">
-                        <div class="card">
-                            <a href="single-post.html">
-                                <img class="card-vertical-img" src="/common/uploads/2018/05/blog19-900x600.jpg" alt="5 Ways to a Healthy Lifestyle" />
-                            </a>
-                            <div class="card-border">
-                                <div class="card-body">
-                                    <div class="card-category">
-                                        <a href="single-post.html">May 25, 2018</a>
-                                    </div>
-                                    <h5 class="card-title">
-                                        <a href="single-post.html">5 Ways to a Healthy Lifestyle</a>
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- POST 5 -->
-                    <div class="card-masonry card-small">
-                        <div class="card">
-                            <a href="single-post.html">
-                                <img class="card-vertical-img" src="/common/uploads/2018/05/blog5-900x600.jpg" alt="Best Breakfast In The World" />
-                            </a>
-                            <div class="card-border">
-                                <div class="card-body">
-                                    <div class="card-category">
-                                        <a href="single-post.html">May 23, 2018</a>
-                                    </div>
-                                    <h5 class="card-title"><a href="single-post.html">Best Breakfast In The World</a></h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- POST 6 -->
-                    <div class="card-masonry card-small">
-                        <div class="card">
-                            <a href="single-post.html">
-                                <img class="card-vertical-img" src="/common/uploads/2018/05/blog18-900x600.jpg" alt="Best and Worst Summer Foods" />
-                            </a>
-                            <div class="card-border">
-                                <div class="card-body">
-                                    <div class="card-category">
-                                        <a href="single-post.html">May 22, 2018</a>
-                                    </div>
-                                    <h5 class="card-title">
-                                        <a href="single-post.html">Best and Worst Summer Foods</a>
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- POST 7 -->
-                    <div class="card-masonry card-small">
-                        <div class="card">
-                            <a href="single-post.html">
-                                <img class="card-vertical-img" src="/common/uploads/2018/05/blog7-900x600.jpg" alt="What Is Perfect Training?" />
-                            </a>
-                            <div class="card-border">
-                                <div class="card-body">
-                                    <div class="card-category">
-                                        <a href="single-post.html">May 21, 2018</a>
-                                    </div>
-                                    <h5 class="card-title"><a href="single-post.html">What Is Perfect Training?</a></h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- POST 8 -->
-                    <div class="card-masonry card-small">
-                        <div class="card">
-                            <a href="single-post.html">
-                                <img class="card-vertical-img" src="/common/uploads/2018/05/blog17-900x600.jpg" alt="The Best Cameras For Beginners" />
-                            </a>
-                            <div class="card-border">
-                                <div class="card-body">
-                                    <div class="card-category">
-                                        <a href="single-post.html">May 20, 2018</a>
-                                    </div>
-                                    <h5 class="card-title">
-                                        <a href="single-post.html">The Best Cameras For Beginners</a>
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- POST 9 -->
-                    <div class="card-masonry card-small">
-                        <div class="card">
-                            <a href="single-post.html">
-                                <img class="card-vertical-img" src="/common/uploads/2018/05/blog12-900x600.jpg" alt="The 20 Creepiest Clowns in Movies" />
-                            </a>
-                            <div class="card-border">
-                                <div class="card-body">
-                                    <div class="card-category">
-                                        <a href="single-post.html">May 20, 2018</a>
-                                    </div>
-                                    <h5 class="card-title">
-                                        <a href="single-post.html">The 20 Creepiest Clowns in Movies</a>
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- POST 10 -->
-                    <div class="card-masonry card-small">
-                        <div class="card">
-                            <a href="single-post.html">
-                                <img class="card-vertical-img" src="/common/uploads/2018/05/blog11-900x600.jpg" alt="The Best Places To Travel" />
-                            </a>
-                            <div class="card-border">
-                                <div class="card-body">
-                                    <div class="card-category">
-                                        <a href="single-post.html">May 20, 2018</a>
-                                    </div>
-                                    <h5 class="card-title">
-                                        <a href="single-post.html">The Best Places To Travel</a>
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- POST 11 -->
-                    <div class="card-masonry card-small">
-                        <div class="card">
-                            <a href="single-post.html">
-                                <img class="card-vertical-img" src="/common/uploads/2018/05/blog8-900x600.jpg" alt="Eyes Wide Shut Is A Classic" />
-                            </a>
-                            <div class="card-border">
-                                <div class="card-body">
-                                    <div class="card-category">
-                                        <a href="single-post.html">May 19, 2018</a>
-                                    </div>
-                                    <h5 class="card-title">
-                                        <a href="single-post.html">Eyes Wide Shut Is A Classic</a>
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- POST 12 -->
-                    <div class="card-masonry card-small">
-                        <div class="card">
-                            <a href="single-post.html">
-                                <img class="card-vertical-img" src="/common/uploads/2018/05/blog6-900x600.jpg" alt="Headphones For Music Lovers" />
-                            </a>
-                            <div class="card-border">
-                                <div class="card-body">
-                                    <div class="card-category">
-                                        <a href="single-post.html">May 19, 2018</a>
-                                    </div>
-                                    <h5 class="card-title">
-                                        <a href="single-post.html">Headphones For Music Lovers</a>
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {/volist}
+                    {/notempty}
                 </div>
             </div>
             <!-- PAGINATION -->

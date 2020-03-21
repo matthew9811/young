@@ -3,6 +3,7 @@
 namespace app\index\controller;
 
 use app\common\model\User;
+use app\common\model\Article;
 use think\Controller;
 use think\Db;
 use think\Request;
@@ -14,7 +15,10 @@ use app\common\util\CosUtil;
 
 class Person extends Controller
 {
-    public function setPerson(Request $request) {
+
+    //修改个人资料
+    public function setPerson(Request $request)
+    {
         $req = $request->post();
         $id = Session::get("id");
         $nick_name = $req["nickname"];
@@ -39,10 +43,30 @@ class Person extends Controller
 
     }
 
+    //跳转他人主页
+    public function toOther()
+    {
+        $id = input()['id'];
+        $user = $this->getUser($id);
+        $user = $user[0];
+        $article = $this->getUserArt($id);
+        $this->assign('article',$article);
+        $this->assign('user',$user);
+        return view('person/other');
+    }
+
+    //获取id对应的用户信息
     protected function getUser($id)
     {
         $user = model("common/User")->where("id", $id)->select();
         return $user;
+    }
+
+    //获取用户个人文章
+    protected function getUserArt($id) {
+        $article = model("common/Article")->where("customer_id", $id)
+            ->where("review_status",'1')->select();
+        return $article;
     }
 
 }

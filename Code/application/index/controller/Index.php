@@ -43,6 +43,8 @@ class Index extends Controller
 
     public function toAddition()
     {
+        $obj=controller("index/common/Base");
+        $obj->_initialize();
         return view('addition/addition');
     }
 
@@ -74,11 +76,6 @@ class Index extends Controller
     public function toMineArtList()
     {
         return view('artList/mineArtList');
-    }
-
-    public function toOther()
-    {
-        return view('person/other');
     }
 
     //用户登录
@@ -152,16 +149,17 @@ class Index extends Controller
         $cos->uploadString($fileKey, $file);
         $cos->uploadString($contentKey, $content);
         $article = new Article();
-        $article->setCustomerId(Session::get("id"));
-        $article->setContent($contentKey);
-        $article->setCover($fileKey);
-        $article->setTitle($title);
-        $article->setIssuingTime(date('Y-m-d H:i:s',time()));
+        $article->customer_id = Session::get("id");
+        $article->content = $contentKey;
+        $article->cover = $fileKey;
+        $article->title = $title;
+        $article->issuing_time = date('Y-m-d H:i:s',time());
+        $article->review_status = '2';
         $result = $article->save();
         if ($result) {
-            return json("success");
+            return $this->success('success');
         } else {
-            return json("error");
+            return $this->error("error");
         }
     }
 

@@ -5,17 +5,15 @@
     <title>Eskimo - HTML Template</title>
     <!-- META TAGS -->
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="description" content="">
     <meta name="keywords" content="">
     <!-- CSS FILES -->
     <link href="/common/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="/common/css/fontawesome.css" rel="stylesheet" type="text/css">
-    <link href="/common/css/slick.css" rel="stylesheet" type="text/css">
+    <link href="/common/css/featherlight.css" rel="stylesheet" type="text/css">
+    <link href="/common/css/rrssb.css" rel="stylesheet" type="text/css">
     <link href="/common/css/style.css" rel="stylesheet" type="text/css">
-    <!--summernote富文本编辑器-->
-    <link href="/static/summernote/summernote-lite.css" rel="stylesheet">
 </head>
 
 <body>
@@ -88,27 +86,149 @@
                 </li>
             </ul>
             <div class="clearfix"></div>
-            <div class="row">
-                <div class="col-12 col-lg-12">
-                    <p>
-                        <label>标题</label><br />
-                        <input type="text" name="title" id="title" class="form-control" required="required" maxlength="50" />
-                    </p>
-                    <p>
-                        <label>封面</label>
-                        <div id="drop_area"></div>
-                    </p>
+            <!-- PAGE TITLE -->
+            <div class="eskimo-page-title">
+                <h1><span>{$article.title}</span></h1>
+                <div class="eskimo-page-title-meta">
+                    <div class="eskimo-author-meta">
+                        By <a class="author-meta" href="{:url('/index/Person/toOther?id='.$customer['id'])}">{$customer.nick_name}</a>
+                    </div>
+                    <div class="eskimo-date-meta">{$article.issuing_time}</div>
                 </div>
             </div>
-            <br>
-            <div>
-                    <textarea id="summernote" name="editordata"></textarea>
-                    <br>
-                    <div class="col-12 col-lg-6">
-                        <button id="submit" type="submit" class="btn btn-lg w-100">发布</button>
-                    </div>
+            <!-- FEATURED IMAGE -->
+            <div class="eskimo-featured-img">
+                <img src="https://47-1256569009.cos-website.ap-chengdu.myqcloud.com/{$article.cover}" alt="" />
             </div>
+            <!-- POST CONTENT -->
+            <div class="eskimo-page-content">
+                <iframe src="https://47-1256569009.cos-website.ap-chengdu.myqcloud.com/{$article.content}"></iframe>
+                <div class="clearfix"></div>
 
+                <p>
+                    <a href="{:url('/index/Admin/passArt?id='.$article['id'])}" class="btn btn-success">通过</a>
+                    <a href="{:url('/index/Admin/rejectArt?id='.$article['id'])}" class="btn btn-danger">驳回</a>
+                </p>
+
+                <!-- POST NAVIGATION -->
+                <div class="eskimo-post-nav-wrapper">
+                    <!-- PREVIOUS POST -->
+                    <div class="eskimo-post-nav-left-row">
+                        <div class="eskimo-post-nav-table">
+                            <a class="eskimo-post-nav" href="single-post.html">
+                                <i class="fa fa-chevron-left"></i>
+                            </a>
+                            <div class="eskimo-post-nav-link">
+                                <a class="eskimo-post-nav" href="single-post.html">Best Breakfast In The World</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- NEXT POST -->
+                    <div class="eskimo-post-nav-right-row">
+                        <div class="eskimo-post-nav-table">
+                            <div class="eskimo-post-nav-link">
+                                <a class="eskimo-post-nav" href="single-post.html">15 Of The World&#8217;s Best Carnivals</a>
+                            </div>
+                            <a class="eskimo-post-nav" href="single-post.html">
+                                <i class="fa fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <hr />
+            <!-- COMMENTS -->
+            <!--<div id="eskimo-comments-wrapper">-->
+            <!--<div id="eskimo_comments_block" class="eskimo_comments_block">-->
+            <!--<h3 class="eskimo-title-with-border">-->
+            <!--<span>Comments</span>-->
+            <!--</h3>-->
+            <!--<div class="eskimo_commentlist">-->
+            <!--&lt;!&ndash; COMMENT 1 &ndash;&gt;-->
+            <!--<div class="eskimo_comment_wrapper">-->
+            <!--<div class="eskimo_comments">-->
+            <!--<div class="eskimo_comment">-->
+            <!--<div class="eskimo_comment_inner">-->
+            <!--<div class="eskimo_comment_left">-->
+            <!--<img alt='' src='http://0.gravatar.com/avatar/0b19666d0fc7a149e6f8f2319a04ef63?s=60&#038;d=mm&#038;r=g' />-->
+            <!--</div>-->
+            <!--<div class="eskimo_comment_right">-->
+            <!--<div class="eskimo_comment_right_inner ">-->
+            <!--<cite class="eskimo_fn">-->
+            <!--<a href='author.html'>Egemenerd</a>-->
+            <!--</cite>-->
+            <!--<div class="eskimo_comment_links">-->
+            <!--<i class="fa fa-clock-o"></i> May 23, 2018 at 9:57 pm - <a href="#">Reply</a>-->
+            <!--</div>-->
+            <!--<div class="eskimo_comment_text">-->
+            <!--<p>Tempor cillum nostrud ex sunt expetendis et ipsum quis. Ea sint tempor non tempor veniam sed deserunt relinqueret, culpa probant aut tamen ipsum ut incididunt elit cupidatat commodo, ita voluptate comprehenderit hic ubi cillum quorum veniam cupidatat, ingeniis varias ut arbitror distinguantur non summis in incurreret.</p>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; COMMENT 1 REPLY &ndash;&gt;-->
+            <!--<div class="eskimo_comment_wrapper">-->
+            <!--<div class="eskimo_comments">-->
+            <!--<div class="eskimo_comment">-->
+            <!--<div class="eskimo_comment_inner">-->
+            <!--<div class="eskimo_comment_left">-->
+            <!--<img alt='' src='http://0.gravatar.com/avatar/0b19666d0fc7a149e6f8f2319a04ef63?s=60&#038;d=mm&#038;r=g' />-->
+            <!--</div>-->
+            <!--<div class="eskimo_comment_right">-->
+            <!--<div class="eskimo_comment_right_inner ">-->
+            <!--<cite class="eskimo_fn">-->
+            <!--<a href='author.html'>Egemenerd</a>-->
+            <!--</cite>-->
+            <!--<div class="eskimo_comment_links">-->
+            <!--<i class="fa fa-clock-o"></i> May 23, 2018 at 9:57 pm - <a href="#">Reply</a>-->
+            <!--</div>-->
+            <!--<div class="eskimo_comment_text">-->
+            <!--<p>Incurreret elit ab excepteur praetermissum. In dolor expetendis cernantur a expetendis noster amet e quorum in fugiat cupidatat quo tamen minim sed ex quo quae irure aute. Aut ipsum mentitum, malis fabulas aut esse noster est se lorem praetermissum, quem admodum litteris.</p>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; COMMENT 2 &ndash;&gt;-->
+            <!--<div class="eskimo_comment_wrapper">-->
+            <!--<div class="eskimo_comments">-->
+            <!--<div class="eskimo_comment">-->
+            <!--<div class="eskimo_comment_inner">-->
+            <!--<div class="eskimo_comment_left">-->
+            <!--<img alt='' src='http://0.gravatar.com/avatar/0b19666d0fc7a149e6f8f2319a04ef63?s=60&#038;d=mm&#038;r=g' />-->
+            <!--</div>-->
+            <!--<div class="eskimo_comment_right">-->
+            <!--<div class="eskimo_comment_right_inner ">-->
+            <!--<cite class="eskimo_fn">-->
+            <!--<a href='author.html'>Egemenerd</a>-->
+            <!--</cite>-->
+            <!--<div class="eskimo_comment_links">-->
+            <!--<i class="fa fa-clock-o"></i> May 23, 2018 at 10:12 pm - <a href="#">Reply</a>-->
+            <!--</div>-->
+            <!--<div class="eskimo_comment_text">-->
+            <!--<p>Probant qui sint expetendis sed quamquam esse aute ad dolor te voluptate quid hic cupidatat exercitation, fabulas a lorem ingeniis, litteris nulla veniam a sunt id arbitror de malis ne nam quem quid quo coniunctione.</p>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div id="eskimo_comment_form" class="eskimo_comment_form">-->
+            <!--<h3>Leave a Reply</h3>-->
+            <!--<form action="single-post.html" method="post" id="commentform">-->
+            <!--<p><textarea id="comment" name="comment" cols="45" rows="8" required="required"></textarea></p>-->
+            <!--<input name="submit" type="submit" id="submit" class="btn btn-default" value="Post Comment" />-->
+            <!--</form>-->
+            <!--</div>-->
         </div>
     </main>
 </div>
@@ -203,117 +323,22 @@
         </form>
     </div>
 </div>
-
 <!-- JS FILES -->
 <script src="/common/js/jquery-3.3.1.min.js"></script>
 <script src="/common/js/bootstrap.min.js"></script>
 <script src="/common/js/salvattore.min.js"></script>
-<script src="/common/js/slick.min.js"></script>
 <script src="/common/js/panel.js"></script>
 <script src="/common/js/reading-position-indicator.js"></script>
+<script src="/common/js/rrssb.min.js"></script>
+<script src="/common/js/featherlight.js"></script>
 <script src="/common/js/custom.js"></script>
-<script src="/static/summernote/summernote-lite.js"></script>
-<!--photo upload-->
-<script src="/common/js/upload.js"></script>
-<!-- POST SLIDER -->
-<script>
-    (function ($) {
-        "use strict";
-        $(document).ready(function () {
-            $('#eskimo-post-slider').slick({
-                autoplay: true,
-                autoplaySpeed: 5000,
-                slidesToScroll: 1,
-                adaptiveHeight: true,
-                slidesToShow: 1,
-                arrows: true,
-                dots: false,
-                fade: true
-            });
-        });
-        $(window).on('load', function () {
-            $('#eskimo-post-slider').css('opacity', '1');
-            $('#eskimo-post-slider').parent().removeClass('eskimo-bg-loader');
-        });
-    })(jQuery);
-</script>
-<!-- POST CAROUSEL -->
-<script>
-    (function ($) {
-        "use strict";
-        $(document).ready(function () {
-            $('#eskimo-post-carousel').slick({
-                infinite: false,
-                slidesToScroll: 1,
-                arrows: true,
-                dots: false,
-                slidesToShow: 3,
-                responsive: [{
-                    breakpoint: 992,
-                    settings: {
-                        slidesToShow: 2
-                    }
-                }, {
-                    breakpoint: 576,
-                    settings: {
-                        slidesToShow: 1
-                    }
-                }]
-
-            });
-            $('#eskimo-post-carousel').css('opacity', '1');
-        });
-    })(jQuery);
-</script>
-
 <script type="text/javascript">
     $(function () {
-        let file;
-        $(document).ready(function() {
-            //富文本编辑器设置
-            $('#summernote').summernote({
-                lang: 'zh-CN',
-                height: 500
-            })
-        });
-
-        //封面上传组件
-        new DragImgUpload("#drop_area",{
-            callback:function (files) {
-                file = files;
-            }
-        },"/common/image/upload.png");
-
-        //点击提交按钮
-        $("#submit").click(function () {
-            let code = $('#summernote').summernote('code');
-            let title = $('#title').val(); //标题
-            if (title == '') {
-                alert("标题不可为空");
-                return;
-            }
-            $.ajax({
-                url: "/index/Index/addition",
-                type: 'post',
-                data: {title: title, code: code, file: file},
-                success: function (data) {
-                    console.log(data);
-                    if (data.code == 1) {
-                        alert('上传成功，等待管理员审核');
-                    }
-                },
-                error: function (data) {
-                    console.log(data);
-                }
-            });
-        });
-
         //获取搜索框输入值
         $("#search").click(function () {
             let search = $('#searchText').val();
             console.log(search);
-        });
-
+        })
     })
 </script>
 </body>
