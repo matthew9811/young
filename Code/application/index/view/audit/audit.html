@@ -74,15 +74,6 @@
                     </div>
                 </div>
             </div>
-            <!-- TOP ICONS -->
-            <ul class="eskimo-top-icons">
-                <li id="eskimo-panel-icon">
-                    <a href="#eskimo-panel" class="eskimo-panel-open"><i class="fa fa-bars"></i></a>
-                </li>
-                <li id="eskimo-search-icon">
-                    <a id="eskimo-open-search" href="#"><i class="fa fa-search"></i></a>
-                </li>
-            </ul>
             <div class="clearfix"></div>
             <!-- PAGE TITLE -->
             <div class="eskimo-page-title">
@@ -108,8 +99,9 @@
                                         <a href="{:url('/index/Admin/toAuditArt?id='.$item['id'])}">{$item.title}</a>
                                     </h5>
                                     <div class="card-category">
-                                        <a href="">审核图标</a>
-                                        <a href="">审核图标</a>
+                                        <div id="{$item.id}" onclick="getId({$item['id']})">
+                                            <i class="fa fa-square-o"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -118,6 +110,14 @@
                     {/volist}
                     {/notempty}
                 </div>
+            </div>
+            <div class="eskimo-page-content">
+                <div class="clearfix"></div>
+
+                <p>
+                    <div id="pass" class="btn btn-success">通过选中的</div>
+                    <div id="reject" class="btn btn-danger">驳回选中的</div>
+                </p>
             </div>
             <!-- PAGINATION -->
             <div class="eskimo-pager">
@@ -136,93 +136,6 @@
 <a id="eskimo-gototop" href="#"><i class="fa fa-chevron-up"></i></a>
 <!-- SLIDE PANEL OVERLAY -->
 <div id="eskimo-overlay"></div>
-<!-- SLIDE PANEL -->
-<div id="eskimo-panels">
-    <aside id="eskimo-panel" class="eskimo-panel">
-        <div class="eskimo-panel-inner">
-            <!-- CLOSE SLIDE PANEL BUTTON -->
-            <a href="#" class="eskimo-panel-close"><i class="fa fa-times"></i></a>
-            <!-- AUTHOR BOX -->
-            <div class="eskimo-author-box eskimo-widget">
-                <div class="eskimo-author-img">
-                    <img src="/common/uploads/2018/05/img.jpg" alt="JOHN DOE" />
-                </div>
-                <h3><span>无心人</span></h3>
-                <p class="eskimo-author-description">个性签名</p>
-                <div class="eskimo-author-box-btn">
-                    <a class="btn btn-default" href="/index/Index/toMine">修改资料</a>
-                </div>
-            </div>
-            <!-- SELF POSTS -->
-            <div class="eskimo-recent-entries eskimo-widget">
-                <h5 class="eskimo-title-with-border"><a href="/index/Index/toMineArtList">个人豆蔻</a></h5>
-                <ul>
-                    <li>
-                        <a href="/index/Index/toArticle">Ketchup Flavored Ice Cream!</a>
-                        <span class="post-date">May 28, 2018</span>
-                    </li>
-                    <li>
-                        <a href="/index/Index/toArticle">Hair You've Always Dreamed Of</a>
-                        <span class="post-date">May 27, 2018</span>
-                    </li>
-                    <li>
-                        <a href="single-post.html">15 Of The World's Best Carnivals</a>
-                        <span class="post-date">May 25, 2018</span>
-                    </li>
-                    <li>
-                        <a href="single-post.html">5 Ways to a Healthy Lifestyle</a>
-                        <span class="post-date">May 25, 2018</span>
-                    </li>
-                    <li>
-                        <a href="single-post.html">Best Breakfast In The World</a>
-                        <span class="post-date">May 23, 2018</span>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- LOVE POSTS -->
-            <div class="eskimo-recent-entries eskimo-widget">
-                <h5 class="eskimo-title-with-border"><a href="/index/Index/toLikeArtList">收藏豆蔻</a></h5>
-                <ul>
-                    <li>
-                        <a href="single-post.html">Ketchup Flavored Ice Cream!</a>
-                        <span class="post-date">May 28, 2018</span>
-                    </li>
-                    <li>
-                        <a href="single-post.html">Hair You've Always Dreamed Of</a>
-                        <span class="post-date">May 27, 2018</span>
-                    </li>
-                    <li>
-                        <a href="single-post.html">15 Of The World's Best Carnivals</a>
-                        <span class="post-date">May 25, 2018</span>
-                    </li>
-                    <li>
-                        <a href="single-post.html">5 Ways to a Healthy Lifestyle</a>
-                        <span class="post-date">May 25, 2018</span>
-                    </li>
-                    <li>
-                        <a href="single-post.html">Best Breakfast In The World</a>
-                        <span class="post-date">May 23, 2018</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </aside>
-</div>
-<!-- FULLSCREEN SEARCH -->
-<div id="eskimo-fullscreen-search">
-    <div id="eskimo-fullscreen-search-content">
-        <a href="#" id="eskimo-close-search"><i class="fa fa-times"></i></a>
-        <form role="search" method="get" action="search.html" class="eskimo-lg-form">
-            <div class="input-group">
-                <input type="text" id="searchText" class="form-control form-control-lg" placeholder="关键字" name="s" />
-                <div class="input-group-append">
-                    <button id="search" type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
 <!-- JS FILES -->
 <script src="/common/js/jquery-3.3.1.min.js"></script>
 <script src="/common/js/bootstrap.min.js"></script>
@@ -231,13 +144,36 @@
 <script src="/common/js/reading-position-indicator.js"></script>
 <script src="/common/js/custom.js"></script>
 <script type="text/javascript">
+    let Id = [];
     $(function () {
         //获取搜索框输入值
         $("#search").click(function () {
             let search = $('#searchText').val();
             console.log(search);
+        });
+
+        $("#reject").click(function () {
+            $.ajax({
+
+            })
+        });
+
+        $("#pass").click(function () {
+            $.ajax({
+
+            })
         })
-    })
+    });
+
+    function getId(id) {
+        Id.push(id);
+        console.log(id);
+        $("#" + id).html('<div id="{$item.id}" onclick="getId({$item[\'id\']})">\n' +
+            '                                            <i class="fa fa-check-square-o"></i>\n' +
+            '                                        </div>');
+    }
+
+
 </script>
 </body>
 

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: chuling
- * Date: 2020/3/20
- * Time: 22:54
- */
 
 namespace app\index\controller;
 
@@ -32,8 +26,8 @@ class Admin extends Controller
         $result = $result[0];
         if ($result) {
             if ($result['password'] == $post['password']) {
-                Session::set("nickName", $result['nick_name']);
-                Session::set("id", $result['id']);
+                Session::set("adminNickName", $result['nick_name']);
+                Session::set("adminId", $result['id']);
                 session('loginTime', time());
                 //登录成功
                 return json('success');
@@ -68,7 +62,7 @@ class Admin extends Controller
     public function passArt()
     {
         $id = input()['id'];
-        $reviewer = Session::get("id");
+        $reviewer = Session::get("adminId");
         $result = Db::table("article")->where("id",$id)
             ->setField(["review_status"=>'1',"reviewer"=>$reviewer]);
         if ($result){
@@ -82,7 +76,7 @@ class Admin extends Controller
     public function rejectArt()
     {
         $id = input()['id'];
-        $reviewer = Session::get("id");
+        $reviewer = Session::get("adminId");
         $result = Db::table("article")->where("id",$id)
             ->setField(["review_status"=>'0',"reviewer"=>$reviewer]);
         if ($result){
