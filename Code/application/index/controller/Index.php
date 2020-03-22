@@ -224,5 +224,4 @@ class Index extends Base
             return $this->error("error");
         }
     }
-
 }
