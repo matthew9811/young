@@ -43,7 +43,7 @@ class Index extends Controller
 
     public function toAddition()
     {
-        $obj=controller("index/common/Base");
+        $obj = controller("index/common/Base");
         $obj->_initialize();
         return view('addition/addition');
     }
@@ -153,7 +153,7 @@ class Index extends Controller
         $article->content = $contentKey;
         $article->cover = $fileKey;
         $article->title = $title;
-        $article->issuing_time = date('Y-m-d H:i:s',time());
+        $article->issuing_time = date('Y-m-d H:i:s', time());
         $article->review_status = '2';
         $result = $article->save();
         if ($result) {
