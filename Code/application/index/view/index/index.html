@@ -127,17 +127,9 @@
                             <div class="eskimo-date-meta">
                                 <a>{$item.issuing_time}</a>
                             </div>
-                            {if condition="$item.collect eq 2"}
-                                <a href="{:url('/index/Article/collectArt?id='.$item['id'])}"
-                                   class="eskimo-reading-meta">
-                                    <i class="fa fa-heart-o"></i>
-                                </a>
-                                {else /}
-                                <a href="{:url('/index/Article/cancelCollectArt?id='.$item['id'])}"
-                                   class="eskimo-reading-meta">
-                                    <i class="fa fa-heart"></i>
-                                </a>
-                            {/if}
+                            <div class="eskimo-reading-meta">
+                                {$item.collect} <i class="fa fa-heart"></i>
+                            </div>
                         </div>
                     </div>
                     <div class="card-horizontal-right" data-img="/common/uploads/2018/05/blog18-1024x682.jpg">
@@ -328,8 +320,8 @@
         $("#search").click(function () {
             let search = $('#searchText').val();
             console.log(search);
-        })
-    })
+        });
+    });
 </script>
 </body>
 

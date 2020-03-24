@@ -45,7 +45,7 @@
                             <nav id="eskimo-main-menu" class="menu-main-menu-container">
                                 <ul class="eskimo-menu-ul">
                                     <li>
-                                        <a href="index/Index/index">首页</a>
+                                        <a href="/index/Index/index">首页</a>
                                     </li>
                                     <li>
                                         <a href='/index/Index/toArtList'>日记</a>
@@ -93,18 +93,26 @@
                         <div class="eskimo-author-meta">
                             By <a class="author-meta" href="{:url('/index/Person/toOther?id='.$customer['id'])}">{$customer.nick_name}</a>
                         </div>
-                        <div class="eskimo-date-meta">{$article.title}</div>
-                        {if condition="$article.collect eq 2"}
-                        <a href="{:url('/index/Article/collectArt?id='.$article['id'])}"
-                           class="eskimo-reading-meta">
-                            <i class="fa fa-heart-o"></i>
-                        </a>
-                        {else /}
-                        <a href="{:url('/index/Article/cancelCollectArt?id='.$article['id'])}"
-                           class="eskimo-reading-meta">
-                            <i class="fa fa-heart"></i>
-                        </a>
-                        {/if}
+                        <div class="eskimo-date-meta">{$article.issuing_time}</div>
+                        <div id="onloadI" onclick="onloadCollect({$article['id']},{$article['collect']})">
+                            {if condition="$article.collect eq 2"}
+                            <a href="#" class="eskimo-reading-meta">
+                                <i class="fa fa-heart-o"></i>
+                            </a>
+                            {else /}
+                            <a href="#" class="eskimo-reading-meta">
+                                <i class="fa fa-heart"></i>
+                            </a>
+                            {/if}
+                        </div>
+                        <div id="uploadI" style="display:none" onclick="uploadCollect({$article['id']})">
+                            <a href="#" id="{$article.id}i1" class="eskimo-reading-meta">
+                                <i class="fa fa-heart-o"></i>
+                            </a>
+                            <a href="#" id="{$article.id}i2" class="eskimo-reading-meta">
+                                <i class="fa fa-heart"></i>
+                            </a>
+                        </div>
 
                     </div>
                 </div>
@@ -116,31 +124,6 @@
                 <div class="eskimo-page-content">
                     {$article.content}
                     <div class="clearfix"></div>
-
-                    <!-- POST NAVIGATION -->
-                    <div class="eskimo-post-nav-wrapper">
-                        <!-- PREVIOUS POST -->
-                        <div class="eskimo-post-nav-left-row">
-                            <div class="eskimo-post-nav-table">
-                                <a class="eskimo-post-nav" href="single-post.html">
-                                    <i class="fa fa-chevron-left"></i>
-                                </a>
-                                <div class="eskimo-post-nav-link">
-                                    <a class="eskimo-post-nav" href="single-post.html">Best Breakfast In The World</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- NEXT POST -->
-                        <div class="eskimo-post-nav-right-row">
-                            <div class="eskimo-post-nav-table">
-                                <div class="eskimo-post-nav-link">
-                                    <a class="eskimo-post-nav" href="single-post.html">15 Of The World&#8217;s Best Carnivals</a>
-                                </div>
-                                <a class="eskimo-post-nav" href="single-post.html">
-                                    <i class="fa fa-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="clearfix"></div>
                 <hr />
@@ -230,7 +213,66 @@
                 let search = $('#searchText').val();
                 console.log(search);
             })
-        })
+        });
+        function onloadCollect(id, collect) {
+            console.log(id);
+            if (collect == 2) {
+                $.ajax({
+                    url: '/index/Article/collectArt',
+                    data: {id: id},
+                    type: 'post',
+                    success:function (res) {
+                        alert("收藏" + res);
+                        document.getElementById("onloadI").style.display = "none";
+                        document.getElementById("uploadI").style.display = "block";
+                        document.getElementById(id + "i1").style.display = "none";
+                        document.getElementById(id + "i2").style.display = "block";
+                    }
+                })
+            } else {
+                $.ajax({
+                    url: '/index/Article/cancelCollectArt',
+                    data: {id: id},
+                    type: 'post',
+                    success:function (res) {
+                        alert("取消收藏" + res);
+                        document.getElementById("onloadI").style.display = "none";
+                        document.getElementById("uploadI").style.display = "block";
+                        document.getElementById(id + "i1").style.display = "block";
+                        document.getElementById(id + "i2").style.display = "none";
+                    }
+                })
+            }
+        }
+
+        function uploadCollect(id) {
+            console.log(id);
+            var collect = $("#" + id + "i1").css("display");
+            console.log(collect);
+            if (collect == 'none') {
+                $.ajax({
+                    url: '/index/Article/cancelCollectArt',
+                    data: {id: id},
+                    type: 'post',
+                    success:function (res) {
+                        alert("取消收藏" + res);
+                        document.getElementById(id + "i1").style.display = "block";
+                        document.getElementById(id + "i2").style.display = "none";
+                    }
+                })
+            } else {
+                $.ajax({
+                    url: '/index/Article/collectArt',
+                    data: {id: id},
+                    type: 'post',
+                    success:function (res) {
+                        alert("收藏" + res);
+                        document.getElementById(id + "i1").style.display = "none";
+                        document.getElementById(id + "i2").style.display = "block";
+                    }
+                })
+            }
+        }
     </script>
 </body>
 

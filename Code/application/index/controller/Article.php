@@ -41,6 +41,13 @@ class Article extends Base
                    collectNum DESC
                    LIMIT 12');
         }
+        $id = Session::get("id");
+        $user = Base::getUser($id)[0];
+        $userArt = Base::getUserArt($id);
+        $userCollectArt = Base::getUserCollectArt($id);
+        $this->assign("user", $user);
+        $this->assign('userArt',$userArt);
+        $this->assign('userCollect',$userCollectArt);
         $this->assign('article',$article);
         return view('artList/artList');
     }
@@ -52,13 +59,13 @@ class Article extends Base
         $user = Base::getUser($id)[0];
         $userArt = Base::getUserArt($id);
         $userCollectArt = Base::getUserCollectArt($id);
-        $id = input()['id'];
-        $article = Db::table('article')->where('id',$id)->select();
+        $articleId = input()['id'];
+        $article = Db::table('article')->where('id',$articleId)->select();
         $article = $article[0];
         $customerId = $article['customer_id'];
         $customer = Base::getUser($customerId);
-        $collect = Db::table('collect')->where('article_id', $id)
-            ->where('customer_id', $customerId)->select();
+        $collect = Db::table('collect')->where('article_id', $articleId)
+            ->where('customer_id', $id)->select();
         if ($collect) {
             $article['collect'] = 1;
         } else {
@@ -82,9 +89,9 @@ class Article extends Base
         $collect->customer_id = Session::get("id");
         $result = $collect->save();
         if ($result) {
-            return $this->success('success','/index/Index/index');
+            return json('success');
         } else {
-            return $this->error('error');
+            return json('error');
         }
 
     }
@@ -99,9 +106,9 @@ class Article extends Base
         $result = Db::table("collect")->where("article_id",$article_id)
             ->where("customer_id",$customer_id)->delete();
         if ($result) {
-            return $this->success('success','/index/Index/index');
+            return json('success');
         } else {
-            return $this->error('error');
+            return json('error');
         }
     }
 

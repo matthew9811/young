@@ -29,13 +29,8 @@ class Index extends Base
             $articleId = $newArt[$i]->id;
             $newArt[$i]['customer'] = Db::table('user')
                 ->where('id', $customerId)->value('nick_name');
-            $collect = Db::table('collect')->where('article_id', $articleId)
-                ->where('customer_id', $id)->select();
-            if ($collect) {
-                $newArt[$i]['collect'] = 1;
-            } else {
-                $newArt[$i]['collect'] = 2;
-            }
+            $collect = Db::table('collect')->where('article_id', $articleId)->select();
+            $newArt[$i]['collect'] = count($collect);
         }
         $collectArt = Db::query(
             'SELECT
@@ -98,7 +93,6 @@ class Index extends Base
 
     public function toLogin()
     {
-
         return view('loginReg/login');
     }
 

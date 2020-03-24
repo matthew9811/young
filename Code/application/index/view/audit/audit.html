@@ -5,7 +5,8 @@
     <title>Eskimo - HTML Template</title>
     <!-- META TAGS -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <!-- CSS FILES -->
@@ -32,7 +33,7 @@
                     <!-- LOGO -->
                     <div id="eskimo-logo-cell" class="w-100">
                         <a class="eskimo-logo-link" href="/index/Index/index">
-                            <img src="/common/image/logo.png" class="eskimo-logo" alt="eskimo" />
+                            <img src="/common/image/logo.png" class="eskimo-logo" alt="eskimo"/>
                         </a>
                     </div>
                     <!-- MENU CONTAINER -->
@@ -43,7 +44,7 @@
                         <nav id="eskimo-main-menu" class="menu-main-menu-container">
                             <ul class="eskimo-menu-ul">
                                 <li>
-                                    <a href="index/Index/index">首页</a>
+                                    <a href="/index/Index/index">首页</a>
                                 </li>
                                 <li>
                                     <a href='/index/Index/toArtList'>日记</a>
@@ -88,7 +89,9 @@
                     <div class="card-masonry card-small">
                         <div class="card">
                             <a href="{:url('/index/Admin/toAuditArt?id='.$item['id'])}">
-                                <img class="card-vertical-img" src="https://47-1256569009.cos-website.ap-chengdu.myqcloud.com/{$item.cover}" alt="Ketchup Flavored Ice Cream!" />
+                                <img class="card-vertical-img"
+                                     src="https://47-1256569009.cos-website.ap-chengdu.myqcloud.com/{$item.cover}"
+                                     alt="Ketchup Flavored Ice Cream!"/>
                             </a>
                             <div class="card-border">
                                 <div class="card-body">
@@ -99,8 +102,11 @@
                                         <a href="{:url('/index/Admin/toAuditArt?id='.$item['id'])}">{$item.title}</a>
                                     </h5>
                                     <div class="card-category">
-                                        <div id="{$item.id}" onclick="getId({$item['id']})">
+                                        <div id="{$item.id}i1" onclick="checkId({$item['id']})">
                                             <i class="fa fa-square-o"></i>
+                                        </div>
+                                        <div id="{$item.id}i2" style="display:none" onclick="rejectId({$item['id']})">
+                                            <i class="fa fa-check-square-o"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -115,8 +121,8 @@
                 <div class="clearfix"></div>
 
                 <p>
-                    <div id="pass" class="btn btn-success">通过选中的</div>
-                    <div id="reject" class="btn btn-danger">驳回选中的</div>
+                <div id="pass" class="btn btn-success">通过选中的</div>
+                <div id="reject" class="btn btn-danger">驳回选中的</div>
                 </p>
             </div>
             <!-- PAGINATION -->
@@ -153,24 +159,40 @@
         });
 
         $("#reject").click(function () {
+            console.log(Id);
             $.ajax({
-
+                url: '/index/Admin/rejectList',
+                type: 'post',
+                data: {listId: Id},
+                success: function (res) {
+                    alert(res);
+                }
             })
         });
 
         $("#pass").click(function () {
+            console.log(Id);
             $.ajax({
-
+                url: '/index/Admin/passList',
+                type: 'post',
+                data: {listId: Id},
+                success: function (res) {
+                    alert(res);
+                }
             })
         })
     });
 
-    function getId(id) {
+    function checkId(id) {
         Id.push(id);
-        console.log(id);
-        $("#" + id).html('<div id="{$item.id}" onclick="getId({$item[\'id\']})">\n' +
-            '                                            <i class="fa fa-check-square-o"></i>\n' +
-            '                                        </div>');
+        document.getElementById(id + "i1").style.display = "none";
+        document.getElementById(id + "i2").style.display = "block";
+    }
+
+    function rejectId(id) {
+        Id.splice($.inArray(id, Id), 1);
+        document.getElementById(id + "i1").style.display = "block";
+        document.getElementById(id + "i2").style.display = "none";
     }
 
 

@@ -58,7 +58,7 @@ class Admin extends Controller
         return view('audit/auditArt');
     }
 
-    //通过文章审核
+    //通过该文章审核
     public function passArt()
     {
         $id = input()['id'];
@@ -72,7 +72,7 @@ class Admin extends Controller
         }
     }
 
-    //驳回文章
+    //驳回该文章
     public function rejectArt()
     {
         $id = input()['id'];
@@ -84,5 +84,29 @@ class Admin extends Controller
         } else {
             return $this->error("error");
         }
+    }
+
+    //通过审核选中文章
+    public function passList(Request $request)
+    {
+        $req = $request->post();
+        $list = $req['listId'];
+        for ($i = 0; $i < count($list);$i++) {
+            Db::table('article')->where('id',$list[$i])
+                ->setField(['review_status' => '1',"reviewer"=>Session::get("adminId")]);
+        }
+        return json('success');
+    }
+
+    //驳回审核选中文章
+    public function rejectList(Request $request)
+    {
+        $req = $request->post();
+        $list = $req['listId'];
+        for ($i = 0; $i < count($list);$i++) {
+            Db::table('article')->where('id',$list[$i])
+                ->setField(['review_status' => '0',"reviewer"=>Session::get("adminId")]);
+        }
+        return json('success');
     }
 }
