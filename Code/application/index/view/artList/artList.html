@@ -135,6 +135,7 @@
     <!-- SLIDE PANEL -->
     <div id="eskimo-panels">
         <aside id="eskimo-panel" class="eskimo-panel">
+            {if condition="empty($user) neq true"}
             <div class="eskimo-panel-inner">
                 <!-- CLOSE SLIDE PANEL BUTTON -->
                 <a href="#" class="eskimo-panel-close"><i class="fa fa-times"></i></a>
@@ -179,6 +180,24 @@
                     </ul>
                 </div>
             </div>
+            {/if}
+            {if condition="empty($user) neq false"}
+            <div class="eskimo-panel-inner">
+                <!-- CLOSE SLIDE PANEL BUTTON -->
+                <a href="#" class="eskimo-panel-close"><i class="fa fa-times"></i></a>
+                <!-- AUTHOR BOX -->
+                <div class="eskimo-author-box eskimo-widget">
+                    <div class="eskimo-author-img">
+                        <img src="/common/uploads/2018/05/img.jpg" alt="JOHN DOE"/>
+                    </div>
+                    <h3><span>请先登录</span></h3>
+                    <p class="eskimo-author-description"></p>
+                    <div class="eskimo-author-box-btn">
+                        <a class="btn btn-default" href="/index/Index/toLogin">去登陆</a>
+                    </div>
+                </div>
+            </div>
+            {/if}
         </aside>
     </div>
     <!-- FULLSCREEN SEARCH -->

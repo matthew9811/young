@@ -190,6 +190,8 @@
 
         //点击提交按钮
         $("#submit").click(function () {
+            $("#submit").css({'background-color' : 'gray'});
+            $("#submit").attr("disabled", true);
             let code = $('#summernote').summernote('code');
             let title = $('#title').val(); //标题
             if (title == '') {

@@ -152,14 +152,8 @@
 <script type="text/javascript">
     let Id = [];
     $(function () {
-        //获取搜索框输入值
-        $("#search").click(function () {
-            let search = $('#searchText').val();
-            console.log(search);
-        });
 
         $("#reject").click(function () {
-            console.log(Id);
             $.ajax({
                 url: '/index/Admin/rejectList',
                 type: 'post',
@@ -171,13 +165,13 @@
         });
 
         $("#pass").click(function () {
-            console.log(Id);
             $.ajax({
                 url: '/index/Admin/passList',
                 type: 'post',
                 data: {listId: Id},
                 success: function (res) {
-                    alert(res);
+                    alert('审核' + res);
+                    window.location.href = '/index/Admin/toAuditList';
                 }
             })
         })

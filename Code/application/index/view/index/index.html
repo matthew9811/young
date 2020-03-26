@@ -193,52 +193,72 @@
 <!-- SLIDE PANEL OVERLAY -->
 <div id="eskimo-overlay"></div>
 <!-- SLIDE PANEL -->
+
 <div id="eskimo-panels">
     <aside id="eskimo-panel" class="eskimo-panel">
-        <div class="eskimo-panel-inner">
-            <!-- CLOSE SLIDE PANEL BUTTON -->
-            <a href="#" class="eskimo-panel-close"><i class="fa fa-times"></i></a>
-            <!-- AUTHOR BOX -->
-            <div class="eskimo-author-box eskimo-widget">
-                <div class="eskimo-author-img">
-                    <img src="/common/uploads/2018/05/img.jpg" alt="JOHN DOE"/>
+        {if condition="empty($user) neq true"}
+            <div class="eskimo-panel-inner">
+                <!-- CLOSE SLIDE PANEL BUTTON -->
+                <a href="#" class="eskimo-panel-close"><i class="fa fa-times"></i></a>
+                <!-- AUTHOR BOX -->
+                <div class="eskimo-author-box eskimo-widget">
+                    <div class="eskimo-author-img">
+                        <img src="/common/uploads/2018/05/img.jpg" alt="JOHN DOE"/>
+                    </div>
+                    <h3><span>{$user.nick_name}</span></h3>
+                    <p class="eskimo-author-description">{$user.signature}</p>
+                    <div class="eskimo-author-box-btn">
+                        <a class="btn btn-default" href="/index/Index/toMine">修改资料</a>
+                    </div>
                 </div>
-                <h3><span>{$user.nick_name}</span></h3>
-                <p class="eskimo-author-description">{$user.signature}</p>
-                <div class="eskimo-author-box-btn">
-                    <a class="btn btn-default" href="/index/Index/toMine">修改资料</a>
+                <!-- SELF POSTS -->
+                <div class="eskimo-recent-entries eskimo-widget">
+                    <h5 class="eskimo-title-with-border"><a href="/index/Person/toMineArtList">个人豆蔻</a></h5>
+                    <ul>
+                        {notempty name="userArt"}
+                        {volist name="userArt" id="item"}
+                        <li>
+                            <a href="{:url('/index/Article/toArticle?id='.$item['id'])}">{$item.title}</a>
+                            <span class="post-date">{$item.issuing_time}</span>
+                        </li>
+                        {/volist}
+                        {/notempty}
+                    </ul>
                 </div>
-            </div>
-            <!-- SELF POSTS -->
-            <div class="eskimo-recent-entries eskimo-widget">
-                <h5 class="eskimo-title-with-border"><a href="/index/Person/toMineArtList">个人豆蔻</a></h5>
-                <ul>
-                    {notempty name="userArt"}
-                    {volist name="userArt" id="item"}
-                    <li>
-                        <a href="{:url('/index/Article/toArticle?id='.$item['id'])}">{$item.title}</a>
-                        <span class="post-date">{$item.issuing_time}</span>
-                    </li>
-                    {/volist}
-                    {/notempty}
-                </ul>
-            </div>
 
-            <!-- LOVE POSTS -->
-            <div class="eskimo-recent-entries eskimo-widget">
-                <h5 class="eskimo-title-with-border"><a href="/index/Person/toLikeArtList">收藏豆蔻</a></h5>
-                <ul>
-                    {notempty name="userCollect"}
-                    {volist name="userCollect" id="item"}
-                    <li>
-                        <a href="{:url('/index/Article/toArticle?id='.$item['id'])}">{$item.title}</a>
-                        <span class="post-date">{$item.issuing_time}</span>
-                    </li>
-                    {/volist}
-                    {/notempty}
-                </ul>
+                <!-- LOVE POSTS -->
+                <div class="eskimo-recent-entries eskimo-widget">
+                    <h5 class="eskimo-title-with-border"><a href="/index/Person/toLikeArtList">收藏豆蔻</a></h5>
+                    <ul>
+                        {notempty name="userCollect"}
+                        {volist name="userCollect" id="item"}
+                        <li>
+                            <a href="{:url('/index/Article/toArticle?id='.$item['id'])}">{$item.title}</a>
+                            <span class="post-date">{$item.issuing_time}</span>
+                        </li>
+                        {/volist}
+                        {/notempty}
+                    </ul>
+                </div>
             </div>
-        </div>
+        {/if}
+        {if condition="empty($user) neq false"}
+            <div class="eskimo-panel-inner">
+                <!-- CLOSE SLIDE PANEL BUTTON -->
+                <a href="#" class="eskimo-panel-close"><i class="fa fa-times"></i></a>
+                <!-- AUTHOR BOX -->
+                <div class="eskimo-author-box eskimo-widget">
+                    <div class="eskimo-author-img">
+                        <img src="/common/uploads/2018/05/img.jpg" alt="JOHN DOE"/>
+                    </div>
+                    <h3><span>请先登录</span></h3>
+                    <p class="eskimo-author-description"></p>
+                    <div class="eskimo-author-box-btn">
+                        <a class="btn btn-default" href="/index/Index/toLogin">去登陆</a>
+                    </div>
+                </div>
+            </div>
+        {/if}
     </aside>
 </div>
 <!-- FULLSCREEN SEARCH -->

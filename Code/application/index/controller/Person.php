@@ -80,6 +80,25 @@ class Person extends Base
         $userCollectArt = Base::getUserCollectArt($id);
         $article = $this->getArt($id);
         $this->assign("user", $user);
+        $this->assign("other", $user);
+        $this->assign('userArt',$userArt);
+        $this->assign('userCollect',$userCollectArt);
+        $this->assign('article',$article);
+        return view('artList/mineArtList');
+    }
+
+    //跳转他人文章页
+    public function toOtherArtList()
+    {
+        $id = Session::get("id");
+        $user = Base::getUser($id)[0];
+        $userArt = Base::getUserArt($id);
+        $userCollectArt = Base::getUserCollectArt($id);
+        $otherId = input()['id'];
+        $other = Base::getUser($otherId)[0];
+        $article = $this->getArt($otherId);
+        $this->assign("other", $other);
+        $this->assign("user", $user);
         $this->assign('userArt',$userArt);
         $this->assign('userCollect',$userCollectArt);
         $this->assign('article',$article);
