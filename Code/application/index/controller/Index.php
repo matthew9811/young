@@ -38,6 +38,7 @@ class Index extends Base
                   a.id,
                   a.cover,
                   a.content,
+                  a.issuing_time,
                   u.nick_name,
                 COUNT( c.article_id ) AS collectNum 
                 FROM
