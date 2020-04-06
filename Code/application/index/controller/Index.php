@@ -3,6 +3,7 @@
 namespace app\index\controller;
 
 use app\common\model\User;
+use app\index\controller\common\Base;
 use think\Controller;
 use think\Db;
 use think\Request;
@@ -13,10 +14,71 @@ use app\common\util\JsonUtil;
 use app\common\util\CosUtil;
 use app\common\model\Article;
 
-class Index extends Controller
+class Index extends Base
 {
     public function index()
     {
+        $id = Session::get("id");
+        $user = Base::getUser($id)[0];
+        $userArt = Base::getUserArt($id);
+        $userCollectArt = Base::getUserCollectArt($id);
+        $newArt = model("common/Article")->where("review_status", '1')
+            ->order('issuing_time desc')->limit(5)->select();
+        for ($i = 0; $i < count($newArt); $i++) {
+            $customerId = $newArt[$i]->customer_id;
+            $articleId = $newArt[$i]->id;
+            $newArt[$i]['customer'] = Db::table('user')
+                ->where('id', $customerId)->value('nick_name');
+            $collect = Db::table('collect')->where('article_id', $articleId)->select();
+            $newArt[$i]['collect'] = count($collect);
+        }
+        $collectArt = Db::query(
+            'SELECT
+                  a.title,
+                  a.id,
+                  a.cover,
+                  a.content,
+                  a.issuing_time,
+                  u.nick_name,
+                COUNT( c.article_id ) AS collectNum 
+                FROM
+                  article AS a
+                LEFT JOIN collect AS c ON a.id = c.article_id
+                LEFT JOIN `user` AS u ON a.customer_id = u.id 
+                WHERE
+                  a.review_status = 1 
+                GROUP BY
+                  a.id 
+                ORDER BY
+                collectNum DESC
+                LIMIT 5');
+        $collectArtList = Db::query(
+            'SELECT
+                  a.title,
+                  a.id,
+                  a.cover,
+                  a.content,
+                  a.issuing_time,
+                  u.nick_name,
+                COUNT( c.article_id ) AS collectNum 
+                FROM
+                   article AS a
+                LEFT JOIN collect AS c ON a.id = c.article_id
+                LEFT JOIN `user` AS u ON a.customer_id = u.id 
+                WHERE
+                   a.review_status = 1 
+                GROUP BY
+                   a.id 
+                ORDER BY
+                   issuing_time DESC,
+                   collectNum DESC
+                   LIMIT 5');
+        $this->assign('user',$user);
+        $this->assign('userArt',$userArt);
+        $this->assign('userCollect',$userCollectArt);
+        $this->assign('newArt',$newArt);
+        $this->assign('collectArt',$collectArt);
+        $this->assign('collectArtList',$collectArtList);
         return view("index/index");
     }
 
@@ -32,50 +94,45 @@ class Index extends Controller
 
     public function toLogin()
     {
-
         return view('loginReg/login');
     }
 
     public function toArtList()
     {
+        $id = Session::get("id");
+        $user = Base::getUser($id)[0];
+        $userArt = Base::getUserArt($id);
+        $userCollectArt = Base::getUserCollectArt($id);
+        $article = Db::table('article')->where('review_status','1')
+            ->order('issuing_time desc')->limit(12)->select();
+        $this->assign('article',$article);
+        $this->assign('user',$user);
+        $this->assign('userArt',$userArt);
+        $this->assign('userCollect',$userCollectArt);
         return view('artList/artList');
     }
 
     public function toAddition()
     {
-        $obj = controller("index/common/Base");
-        $obj->_initialize();
+        Base::_initialize();
         return view('addition/addition');
     }
 
     public function toMine()
     {
         $id = Session::get("id");
-        $user = $this->getUser($id);
-        $user = $user[0];
+        $user = Base::getUser($id)[0];
+        $userArt = Base::getUserArt($id);
+        $userCollectArt = Base::getUserCollectArt($id);
         $this->assign("user", $user);
+        $this->assign('userArt',$userArt);
+        $this->assign('userCollect',$userCollectArt);
         return view('person/mine');
-    }
-
-    protected function getUser($id)
-    {
-        $user = model("common/User")->where("id", $id)->select();
-        return $user;
     }
 
     public function adminLogin()
     {
         return view('loginReg/adminLogin');
-    }
-
-    public function toLikeArtList()
-    {
-        return view('artList/likeArtList');
-    }
-
-    public function toMineArtList()
-    {
-        return view('artList/mineArtList');
     }
 
     //用户登录
@@ -162,5 +219,4 @@ class Index extends Controller
             return $this->error("error");
         }
     }
-
 }

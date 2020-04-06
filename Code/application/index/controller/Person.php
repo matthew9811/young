@@ -4,6 +4,7 @@ namespace app\index\controller;
 
 use app\common\model\User;
 use app\common\model\Article;
+use app\index\controller\common\Base;
 use think\Controller;
 use think\Db;
 use think\Request;
@@ -13,7 +14,7 @@ use DateTime;
 use app\common\util\JsonUtil;
 use app\common\util\CosUtil;
 
-class Person extends Controller
+class Person extends Base
 {
 
     //修改个人资料
@@ -47,25 +48,80 @@ class Person extends Controller
     public function toOther()
     {
         $id = input()['id'];
-        $user = $this->getUser($id);
+        $user = Base::getUser($id);
         $user = $user[0];
-        $article = $this->getUserArt($id);
+        $article = Base::getUserArt($id);
         $this->assign('article',$article);
         $this->assign('user',$user);
         return view('person/other');
     }
 
-    //获取id对应的用户信息
-    protected function getUser($id)
+    //个人收藏列表页
+    public function toLikeArtList()
     {
-        $user = model("common/User")->where("id", $id)->select();
-        return $user;
+        $id = Session::get("id");
+        $user = Base::getUser($id)[0];
+        $userArt = Base::getUserArt($id);
+        $userCollectArt = Base::getUserCollectArt($id);
+        $article = $this->getCollectArt($id);
+        $this->assign("user", $user);
+        $this->assign('userArt',$userArt);
+        $this->assign('userCollect',$userCollectArt);
+        $this->assign('article',$article);
+        return view('artList/likeArtList');
+    }
+
+    //个人文章列表页
+    public function toMineArtList()
+    {
+        $id = Session::get("id");
+        $user = Base::getUser($id)[0];
+        $userArt = Base::getUserArt($id);
+        $userCollectArt = Base::getUserCollectArt($id);
+        $article = $this->getArt($id);
+        $this->assign("user", $user);
+        $this->assign("other", $user);
+        $this->assign('userArt',$userArt);
+        $this->assign('userCollect',$userCollectArt);
+        $this->assign('article',$article);
+        return view('artList/mineArtList');
+    }
+
+    //跳转他人文章页
+    public function toOtherArtList()
+    {
+        $id = Session::get("id");
+        $user = Base::getUser($id)[0];
+        $userArt = Base::getUserArt($id);
+        $userCollectArt = Base::getUserCollectArt($id);
+        $otherId = input()['id'];
+        $other = Base::getUser($otherId)[0];
+        $article = $this->getArt($otherId);
+        $this->assign("other", $other);
+        $this->assign("user", $user);
+        $this->assign('userArt',$userArt);
+        $this->assign('userCollect',$userCollectArt);
+        $this->assign('article',$article);
+        return view('artList/mineArtList');
     }
 
     //获取用户个人文章
-    protected function getUserArt($id) {
+    protected function getArt($id)
+    {;
         $article = model("common/Article")->where("customer_id", $id)
-            ->where("review_status",'1')->select();
+            ->where("review_status",'1')->order('issuing_time desc')
+            ->limit(12)->select();
+        return $article;
+    }
+
+    //获取用户收藏文章
+    protected function getCollectArt($id)
+    {
+        $article = DB::table("collect")->alias('c')
+            ->join([['article a', 'c.article_id = a.id']])->where("c.customer_id", $id)
+            ->field(['a.id,a.title,a.content,a.issuing_time'])
+            ->order('issuing_time desc')->limit(12)
+            ->select();
         return $article;
     }
 

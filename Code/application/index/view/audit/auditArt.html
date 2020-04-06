@@ -45,7 +45,7 @@
                         <nav id="eskimo-main-menu" class="menu-main-menu-container">
                             <ul class="eskimo-menu-ul">
                                 <li>
-                                    <a href="index/Index/index">首页</a>
+                                    <a href="/index/Index/index">首页</a>
                                 </li>
                                 <li>
                                     <a href='/index/Index/toArtList'>日记</a>
@@ -106,129 +106,13 @@
                 <div class="clearfix"></div>
 
                 <p>
-                    <a href="{:url('/index/Admin/passArt?id='.$article['id'])}" class="btn btn-success">通过</a>
-                    <a href="{:url('/index/Admin/rejectArt?id='.$article['id'])}" class="btn btn-danger">驳回</a>
+                    <div id="pass" onclick="passArt({$article['id']})" class="btn btn-success">通过</div>
+                    <div id="reject" onclick="rejectArt({$article['id']})" class="btn btn-danger">驳回</div>
                 </p>
 
-                <!-- POST NAVIGATION -->
-                <div class="eskimo-post-nav-wrapper">
-                    <!-- PREVIOUS POST -->
-                    <div class="eskimo-post-nav-left-row">
-                        <div class="eskimo-post-nav-table">
-                            <a class="eskimo-post-nav" href="single-post.html">
-                                <i class="fa fa-chevron-left"></i>
-                            </a>
-                            <div class="eskimo-post-nav-link">
-                                <a class="eskimo-post-nav" href="single-post.html">Best Breakfast In The World</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- NEXT POST -->
-                    <div class="eskimo-post-nav-right-row">
-                        <div class="eskimo-post-nav-table">
-                            <div class="eskimo-post-nav-link">
-                                <a class="eskimo-post-nav" href="single-post.html">15 Of The World&#8217;s Best Carnivals</a>
-                            </div>
-                            <a class="eskimo-post-nav" href="single-post.html">
-                                <i class="fa fa-chevron-right"></i></a>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="clearfix"></div>
             <hr />
-            <!-- COMMENTS -->
-            <!--<div id="eskimo-comments-wrapper">-->
-            <!--<div id="eskimo_comments_block" class="eskimo_comments_block">-->
-            <!--<h3 class="eskimo-title-with-border">-->
-            <!--<span>Comments</span>-->
-            <!--</h3>-->
-            <!--<div class="eskimo_commentlist">-->
-            <!--&lt;!&ndash; COMMENT 1 &ndash;&gt;-->
-            <!--<div class="eskimo_comment_wrapper">-->
-            <!--<div class="eskimo_comments">-->
-            <!--<div class="eskimo_comment">-->
-            <!--<div class="eskimo_comment_inner">-->
-            <!--<div class="eskimo_comment_left">-->
-            <!--<img alt='' src='http://0.gravatar.com/avatar/0b19666d0fc7a149e6f8f2319a04ef63?s=60&#038;d=mm&#038;r=g' />-->
-            <!--</div>-->
-            <!--<div class="eskimo_comment_right">-->
-            <!--<div class="eskimo_comment_right_inner ">-->
-            <!--<cite class="eskimo_fn">-->
-            <!--<a href='author.html'>Egemenerd</a>-->
-            <!--</cite>-->
-            <!--<div class="eskimo_comment_links">-->
-            <!--<i class="fa fa-clock-o"></i> May 23, 2018 at 9:57 pm - <a href="#">Reply</a>-->
-            <!--</div>-->
-            <!--<div class="eskimo_comment_text">-->
-            <!--<p>Tempor cillum nostrud ex sunt expetendis et ipsum quis. Ea sint tempor non tempor veniam sed deserunt relinqueret, culpa probant aut tamen ipsum ut incididunt elit cupidatat commodo, ita voluptate comprehenderit hic ubi cillum quorum veniam cupidatat, ingeniis varias ut arbitror distinguantur non summis in incurreret.</p>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--&lt;!&ndash; COMMENT 1 REPLY &ndash;&gt;-->
-            <!--<div class="eskimo_comment_wrapper">-->
-            <!--<div class="eskimo_comments">-->
-            <!--<div class="eskimo_comment">-->
-            <!--<div class="eskimo_comment_inner">-->
-            <!--<div class="eskimo_comment_left">-->
-            <!--<img alt='' src='http://0.gravatar.com/avatar/0b19666d0fc7a149e6f8f2319a04ef63?s=60&#038;d=mm&#038;r=g' />-->
-            <!--</div>-->
-            <!--<div class="eskimo_comment_right">-->
-            <!--<div class="eskimo_comment_right_inner ">-->
-            <!--<cite class="eskimo_fn">-->
-            <!--<a href='author.html'>Egemenerd</a>-->
-            <!--</cite>-->
-            <!--<div class="eskimo_comment_links">-->
-            <!--<i class="fa fa-clock-o"></i> May 23, 2018 at 9:57 pm - <a href="#">Reply</a>-->
-            <!--</div>-->
-            <!--<div class="eskimo_comment_text">-->
-            <!--<p>Incurreret elit ab excepteur praetermissum. In dolor expetendis cernantur a expetendis noster amet e quorum in fugiat cupidatat quo tamen minim sed ex quo quae irure aute. Aut ipsum mentitum, malis fabulas aut esse noster est se lorem praetermissum, quem admodum litteris.</p>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--&lt;!&ndash; COMMENT 2 &ndash;&gt;-->
-            <!--<div class="eskimo_comment_wrapper">-->
-            <!--<div class="eskimo_comments">-->
-            <!--<div class="eskimo_comment">-->
-            <!--<div class="eskimo_comment_inner">-->
-            <!--<div class="eskimo_comment_left">-->
-            <!--<img alt='' src='http://0.gravatar.com/avatar/0b19666d0fc7a149e6f8f2319a04ef63?s=60&#038;d=mm&#038;r=g' />-->
-            <!--</div>-->
-            <!--<div class="eskimo_comment_right">-->
-            <!--<div class="eskimo_comment_right_inner ">-->
-            <!--<cite class="eskimo_fn">-->
-            <!--<a href='author.html'>Egemenerd</a>-->
-            <!--</cite>-->
-            <!--<div class="eskimo_comment_links">-->
-            <!--<i class="fa fa-clock-o"></i> May 23, 2018 at 10:12 pm - <a href="#">Reply</a>-->
-            <!--</div>-->
-            <!--<div class="eskimo_comment_text">-->
-            <!--<p>Probant qui sint expetendis sed quamquam esse aute ad dolor te voluptate quid hic cupidatat exercitation, fabulas a lorem ingeniis, litteris nulla veniam a sunt id arbitror de malis ne nam quem quid quo coniunctione.</p>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div id="eskimo_comment_form" class="eskimo_comment_form">-->
-            <!--<h3>Leave a Reply</h3>-->
-            <!--<form action="single-post.html" method="post" id="commentform">-->
-            <!--<p><textarea id="comment" name="comment" cols="45" rows="8" required="required"></textarea></p>-->
-            <!--<input name="submit" type="submit" id="submit" class="btn btn-default" value="Post Comment" />-->
-            <!--</form>-->
-            <!--</div>-->
         </div>
     </main>
 </div>
@@ -334,12 +218,38 @@
 <script src="/common/js/custom.js"></script>
 <script type="text/javascript">
     $(function () {
-        //获取搜索框输入值
-        $("#search").click(function () {
-            let search = $('#searchText').val();
-            console.log(search);
+
+    });
+    function passArt(Id) {
+        $.ajax({
+            url: '/index/Admin/passArt',
+            data: {id: Id},
+            type: 'post',
+            success: function (res) {
+                console.log(res);
+                alert('操作成功');
+                $("#pass").css({'background-color' : 'gray'});
+                $("#pass").attr("disabled", true);
+                $("#reject").css({'background-color' : 'gray'});
+                $("#reject").attr("disabled", true);
+            }
         })
-    })
+    }
+    function rejectArt(Id) {
+        $.ajax({
+            url: '/index/Admin/rejectArt',
+            data: {id: Id},
+            type: 'post',
+            success: function (res) {
+                console.log(res);
+                alert('操作成功');
+                $("#pass").css({'background-color' : 'gray'});
+                $("#pass").attr("disabled", true);
+                $("#reject").css({'background-color' : 'gray'});
+                $("#reject").attr("disabled", true);
+            }
+        })
+    }
 </script>
 </body>
 

@@ -44,7 +44,7 @@
                             <nav id="eskimo-main-menu" class="menu-main-menu-container">
                                 <ul class="eskimo-menu-ul">
                                     <li>
-                                        <a href="index/Index/index">首页</a>
+                                        <a href="/index/Index/index">首页</a>
                                     </li>
                                     <li>
                                         <a href='/index/Index/toArtList'>日记</a>
@@ -91,15 +91,15 @@
                         <div class="col-12 col-lg-7">
                             <p>
                                 <label>用户名</label><br />
-                                <input type="text" name="nickname" id="nickname" class="form-control" required="required" maxlength="50" value={$user.nick_name}/>
+                                <input type="text" name="nickname" id="nickname" class="form-control" required="required" maxlength="50" value={$user.nick_name} />
                             </p>
                             <p>
                                 <label>密码</label><br />
-                                <input type="password" name="pwd" id="pwd" class="form-control" required="required" maxlength="50" value={$user.pwd}/>
+                                <input type="password" name="pwd" id="pwd" class="form-control" required="required" maxlength="50" value={$user.pwd} />
                             </p>
                             <p>
                                 <label>个性语</label><br />
-                                <input type="text" name="signature" id="signature" class="form-control" maxlength="50" value={$user.signature}/>
+                                <input type="text" name="signature" id="signature" class="form-control" maxlength="50" value={$user.signature} />
                             </p>
                             <button id="submit" type="submit" class="btn btn-lg w-100">上传修改</button>
                         </div>
@@ -125,7 +125,7 @@
                 <!-- AUTHOR BOX -->
                 <div class="eskimo-author-box eskimo-widget">
                     <div class="eskimo-author-img">
-                        <img src="/common/uploads/2018/05/img.jpg" alt="JOHN DOE" />
+                        <img src="/common/uploads/2018/05/img.jpg" alt="JOHN DOE"/>
                     </div>
                     <h3><span>{$user.nick_name}</span></h3>
                     <p class="eskimo-author-description">{$user.signature}</p>
@@ -135,55 +135,31 @@
                 </div>
                 <!-- SELF POSTS -->
                 <div class="eskimo-recent-entries eskimo-widget">
-                    <h5 class="eskimo-title-with-border"><a href="/index/Index/toMineArtList">个人豆蔻</a></h5>
+                    <h5 class="eskimo-title-with-border"><a href="/index/Person/toMineArtList">个人豆蔻</a></h5>
                     <ul>
+                        {notempty name="userArt"}
+                        {volist name="userArt" id="item"}
                         <li>
-                            <a href="/index/Index/toArticle">Ketchup Flavored Ice Cream!</a>
-                            <span class="post-date">May 28, 2018</span>
+                            <a href="{:url('/index/Article/toArticle?id='.$item['id'])}">{$item.title}</a>
+                            <span class="post-date">{$item.issuing_time}</span>
                         </li>
-                        <li>
-                            <a href="/index/Index/toArticle">Hair You've Always Dreamed Of</a>
-                            <span class="post-date">May 27, 2018</span>
-                        </li>
-                        <li>
-                            <a href="single-post.html">15 Of The World's Best Carnivals</a>
-                            <span class="post-date">May 25, 2018</span>
-                        </li>
-                        <li>
-                            <a href="single-post.html">5 Ways to a Healthy Lifestyle</a>
-                            <span class="post-date">May 25, 2018</span>
-                        </li>
-                        <li>
-                            <a href="single-post.html">Best Breakfast In The World</a>
-                            <span class="post-date">May 23, 2018</span>
-                        </li>
+                        {/volist}
+                        {/notempty}
                     </ul>
                 </div>
 
                 <!-- LOVE POSTS -->
                 <div class="eskimo-recent-entries eskimo-widget">
-                    <h5 class="eskimo-title-with-border"><a href="/index/Index/toLikeArtList">收藏豆蔻</a></h5>
+                    <h5 class="eskimo-title-with-border"><a href="/index/Person/toLikeArtList">收藏豆蔻</a></h5>
                     <ul>
+                        {notempty name="userCollect"}
+                        {volist name="userCollect" id="item"}
                         <li>
-                            <a href="single-post.html">Ketchup Flavored Ice Cream!</a>
-                            <span class="post-date">May 28, 2018</span>
+                            <a href="{:url('/index/Article/toArticle?id='.$item['id'])}">{$item.title}</a>
+                            <span class="post-date">{$item.issuing_time}</span>
                         </li>
-                        <li>
-                            <a href="single-post.html">Hair You've Always Dreamed Of</a>
-                            <span class="post-date">May 27, 2018</span>
-                        </li>
-                        <li>
-                            <a href="single-post.html">15 Of The World's Best Carnivals</a>
-                            <span class="post-date">May 25, 2018</span>
-                        </li>
-                        <li>
-                            <a href="single-post.html">5 Ways to a Healthy Lifestyle</a>
-                            <span class="post-date">May 25, 2018</span>
-                        </li>
-                        <li>
-                            <a href="single-post.html">Best Breakfast In The World</a>
-                            <span class="post-date">May 23, 2018</span>
-                        </li>
+                        {/volist}
+                        {/notempty}
                     </ul>
                 </div>
             </div>

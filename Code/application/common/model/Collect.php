@@ -60,7 +60,4 @@ class Collect extends Model
         $this->customerId = $customerId;
     }
 
-
-
-
 }

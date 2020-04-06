@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: chuling
- * Date: 2020/3/20
- * Time: 22:54
- */
 
 namespace app\index\controller;
 
@@ -32,8 +26,8 @@ class Admin extends Controller
         $result = $result[0];
         if ($result) {
             if ($result['password'] == $post['password']) {
-                Session::set("nickName", $result['nick_name']);
-                Session::set("id", $result['id']);
+                Session::set("adminNickName", $result['nick_name']);
+                Session::set("adminId", $result['id']);
                 session('loginTime', time());
                 //登录成功
                 return json('success');
@@ -64,11 +58,11 @@ class Admin extends Controller
         return view('audit/auditArt');
     }
 
-    //通过文章审核
+    //通过该文章审核
     public function passArt()
     {
         $id = input()['id'];
-        $reviewer = Session::get("id");
+        $reviewer = Session::get("adminId");
         $result = Db::table("article")->where("id",$id)
             ->setField(["review_status"=>'1',"reviewer"=>$reviewer]);
         if ($result){
@@ -78,11 +72,11 @@ class Admin extends Controller
         }
     }
 
-    //驳回文章
+    //驳回该文章
     public function rejectArt()
     {
         $id = input()['id'];
-        $reviewer = Session::get("id");
+        $reviewer = Session::get("adminId");
         $result = Db::table("article")->where("id",$id)
             ->setField(["review_status"=>'0',"reviewer"=>$reviewer]);
         if ($result){
@@ -90,5 +84,29 @@ class Admin extends Controller
         } else {
             return $this->error("error");
         }
+    }
+
+    //通过审核选中文章
+    public function passList(Request $request)
+    {
+        $req = $request->post();
+        $list = $req['listId'];
+        for ($i = 0; $i < count($list);$i++) {
+            Db::table('article')->where('id',$list[$i])
+                ->setField(['review_status' => '1',"reviewer"=>Session::get("adminId")]);
+        }
+        return json('success');
+    }
+
+    //驳回审核选中文章
+    public function rejectList(Request $request)
+    {
+        $req = $request->post();
+        $list = $req['listId'];
+        for ($i = 0; $i < count($list);$i++) {
+            Db::table('article')->where('id',$list[$i])
+                ->setField(['review_status' => '0',"reviewer"=>Session::get("adminId")]);
+        }
+        return json('success');
     }
 }
