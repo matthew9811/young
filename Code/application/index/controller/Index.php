@@ -4,13 +4,11 @@ namespace app\index\controller;
 
 use app\common\model\User;
 use app\index\controller\common\Base;
-use think\Controller;
+use think\Cookie;
 use think\Db;
 use think\Request;
 use think\Response;
 use think\Session;
-use DateTime;
-use app\common\util\JsonUtil;
 use app\common\util\CosUtil;
 use app\common\model\Article;
 
@@ -149,10 +147,13 @@ class Index extends Base
         //存在数据
         if ($result[0]) {
             if ($result[0]['pwd'] == $post['password']) {
-                Session::set("nickName", $result[0]['nick_name']);
-                Session::set("id", $result[0]['id']);
-                session('loginTime', time());
+                Session::set($result[0]['nick_name'], $result[0]['nick_name']);
+                Session::set($result[0]['nick_name'].":id", $result[0]['id']);
+                session($result[0]['nick_name'].'loginTime', time());
                 //登录成功
+                Cookie::set("nickname", $result[0]['nick_name']);
+                Cookie::set("id", $result[0]['nick_name'].":id");
+                Cookie::set("loginTime", $result[0]['nick_name'].'loginTime');
                 return json('success');
             }
         }
@@ -179,7 +180,9 @@ class Index extends Base
     //用户退出登录
     public function toOut()
     {
-        session(null);
+        Cookie::delete("nickname");
+        Cookie::delete("id");
+        Cookie::delete("loginTime");
         return view("index/index");
     }
 

@@ -5,11 +5,12 @@ namespace app\index\controller;
 
 use app\common\model\Collect;
 use app\index\controller\common\Base;
+use app\index\controller\common\CheckLogin;
 use think\Controller;
 use think\Db;
 use think\Session;
 
-class Article extends Base
+class Article extends CheckLogin
 {
     //获取不同类型的文章列表 1为日期降序排序，2为收藏量与日期降序排序
     public function getArtList()

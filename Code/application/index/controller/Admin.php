@@ -4,12 +4,12 @@ namespace app\index\controller;
 
 
 use app\common\model\Manger;
-use think\Controller;
+use app\index\controller\common\CheckLogin;
 use think\Db;
 use think\Request;
 use think\Session;
 
-class Admin extends Controller
+class Admin extends CheckLogin
 {
     //管理员登录
     public function adminLogin(Request $request)

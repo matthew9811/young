@@ -5,6 +5,7 @@ namespace app\index\controller;
 use app\common\model\User;
 use app\common\model\Article;
 use app\index\controller\common\Base;
+use app\index\controller\common\CheckLogin;
 use think\Controller;
 use think\Db;
 use think\Request;
@@ -14,7 +15,7 @@ use DateTime;
 use app\common\util\JsonUtil;
 use app\common\util\CosUtil;
 
-class Person extends Base
+class Person extends CheckLogin
 {
 
     //修改个人资料

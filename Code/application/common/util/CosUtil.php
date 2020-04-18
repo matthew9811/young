@@ -46,4 +46,10 @@ class CosUtil extends Utils
             echo "$e\n";
         }
     }
+
+
+    function download()
+    {
+
+    }
 }
