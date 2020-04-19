@@ -17,11 +17,11 @@ class Index extends Base
 {
     public function index()
     {
-        $userId = Cookie::get("id");
-        $id = Session::get($userId);
-        $user = Base::getUser($id)[0];
-        $userArt = Base::getUserArt($id);
-        $userCollectArt = Base::getUserCollectArt($id);
+//        $userId = Cookie::get("id");
+//        $id = Session::get($userId);
+//        $user = Base::getUser($id)[0];
+//        $userArt = Base::getUserArt($id);
+//        $userCollectArt = Base::getUserCollectArt($id);
         $newArt = model("common/Article")->where("review_status", '1')
             ->order('issuing_time desc')->limit(5)->select();
         for ($i = 0; $i < count($newArt); $i++) {
@@ -73,9 +73,9 @@ class Index extends Base
                    issuing_time DESC,
                    collectNum DESC
                    LIMIT 5');
-        $this->assign('user',$user);
-        $this->assign('userArt',$userArt);
-        $this->assign('userCollect',$userCollectArt);
+//        $this->assign('user',$user);
+//        $this->assign('userArt',$userArt);
+//        $this->assign('userCollect',$userCollectArt);
         $this->assign('newArt',$newArt);
         $this->assign('collectArt',$collectArt);
         $this->assign('collectArtList',$collectArtList);

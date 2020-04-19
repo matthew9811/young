@@ -12,7 +12,7 @@
 use think\Route;
 
 //默认页面为登录选择页面
-Route::rule("/", "index/loginSelect");
+Route::rule("/", "index/index");
 
 
 return [
