@@ -21,8 +21,7 @@ class Person extends CheckLogin
 
     public function toArtList()
     {
-        $userId = Cookie::get("id");
-        $id = Session::get($userId);
+        $id = Session::get(Cookie::get("id"));
         $user = Base::getUser($id)[0];
         $userArt = Base::getUserArt($id);
         $userCollectArt = Base::getUserCollectArt($id);
@@ -37,8 +36,7 @@ class Person extends CheckLogin
 
     public function toMine()
     {
-        $userId = Cookie::get("id");
-        $id = Session::get($userId);
+        $id = Session::get(Cookie::get("id"));
         $user = Base::getUser($id)[0];
         $userArt = Base::getUserArt($id);
         $userCollectArt = Base::getUserCollectArt($id);
@@ -52,8 +50,7 @@ class Person extends CheckLogin
     public function setPerson(Request $request)
     {
         $req = $request->post();
-        $userId = Cookie::get("id");
-        $id = Session::get($userId);
+        $id = Session::get(Cookie::get("id"));
         $nick_name = $req["nickname"];
         $signature = $req["signature"];
         $pwd = $req["password"];
