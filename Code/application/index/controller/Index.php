@@ -165,8 +165,11 @@ class Index extends Base
     }
 
     //用户退出登录
+    //清除数据
     public function toOut()
     {
+
+
         Session::delete(Cookie::get("nickname"));
         Session::delete(Cookie::get("id"));
         Session::delete(Cookie::get("loginTime"));
