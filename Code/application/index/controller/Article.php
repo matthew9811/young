@@ -7,7 +7,6 @@ use app\common\model\Collect;
 use app\common\util\CosUtil;
 use app\index\controller\common\Base;
 use app\index\controller\common\CheckLogin;
-use think\Controller;
 use think\Db;
 use think\Request;
 use think\Response;
@@ -88,8 +87,6 @@ class Article extends CheckLogin
     //收藏文章
     public function collectArt()
     {
-        $obj=controller("index/common/Base");
-        $obj->_initialize();
         $collect = new Collect();
         $collect->article_id = input()['id'];
         $collect->customer_id = Session::get("id");
@@ -105,8 +102,6 @@ class Article extends CheckLogin
     //取消收藏
     public function cancelCollectArt()
     {
-        $obj=controller("index/common/Base");
-        $obj->_initialize();
         $article_id = input()['id'];
         $customer_id = Session::get("id");
         $result = Db::table("collect")->where("article_id",$article_id)

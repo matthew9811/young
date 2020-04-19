@@ -97,22 +97,6 @@ class Index extends Base
         return view('loginReg/login');
     }
 
-    public function toArtList()
-    {
-        $userId = Cookie::get("id");
-        $id = Session::get($userId);
-        $user = Base::getUser($id)[0];
-        $userArt = Base::getUserArt($id);
-        $userCollectArt = Base::getUserCollectArt($id);
-        $article = Db::table('article')->where('review_status','1')
-            ->order('issuing_time desc')->limit(12)->select();
-        $this->assign('article',$article);
-        $this->assign('user',$user);
-        $this->assign('userArt',$userArt);
-        $this->assign('userCollect',$userCollectArt);
-        return view('artList/artList');
-    }
-
 
 
     public function adminLogin()

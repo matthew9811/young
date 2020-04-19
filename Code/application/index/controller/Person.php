@@ -19,6 +19,22 @@ use app\common\util\CosUtil;
 class Person extends CheckLogin
 {
 
+    public function toArtList()
+    {
+        $userId = Cookie::get("id");
+        $id = Session::get($userId);
+        $user = Base::getUser($id)[0];
+        $userArt = Base::getUserArt($id);
+        $userCollectArt = Base::getUserCollectArt($id);
+        $article = Db::table('article')->where('review_status','1')
+            ->order('issuing_time desc')->limit(12)->select();
+        $this->assign('article',$article);
+        $this->assign('user',$user);
+        $this->assign('userArt',$userArt);
+        $this->assign('userCollect',$userCollectArt);
+        return view('artList/artList');
+    }
+
     public function toMine()
     {
         $userId = Cookie::get("id");
@@ -36,14 +52,16 @@ class Person extends CheckLogin
     public function setPerson(Request $request)
     {
         $req = $request->post();
-        $id = Session::get("id");
+        $userId = Cookie::get("id");
+        $id = Session::get($userId);
         $nick_name = $req["nickname"];
         $signature = $req["signature"];
         $pwd = $req["password"];
         if ($req["file"] != '0') {
             $photo = $req["file"];
             $fileKey = str_replace('.', '', uniqid('', true)) . '.html';
-            sleep(0.01);$cos = new CosUtil();
+            sleep(0.01);
+            $cos = new CosUtil();
             $cos->uploadString($fileKey, $photo);
             $result = Db::table("user")->where("id",$id)
                 ->setField(["nick_name"=>$nick_name,"signature"=>$signature,"pwd"=>$pwd,"photo"=>$fileKey]);

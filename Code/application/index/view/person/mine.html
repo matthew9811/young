@@ -90,7 +90,7 @@
                     <div class="row">
                         <div class="col-12 col-lg-7">
                             <p>
-                                <label>用户名</label><br />
+                                <label>用户名</label><br/>
                                 <input type="text" name="nickname" id="nickname" class="form-control" required="required" maxlength="50" value={$user.nick_name} />
                             </p>
                             <p>
@@ -222,6 +222,8 @@
                         console.log(data);
                         if (data.msg == "success") {
                             alert("修改成功！");
+                        }else {
+                            console.log(data);
                         }
                     },
                     error: function (data) {
