@@ -4,6 +4,7 @@ namespace app\index\controller;
 
 use app\common\model\User;
 use app\index\controller\common\Base;
+use app\index\controller\common\CheckLogin;
 use think\Cookie;
 use think\Db;
 use think\Request;
@@ -16,7 +17,8 @@ class Index extends Base
 {
     public function index()
     {
-        $id = Session::get("id");
+        $userId = Cookie::get("id");
+        $id = Session::get($userId);
         $user = Base::getUser($id)[0];
         $userArt = Base::getUserArt($id);
         $userCollectArt = Base::getUserCollectArt($id);
@@ -97,7 +99,8 @@ class Index extends Base
 
     public function toArtList()
     {
-        $id = Session::get("id");
+        $userId = Cookie::get("id");
+        $id = Session::get($userId);
         $user = Base::getUser($id)[0];
         $userArt = Base::getUserArt($id);
         $userCollectArt = Base::getUserCollectArt($id);
@@ -110,23 +113,7 @@ class Index extends Base
         return view('artList/artList');
     }
 
-    public function toAddition()
-    {
-        Base::_initialize();
-        return view('addition/addition');
-    }
 
-    public function toMine()
-    {
-        $id = Session::get("id");
-        $user = Base::getUser($id)[0];
-        $userArt = Base::getUserArt($id);
-        $userCollectArt = Base::getUserCollectArt($id);
-        $this->assign("user", $user);
-        $this->assign('userArt',$userArt);
-        $this->assign('userCollect',$userCollectArt);
-        return view('person/mine');
-    }
 
     public function adminLogin()
     {
@@ -180,46 +167,56 @@ class Index extends Base
     //用户退出登录
     public function toOut()
     {
+        Session::delete(Cookie::get("nickname"));
+        Session::delete(Cookie::get("id"));
+        Session::delete(Cookie::get("loginTime"));
         Cookie::delete("nickname");
         Cookie::delete("id");
         Cookie::delete("loginTime");
+        Cookie::clear();
         return view("index/index");
     }
 
 
-    /**
-     * 新增日记
-     * @param Request $request
-     * @param Response $response
-     * @return msg
-     */
-    public function addition(Request $request, Response $response)
+    //获取不同类型的文章列表 1为日期降序排序，2为收藏量与日期降序排序
+    public function getArtList()
     {
-        $post = $request->post();
-        //标题
-        $title = $post['title'];
-        //内容
-        $content = $post['code'];
-        //封面base64
-        $file = $post['file'];
-        $fileKey = str_replace('.', '', uniqid('', true)) . '.html';
-        sleep(0.01);
-        $contentKey = str_replace('.', '', uniqid('', true)) . '.html';
-        $cos = new CosUtil();
-        $cos->uploadString($fileKey, $file);
-        $cos->uploadString($contentKey, $content);
-        $article = new Article();
-        $article->customer_id = Session::get("id");
-        $article->content = $contentKey;
-        $article->cover = $fileKey;
-        $article->title = $title;
-        $article->issuing_time = date('Y-m-d H:i:s', time());
-        $article->review_status = '2';
-        $result = $article->save();
-        if ($result) {
-            return $this->success('success');
+        if (input()['type'] == '1')
+        {
+            $article = Db::table('article')->where('review_status','1')
+                ->order('issuing_time desc')->limit(12)->select();
         } else {
-            return $this->error("error");
+            $article = Db::query(
+                'SELECT
+                  a.title,
+                  a.id,
+                  a.cover,
+                  a.content,
+                  a.issuing_time,
+                  u.nick_name,
+                COUNT( c.article_id ) AS collectNum 
+                FROM
+                   article AS a
+                LEFT JOIN collect AS c ON a.id = c.article_id
+                LEFT JOIN `user` AS u ON a.customer_id = u.id 
+                WHERE
+                   a.review_status = 1 
+                GROUP BY
+                   a.id 
+                ORDER BY
+                   issuing_time DESC,
+                   collectNum DESC
+                   LIMIT 12');
         }
+        $userId = Cookie::get("id");
+        $id = Session::get($userId);
+        $user = Base::getUser($id)[0];
+        $userArt = Base::getUserArt($id);
+        $userCollectArt = Base::getUserCollectArt($id);
+        $this->assign("user", $user);
+        $this->assign('userArt',$userArt);
+        $this->assign('userCollect',$userCollectArt);
+        $this->assign('article',$article);
+        return view('artList/artList');
     }
 }

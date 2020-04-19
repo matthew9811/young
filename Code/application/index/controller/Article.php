@@ -4,53 +4,58 @@ namespace app\index\controller;
 
 
 use app\common\model\Collect;
+use app\common\util\CosUtil;
 use app\index\controller\common\Base;
 use app\index\controller\common\CheckLogin;
 use think\Controller;
 use think\Db;
+use think\Request;
+use think\Response;
 use think\Session;
 
 class Article extends CheckLogin
 {
-    //获取不同类型的文章列表 1为日期降序排序，2为收藏量与日期降序排序
-    public function getArtList()
+
+
+    public function toAddition()
     {
-        if (input()['type'] == '1')
-        {
-            $article = Db::table('article')->where('review_status','1')
-                ->order('issuing_time desc')->limit(12)->select();
+        return view('addition/addition');
+    }
+
+    /**
+     * 新增日记
+     * @param Request $request
+     * @param Response $response
+     * @return msg
+     */
+    public function addition(Request $request, Response $response)
+    {
+        $post = $request->post();
+        //标题
+        $title = $post['title'];
+        //内容
+        $content = $post['code'];
+        //封面base64
+        $file = $post['file'];
+        $fileKey = str_replace('.', '', uniqid('', true)) . '.html';
+        sleep(0.01);
+        $contentKey = str_replace('.', '', uniqid('', true)) . '.html';
+        $cos = new CosUtil();
+        $cos->uploadString($fileKey, $file);
+        $cos->uploadString($contentKey, $content);
+        $article = new \app\common\model\Article();
+        $article->customer_id = Session::get("id");
+        $article->content = $contentKey;
+        $article->cover = $fileKey;
+        $article->title = $title;
+        $article->issuing_time = date('Y-m-d H:i:s', time());
+        $article->review_status = '2';
+        $result = $article->save();
+        if ($result) {
+            return $this->success('success');
         } else {
-            $article = Db::query(
-                'SELECT
-                  a.title,
-                  a.id,
-                  a.cover,
-                  a.content,
-                  a.issuing_time,
-                  u.nick_name,
-                COUNT( c.article_id ) AS collectNum 
-                FROM
-                   article AS a
-                LEFT JOIN collect AS c ON a.id = c.article_id
-                LEFT JOIN `user` AS u ON a.customer_id = u.id 
-                WHERE
-                   a.review_status = 1 
-                GROUP BY
-                   a.id 
-                ORDER BY
-                   issuing_time DESC,
-                   collectNum DESC
-                   LIMIT 12');
+            return $this->error("error");
         }
-        $id = Session::get("id");
-        $user = Base::getUser($id)[0];
-        $userArt = Base::getUserArt($id);
-        $userCollectArt = Base::getUserCollectArt($id);
-        $this->assign("user", $user);
-        $this->assign('userArt',$userArt);
-        $this->assign('userCollect',$userCollectArt);
-        $this->assign('article',$article);
-        return view('artList/artList');
     }
 
     //文章详情页

@@ -7,6 +7,7 @@ use app\common\model\Article;
 use app\index\controller\common\Base;
 use app\index\controller\common\CheckLogin;
 use think\Controller;
+use think\Cookie;
 use think\Db;
 use think\Request;
 use think\Response;
@@ -17,6 +18,19 @@ use app\common\util\CosUtil;
 
 class Person extends CheckLogin
 {
+
+    public function toMine()
+    {
+        $userId = Cookie::get("id");
+        $id = Session::get($userId);
+        $user = Base::getUser($id)[0];
+        $userArt = Base::getUserArt($id);
+        $userCollectArt = Base::getUserCollectArt($id);
+        $this->assign("user", $user);
+        $this->assign('userArt',$userArt);
+        $this->assign('userCollect',$userCollectArt);
+        return view('person/mine');
+    }
 
     //修改个人资料
     public function setPerson(Request $request)
