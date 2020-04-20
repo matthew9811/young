@@ -5,7 +5,8 @@
     <title>Eskimo - HTML Template</title>
     <!-- META TAGS -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <!-- CSS FILES -->
@@ -15,57 +16,57 @@
 </head>
 
 <body>
-    <!-- READING POSITION INDICATOR -->
-    <progress value="0" id="eskimo-progress-bar">
+<!-- READING POSITION INDICATOR -->
+<progress value="0" id="eskimo-progress-bar">
         <span class="eskimo-progress-container">
             <span class="eskimo-progress-bar"></span>
         </span>
-    </progress>
-    <!-- SITE WRAPPER -->
-    <div id="eskimo-site-wrapper">
-        <!-- MAIN CONTAINER -->
-        <main id="eskimo-main-container">
-            <div class="container">
-                <!-- SIDEBAR -->
-                <div id="eskimo-sidebar">
-                    <div id="eskimo-sidebar-wrapper" class="d-flex align-items-start flex-column h-100 w-100">
-                        <!-- LOGO -->
-                        <div id="eskimo-logo-cell" class="w-100">
-                            <a class="eskimo-logo-link" href="/index/Index/index">
-                                <img src="/common/image/logo.png" class="eskimo-logo" alt="eskimo" />
-                            </a>
-                        </div>
-                        <!-- MENU CONTAINER -->
-                        <div id="eskimo-sidebar-cell" class="w-100">
-                            <!-- MOBILE MENU BUTTON -->
-                            <div id="eskimo-menu-toggle">MENU</div>
-                            <!-- MENU -->
-                            <nav id="eskimo-main-menu" class="menu-main-menu-container">
-                                <ul class="eskimo-menu-ul">
-                                    <li>
-                                        <a href="/index/Index/index">首页</a>
-                                    </li>
-                                    <li>
-                                        <a href='/index/Person/toArtList'>日记</a>
-                                    </li>
-                                    <li>
-                                        <a href="/index/Article/toAddition">分享</a>
-                                    </li>
-                                    <li>
-                                        <a href="/index/Person/toMine">修改资料</a>
-                                    </li>
+</progress>
+<!-- SITE WRAPPER -->
+<div id="eskimo-site-wrapper">
+    <!-- MAIN CONTAINER -->
+    <main id="eskimo-main-container">
+        <div class="container">
+            <!-- SIDEBAR -->
+            <div id="eskimo-sidebar">
+                <div id="eskimo-sidebar-wrapper" class="d-flex align-items-start flex-column h-100 w-100">
+                    <!-- LOGO -->
+                    <div id="eskimo-logo-cell" class="w-100">
+                        <a class="eskimo-logo-link" href="/index/Index/index">
+                            <img src="/common/image/logo.png" class="eskimo-logo" alt="eskimo"/>
+                        </a>
+                    </div>
+                    <!-- MENU CONTAINER -->
+                    <div id="eskimo-sidebar-cell" class="w-100">
+                        <!-- MOBILE MENU BUTTON -->
+                        <div id="eskimo-menu-toggle">MENU</div>
+                        <!-- MENU -->
+                        <nav id="eskimo-main-menu" class="menu-main-menu-container">
+                            <ul class="eskimo-menu-ul">
+                                <li>
+                                    <a href="/index/Index/index">首页</a>
+                                </li>
+                                <li>
+                                    <a href='/index/Person/toArtList'>日记</a>
+                                </li>
+                                <li>
+                                    <a href="/index/Article/toAddition">分享</a>
+                                </li>
+                                <li>
+                                    <a href="/index/Person/toMine">修改资料</a>
+                                </li>
 
-                                    <li>
-                                        <a href="/index/Index/adminLogin">管理入口</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                        <!-- SOCIAL MEDIA ICONS -->
-                        <div id="eskimo-social-cell" class="mt-auto w-100">
+                                <li>
+                                    <a href="/index/Index/adminLogin">管理入口</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- SOCIAL MEDIA ICONS -->
+                    <div id="eskimo-social-cell" class="mt-auto w-100">
                         <div id="eskimo-social-inner">
                             <ul class="eskimo-social-icons">
-                               {if condition="empty($Request.cookie.nickname) eq true"}
+                                {if condition="empty($Request.cookie.nickname) eq true"}
                                 <li><a href='/index/Index/toLogin'>登录</a></li>
                                 <li><a style="color: #FFFFFF">/</a></li>
                                 <li><a href='/index/Index/toReg'>注册</a></li>
@@ -78,164 +79,177 @@
                             <div class="clearfix"></div>
                         </div>
                     </div>
-                    </div>
                 </div>
-                <!-- TOP ICONS -->
-                <ul class="eskimo-top-icons">
-                    <li id="eskimo-panel-icon">
-                        <a href="#eskimo-panel" class="eskimo-panel-open"><i class="fa fa-bars"></i></a>
-                    </li>
-                    <li id="eskimo-search-icon">
-                        <a id="eskimo-open-search" href="#"><i class="fa fa-search"></i></a>
-                    </li>
-                </ul>
-                <div class="clearfix"></div>
-                <!-- PAGE TITLE -->
-                <div class="eskimo-page-title">
-                    <h1 class="no-border">豆蔻精选</h1>
-                </div>
-                <!-- BLOG POSTS -->
-                <div class="eskimo-masonry-grid small-masonry">
-                    <div class="eskimo-three-columns" data-columns>
-                        <!-- POST 1 -->
-                        {notempty name="article"}
-                        {volist name="article" id="item"}
-                        <div class="card-masonry card-small">
-                            <div class="card">
-                                <a href="{:url('/index/Article/toArticle?id='.$item['id'])}">
-                                    <img class="card-vertical-img" src="/common/uploads/2018/05/blog4-1-900x600.jpg" alt="Ketchup Flavored Ice Cream!" />
-                                </a>
-                                <div class="card-border">
-                                    <div class="card-body">
-                                        <div class="card-category">
-                                            <a href="{:url('/index/Article/toArticle?id='.$item['id'])}">{$item.issuing_time}</a>
-                                        </div>
-                                        <h5 class="card-title">
-                                            <a href="{:url('/index/Article/toArticle?id='.$item['id'])}">{$item.title}</a>
-                                        </h5>
+            </div>
+            <!-- TOP ICONS -->
+            <ul class="eskimo-top-icons">
+                <li id="eskimo-panel-icon">
+                    <a href="#eskimo-panel" class="eskimo-panel-open"><i class="fa fa-bars"></i></a>
+                </li>
+                <li id="eskimo-search-icon">
+                    <a id="eskimo-open-search" href="#"><i class="fa fa-search"></i></a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+            <!-- PAGE TITLE -->
+            <div class="eskimo-page-title">
+                <h1 class="no-border">豆蔻精选</h1>
+            </div>
+            <!-- BLOG POSTS -->
+            <div class="eskimo-masonry-grid small-masonry">
+                <div class="eskimo-three-columns" data-columns>
+                    <!-- POST 1 -->
+                    {notempty name="article"}
+                    {volist name="article" id="item"}
+                    <div class="card-masonry card-small">
+                        <div class="card">
+                            <a href="{:url('/index/Article/toArticle?id='.$item['id'])}">
+                                <img class="card-vertical-img" src="/common/uploads/2018/05/blog4-1-900x600.jpg"
+                                     alt="Ketchup Flavored Ice Cream!"/>
+                            </a>
+                            <div class="card-border">
+                                <div class="card-body">
+                                    <div class="card-category">
+                                        <a href="{:url('/index/Article/toArticle?id='.$item['id'])}">{$item.issuing_time}</a>
                                     </div>
+                                    <h5 class="card-title">
+                                        <a href="{:url('/index/Article/toArticle?id='.$item['id'])}">{$item.title}</a>
+                                    </h5>
                                 </div>
                             </div>
                         </div>
-                        {/volist}
-                        {/notempty}
                     </div>
-                </div>
-                <!-- PAGINATION -->
-                <div class="eskimo-pager">
-                    <ul class='pagination flex-wrap'>
-                        <li class='page-item active'><a class='page-link' href='#'>1</a></li>
-                        <li class='page-item'><a class='page-link' href='#'>2</a></li>
-                        <li class='page-item'><a class='page-link' href='#'>3</a></li>
-                        <li class='page-item'><a class='page-link' href="#"><i class="fa fa-chevron-right"></i></a></li>
-                    </ul>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-        </main>
-    </div>
-    <!-- GO TO TOP BUTTON -->
-    <a id="eskimo-gototop" href="#"><i class="fa fa-chevron-up"></i></a>
-    <!-- SLIDE PANEL OVERLAY -->
-    <div id="eskimo-overlay"></div>
-    <!-- SLIDE PANEL -->
-    <div id="eskimo-panels">
-        <aside id="eskimo-panel" class="eskimo-panel">
-            {if condition="empty($user) neq true"}
-            <div class="eskimo-panel-inner">
-                <!-- CLOSE SLIDE PANEL BUTTON -->
-                <a href="#" class="eskimo-panel-close"><i class="fa fa-times"></i></a>
-                <!-- AUTHOR BOX -->
-                <div class="eskimo-author-box eskimo-widget">
-                    <div class="eskimo-author-img">
-                        <img src="/common/uploads/2018/05/img.jpg" alt="JOHN DOE"/>
-                    </div>
-                    <h3><span>{$user.nick_name}</span></h3>
-                    <p class="eskimo-author-description">{$user.signature}</p>
-                    <div class="eskimo-author-box-btn">
-                        <a class="btn btn-default" href="/index/Index/toMine">修改资料</a>
-                    </div>
-                </div>
-                <!-- SELF POSTS -->
-                <div class="eskimo-recent-entries eskimo-widget">
-                    <h5 class="eskimo-title-with-border"><a href="/index/Person/toMineArtList">个人豆蔻</a></h5>
-                    <ul>
-                        {notempty name="userArt"}
-                        {volist name="userArt" id="item"}
-                        <li>
-                            <a href="{:url('/index/Article/toArticle?id='.$item['id'])}">{$item.title}</a>
-                            <span class="post-date">{$item.issuing_time}</span>
-                        </li>
-                        {/volist}
-                        {/notempty}
-                    </ul>
-                </div>
-
-                <!-- LOVE POSTS -->
-                <div class="eskimo-recent-entries eskimo-widget">
-                    <h5 class="eskimo-title-with-border"><a href="/index/Person/toLikeArtList">收藏豆蔻</a></h5>
-                    <ul>
-                        {notempty name="userCollect"}
-                        {volist name="userCollect" id="item"}
-                        <li>
-                            <a href="{:url('/index/Article/toArticle?id='.$item['id'])}">{$item.title}</a>
-                            <span class="post-date">{$item.issuing_time}</span>
-                        </li>
-                        {/volist}
-                        {/notempty}
-                    </ul>
+                    {/volist}
+                    {/notempty}
                 </div>
             </div>
-            {/if}
-            {if condition="empty($user) neq false"}
-            <div class="eskimo-panel-inner">
-                <!-- CLOSE SLIDE PANEL BUTTON -->
-                <a href="#" class="eskimo-panel-close"><i class="fa fa-times"></i></a>
-                <!-- AUTHOR BOX -->
-                <div class="eskimo-author-box eskimo-widget">
-                    <div class="eskimo-author-img">
-                        <img src="/common/uploads/2018/05/img.jpg" alt="JOHN DOE"/>
-                    </div>
-                    <h3><span>请先登录</span></h3>
-                    <p class="eskimo-author-description"></p>
-                    <div class="eskimo-author-box-btn">
-                        <a class="btn btn-default" href="/index/Index/toLogin">去登陆</a>
-                    </div>
-                </div>
+            <!-- PAGINATION -->
+            <div class="eskimo-pager">
+                <ul class='pagination flex-wrap'>
+                    <li class='page-item'><a id="left" class='page-link' href="{:url('/index/Index/getArtList?type=1&page=')}{$page-2}"><i class="fa fa-chevron-left"></i></a>
+                    </li>
+                    <li class='page-item'><a id="right" class='page-link' href="{:url('/index/Index/getArtList?type=1&page=')}{$page}"><i
+                            class="fa fa-chevron-right"></i></a></li>
+                </ul>
             </div>
-            {/if}
-        </aside>
-    </div>
-    <!-- FULLSCREEN SEARCH -->
-    <div id="eskimo-fullscreen-search">
-        <div id="eskimo-fullscreen-search-content">
-            <a href="#" id="eskimo-close-search"><i class="fa fa-times"></i></a>
-            <form role="search" method="get" action="search.html" class="eskimo-lg-form">
-                <div class="input-group">
-                    <input type="text" id="searchText" class="form-control form-control-lg" placeholder="关键字" name="s" />
-                    <div class="input-group-append">
-                        <button id="search" type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                    </div>
-                </div>
-            </form>
+            <div class="clearfix"></div>
         </div>
+    </main>
+</div>
+<!-- GO TO TOP BUTTON -->
+<a id="eskimo-gototop" href="#"><i class="fa fa-chevron-up"></i></a>
+<!-- SLIDE PANEL OVERLAY -->
+<div id="eskimo-overlay"></div>
+<!-- SLIDE PANEL -->
+<div id="eskimo-panels">
+    <aside id="eskimo-panel" class="eskimo-panel">
+        {if condition="empty($user) neq true"}
+        <div class="eskimo-panel-inner">
+            <!-- CLOSE SLIDE PANEL BUTTON -->
+            <a href="#" class="eskimo-panel-close"><i class="fa fa-times"></i></a>
+            <!-- AUTHOR BOX -->
+            <div class="eskimo-author-box eskimo-widget">
+                <div class="eskimo-author-img">
+                    <img src="/common/uploads/2018/05/img.jpg" alt="JOHN DOE"/>
+                </div>
+                <h3><span>{$user.nick_name}</span></h3>
+                <p class="eskimo-author-description">{$user.signature}</p>
+                <div class="eskimo-author-box-btn">
+                    <a class="btn btn-default" href="/index/Index/toMine">修改资料</a>
+                </div>
+            </div>
+            <!-- SELF POSTS -->
+            <div class="eskimo-recent-entries eskimo-widget">
+                <h5 class="eskimo-title-with-border"><a href="/index/Person/toMineArtList">个人豆蔻</a></h5>
+                <ul>
+                    {notempty name="userArt"}
+                    {volist name="userArt" id="item"}
+                    <li>
+                        <a href="{:url('/index/Article/toArticle?id='.$item['id'])}">{$item.title}</a>
+                        <span class="post-date">{$item.issuing_time}</span>
+                    </li>
+                    {/volist}
+                    {/notempty}
+                </ul>
+            </div>
+
+            <!-- LOVE POSTS -->
+            <div class="eskimo-recent-entries eskimo-widget">
+                <h5 class="eskimo-title-with-border"><a href="/index/Person/toLikeArtList">收藏豆蔻</a></h5>
+                <ul>
+                    {notempty name="userCollect"}
+                    {volist name="userCollect" id="item"}
+                    <li>
+                        <a href="{:url('/index/Article/toArticle?id='.$item['id'])}">{$item.title}</a>
+                        <span class="post-date">{$item.issuing_time}</span>
+                    </li>
+                    {/volist}
+                    {/notempty}
+                </ul>
+            </div>
+        </div>
+        {/if}
+        {if condition="empty($user) neq false"}
+        <div class="eskimo-panel-inner">
+            <!-- CLOSE SLIDE PANEL BUTTON -->
+            <a href="#" class="eskimo-panel-close"><i class="fa fa-times"></i></a>
+            <!-- AUTHOR BOX -->
+            <div class="eskimo-author-box eskimo-widget">
+                <div class="eskimo-author-img">
+                    <img src="/common/uploads/2018/05/img.jpg" alt="JOHN DOE"/>
+                </div>
+                <h3><span>请先登录</span></h3>
+                <p class="eskimo-author-description"></p>
+                <div class="eskimo-author-box-btn">
+                    <a class="btn btn-default" href="/index/Index/toLogin">去登陆</a>
+                </div>
+            </div>
+        </div>
+        {/if}
+    </aside>
+</div>
+<!-- FULLSCREEN SEARCH -->
+<div id="eskimo-fullscreen-search">
+    <div id="eskimo-fullscreen-search-content">
+        <a href="#" id="eskimo-close-search"><i class="fa fa-times"></i></a>
+        <form role="search" method="get" action="search.html" class="eskimo-lg-form">
+            <div class="input-group">
+                <input type="text" id="searchText" class="form-control form-control-lg" placeholder="关键字" name="s"/>
+                <div class="input-group-append">
+                    <button id="search" type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </form>
     </div>
-    <!-- JS FILES -->
-    <script src="/common/js/jquery-3.3.1.min.js"></script>
-    <script src="/common/js/bootstrap.min.js"></script>
-    <script src="/common/js/salvattore.min.js"></script>
-    <script src="/common/js/panel.js"></script>
-    <script src="/common/js/reading-position-indicator.js"></script>
-    <script src="/common/js/custom.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            //获取搜索框输入值
-            $("#search").click(function () {
-                let search = $('#searchText').val();
-                console.log(search);
-            })
-        })
-    </script>
+</div>
+<!-- JS FILES -->
+<script src="/common/js/jquery-3.3.1.min.js"></script>
+<script src="/common/js/bootstrap.min.js"></script>
+<script src="/common/js/salvattore.min.js"></script>
+<script src="/common/js/panel.js"></script>
+<script src="/common/js/reading-position-indicator.js"></script>
+<script src="/common/js/custom.js"></script>
+<script type="text/javascript">
+    $(function () {
+        let page = {$page};
+        if (page == 1) {
+            let aHtml = $('#left').html();
+            aHtml.css("cursor", "default");
+            aHtml.attr('href', '#');
+        }
+        let content = {:json_encode($article)};
+        if (content == null || content == undefined || content == ''){
+            let aHtml = $('#right').html();
+            aHtml.css("cursor", "default");
+            aHtml.attr('href', '#');
+        }
+    });
+    //获取搜索框输入值
+    $("#search").click(function () {
+        let search = $('#searchText').val();
+        console.log(search);
+    })
+</script>
 </body>
 
 </html>

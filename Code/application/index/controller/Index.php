@@ -168,10 +168,11 @@ class Index extends Base
     //获取不同类型的文章列表 1为日期降序排序，2为收藏量与日期降序排序
     public function getArtList()
     {
+        $page = input()['page'];
         if (input()['type'] == '1')
         {
             $article = Db::table('article')->where('review_status','1')
-                ->order('issuing_time desc')->limit(12)->select();
+                ->order('issuing_time desc')->limit($page*12, 12)->select();
         } else {
             $article = Db::query(
                 'SELECT
@@ -204,6 +205,7 @@ class Index extends Base
         $this->assign('userArt',$userArt);
         $this->assign('userCollect',$userCollectArt);
         $this->assign('article',$article);
+        $this->assign('page', $page + 1);
         return view('artList/artList');
     }
 }
