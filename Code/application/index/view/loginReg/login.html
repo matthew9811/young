@@ -5,7 +5,8 @@
     <title>Eskimo - HTML Template</title>
     <!-- META TAGS -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <!-- CSS FILES -->
@@ -16,57 +17,57 @@
 </head>
 
 <body>
-    <!-- READING POSITION INDICATOR -->
-    <progress value="0" id="eskimo-progress-bar">
+<!-- READING POSITION INDICATOR -->
+<progress value="0" id="eskimo-progress-bar">
         <span class="eskimo-progress-container">
             <span class="eskimo-progress-bar"></span>
         </span>
-    </progress>
-    <!-- SITE WRAPPER -->
-    <div id="eskimo-site-wrapper">
-        <!-- MAIN CONTAINER -->
-        <main id="eskimo-main-container">
-            <div class="container">
-                <!-- SIDEBAR -->
-                <div id="eskimo-sidebar">
-                    <div id="eskimo-sidebar-wrapper" class="d-flex align-items-start flex-column h-100 w-100">
-                        <!-- LOGO -->
-                        <div id="eskimo-logo-cell" class="w-100">
-                            <a class="eskimo-logo-link" href="/index/Index/index">
-                                <img src="/common/image/logo.png" class="eskimo-logo" alt="eskimo" />
-                            </a>
-                        </div>
-                        <!-- MENU CONTAINER -->
-                        <div id="eskimo-sidebar-cell" class="w-100">
-                            <!-- MOBILE MENU BUTTON -->
-                            <div id="eskimo-menu-toggle">MENU</div>
-                            <!-- MENU -->
-                            <nav id="eskimo-main-menu" class="menu-main-menu-container">
-                                <ul class="eskimo-menu-ul">
-                                    <li>
-                                        <a href="/index/Index/index">首页</a>
-                                    </li>
-                                    <li>
-                                        <a href='/index/Person/toArtList'>日记</a>
-                                    </li>
-                                    <li>
-                                        <a href="/index/Article/toAddition">分享</a>
-                                    </li>
-                                    <li>
-                                        <a href="/index/Person/toMine">修改资料</a>
-                                    </li>
+</progress>
+<!-- SITE WRAPPER -->
+<div id="eskimo-site-wrapper">
+    <!-- MAIN CONTAINER -->
+    <main id="eskimo-main-container">
+        <div class="container">
+            <!-- SIDEBAR -->
+            <div id="eskimo-sidebar">
+                <div id="eskimo-sidebar-wrapper" class="d-flex align-items-start flex-column h-100 w-100">
+                    <!-- LOGO -->
+                    <div id="eskimo-logo-cell" class="w-100">
+                        <a class="eskimo-logo-link" href="/index/Index/index">
+                            <img src="/common/image/logo.png" class="eskimo-logo" alt="eskimo"/>
+                        </a>
+                    </div>
+                    <!-- MENU CONTAINER -->
+                    <div id="eskimo-sidebar-cell" class="w-100">
+                        <!-- MOBILE MENU BUTTON -->
+                        <div id="eskimo-menu-toggle">MENU</div>
+                        <!-- MENU -->
+                        <nav id="eskimo-main-menu" class="menu-main-menu-container">
+                            <ul class="eskimo-menu-ul">
+                                <li>
+                                    <a href="/index/Index/index">首页</a>
+                                </li>
+                                <li>
+                                    <a href='/index/Person/toArtList'>日记</a>
+                                </li>
+                                <li>
+                                    <a href="/index/Article/toAddition">分享</a>
+                                </li>
+                                <li>
+                                    <a href="/index/Person/toMine">修改资料</a>
+                                </li>
 
-                                    <li>
-                                        <a href="/index/Index/adminLogin">管理入口</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                        <!-- SOCIAL MEDIA ICONS -->
-                        <div id="eskimo-social-cell" class="mt-auto w-100">
+                                <li>
+                                    <a href="/index/Index/adminLogin">管理入口</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- SOCIAL MEDIA ICONS -->
+                    <div id="eskimo-social-cell" class="mt-auto w-100">
                         <div id="eskimo-social-inner">
                             <ul class="eskimo-social-icons">
-                               {if condition="empty($Request.cookie.nickname) eq true"}
+                                {if condition="empty($Request.cookie.nickname) eq true"}
                                 <li><a href='/index/Index/toLogin'>登录</a></li>
                                 <li><a style="color: #FFFFFF">/</a></li>
                                 <li><a href='/index/Index/toReg'>注册</a></li>
@@ -79,71 +80,74 @@
                             <div class="clearfix"></div>
                         </div>
                     </div>
-                    </div>
                 </div>
-                <h2>登录——豆蔻年华 EIGHTEEN</h2>
-                <!-- CONTACT FORM -->
-                <div id="login-form">
-                    <div class="row">
-                        <div class="col-12 col-lg-6">
-                            <p>
-                                <label>用户名</label><br />
-                                <input type="text" name="nickName" id="nickName" class="form-control" required="required" maxlength="17" />
-                            </p>
-                            <p>
-                                <label>密码</label><br />
-                                <input type="password" name="password" id="password" class="form-control" required="required" maxlength="17" />
-                            </p>
-                            <button id="sendbutton" type="submit" class="btn btn-lg w-100">登录</button>
-                        </div>
-                        <div class="col-12 col-lg-4">
-                            <img src="/common/image/young.jpg" alt="Jane Doe" class="img-fluid mx-auto d-block eskimo-img-shadow" />
-                        </div>
-                    </div>
-                </div>
-                <div id="form-messages"></div>
             </div>
-        </main>
-    </div>
-    <!-- SLIDE PANEL OVERLAY -->
-    <div id="eskimo-overlay"></div>
-    <!-- JS FILES -->
-    <script src="/common/js/jquery-3.3.1.min.js"></script>
-    <script src="/common/js/bootstrap.min.js"></script>
-    <script src="/common/js/salvattore.min.js"></script>
-    <script src="/common/js/panel.js"></script>
-    <script src="/common/js/reading-position-indicator.js"></script>
-    <script src="/common/js/featherlight.js"></script>
-    <script src="/common/js/ajax-contact-form.js"></script>
-    <script src="/common/js/custom.js"></script>
-    <script>
-        (function ($) {
-            $("#sendbutton").on("click", function () {
-                var nickName = $("#login-form input[name=nickName]").val();//用户名
-                var password = $("#login-form input[name=password]").val();//密码
-                var data = {
-                    nickName: nickName,
-                    password: password
-                };
-                $.ajax({
-                    url: "/index/Index/login",
-                    type: 'post',
-                    data: data,
-                    success: function (data) {
-                        if (data == 'success') {
-                            window.location.href = 'index/index/index';
-                        } else {
-                            alert(data);
-                        }
-                    },
-                    error: function (data) {
+            <h2>登录——豆蔻年华 EIGHTEEN</h2>
+            <!-- CONTACT FORM -->
+            <div id="login-form">
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <p>
+                            <label>用户名</label><br/>
+                            <input type="text" name="nickName" id="nickName" class="form-control"
+                                   required="required" maxlength="17"/>
+                        </p>
+                        <p>
+                            <label>密码</label><br/>
+                            <input type="password" name="password" id="password" class="form-control"
+                                   required="required" maxlength="17"/>
+                        </p>
+                        <button id="sendbutton" type="submit" class="btn btn-lg w-100">登录</button>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <img src="/common/image/young.jpg" alt="Jane Doe" class="img-fluid mx-auto d-block
+                            eskimo-img-shadow"/>
+                    </div>
+                </div>
+            </div>
+            <div id="form-messages"></div>
+        </div>
+    </main>
+</div>
+<!-- SLIDE PANEL OVERLAY -->
+<div id="eskimo-overlay"></div>
+<!-- JS FILES -->
+<script src="/common/js/jquery-3.3.1.min.js"></script>
+<script src="/common/js/bootstrap.min.js"></script>
+<script src="/common/js/salvattore.min.js"></script>
+<script src="/common/js/panel.js"></script>
+<script src="/common/js/reading-position-indicator.js"></script>
+<script src="/common/js/featherlight.js"></script>
+<script src="/common/js/ajax-contact-form.js"></script>
+<script src="/common/js/custom.js"></script>
+<script>
+    (function ($) {
+        $("#sendbutton").on("click", function () {
+            var nickName = $("#login-form input[name=nickName]").val();//用户名
+            var password = $("#login-form input[name=password]").val();//密码
+            var data = {
+                nickName: nickName,
+                password: password
+            };
+            $.ajax({
+                url: "/index/Index/login",
+                type: 'post',
+                data: data,
+                success: function (data) {
+                    if (data == 'success') {
+                        window.location.href = 'index/index/index';
+                    } else {
                         alert(data);
                     }
-                });
+                },
+                error: function (data) {
+                    alert(data);
+                }
+            });
 
-            })
-        })(jQuery);
-    </script>
+        })
+    })(jQuery);
+</script>
 </body>
 
 </html>

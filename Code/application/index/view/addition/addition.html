@@ -36,7 +36,7 @@
                     <!-- LOGO -->
                     <div id="eskimo-logo-cell" class="w-100">
                         <a class="eskimo-logo-link" href="/index/Index/index">
-                            <img src="/common/image/logo.png" class="eskimo-logo" alt="eskimo" />
+                            <img src="/common/image/logo.png" class="eskimo-logo" alt="eskimo"/>
                         </a>
                     </div>
                     <!-- MENU CONTAINER -->
@@ -69,7 +69,7 @@
                     <div id="eskimo-social-cell" class="mt-auto w-100">
                         <div id="eskimo-social-inner">
                             <ul class="eskimo-social-icons">
-                               {if condition="empty($Request.cookie.nickname) eq true"}
+                                {if condition="empty($Request.cookie.nickname) eq true"}
                                 <li><a href='/index/Index/toLogin'>登录</a></li>
                                 <li><a style="color: #FFFFFF">/</a></li>
                                 <li><a href='/index/Index/toReg'>注册</a></li>
@@ -88,22 +88,23 @@
             <div class="row">
                 <div class="col-12 col-lg-12">
                     <p>
-                        <label>标题</label><br />
-                        <input type="text" name="title" id="title" class="form-control" required="required" maxlength="50" />
+                        <label>标题</label><br/>
+                        <input type="text" name="title" id="title" class="form-control" required="required"
+                               maxlength="50"/>
                     </p>
                     <p>
                         <label>封面</label>
-                        <div id="drop_area"></div>
+                    <div id="drop_area"></div>
                     </p>
                 </div>
             </div>
             <br>
             <div>
-                    <textarea id="summernote" name="editordata"></textarea>
-                    <br>
-                    <div class="col-12 col-lg-6">
-                        <button id="submit" type="submit" class="btn btn-lg w-100">发布</button>
-                    </div>
+                <textarea id="summernote" name="editordata"></textarea>
+                <br>
+                <div class="col-12 col-lg-6">
+                    <button id="submit" type="submit" class="btn btn-lg w-100">发布</button>
+                </div>
             </div>
 
         </div>
@@ -179,7 +180,7 @@
 <script type="text/javascript">
     $(function () {
         let file;
-        $(document).ready(function() {
+        $(document).ready(function () {
             //富文本编辑器设置
             $('#summernote').summernote({
                 lang: 'zh-CN',
@@ -188,15 +189,15 @@
         });
 
         //封面上传组件
-        new DragImgUpload("#drop_area",{
-            callback:function (files) {
+        new DragImgUpload("#drop_area", {
+            callback: function (files) {
                 file = files;
             }
-        },"/common/image/upload.png");
+        }, "/common/image/upload.png");
 
         //点击提交按钮
         $("#submit").click(function () {
-            $("#submit").css({'background-color' : 'gray'});
+            $("#submit").css({'background-color': 'gray'});
             $("#submit").attr("disabled", true);
             let code = $('#summernote').summernote('code');
             let title = $('#title').val(); //标题
@@ -205,7 +206,7 @@
                 return;
             }
             $.ajax({
-                url: "/index/Index/addition",
+                url: "/index/Article/addition",
                 type: 'post',
                 data: {title: title, code: code, file: file},
                 success: function (data) {
