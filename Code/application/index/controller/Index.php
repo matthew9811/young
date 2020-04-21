@@ -17,6 +17,7 @@ class Index extends Base
 {
     public function index()
     {
+        //提示：需要判断用户是否登录
 //        $userId = Cookie::get("id");
 //        $id = Session::get($userId);
 //        $user = Base::getUser($id)[0];
@@ -87,18 +88,19 @@ class Index extends Base
         return view("index");
     }
 
+    //跳转注册页
     public function toReg()
     {
         return view('loginReg/register');
     }
 
+    //跳转登录页
     public function toLogin()
     {
         return view('loginReg/login');
     }
 
-
-
+    //跳转管理员登录页
     public function adminLogin()
     {
         return view('loginReg/adminLogin');
@@ -148,12 +150,9 @@ class Index extends Base
 
     }
 
-    //用户退出登录
-    //清除数据
+    //用户退出登录，清除数据
     public function toOut()
     {
-
-
         Session::delete(Cookie::get("nickname"));
         Session::delete(Cookie::get("id"));
         Session::delete(Cookie::get("loginTime"));
@@ -164,48 +163,4 @@ class Index extends Base
         return view("index/index");
     }
 
-
-    //获取不同类型的文章列表 1为日期降序排序，2为收藏量与日期降序排序
-    public function getArtList()
-    {
-        $page = input()['page'];
-        if (input()['type'] == '1')
-        {
-            $article = Db::table('article')->where('review_status','1')
-                ->order('issuing_time desc')->limit($page*12, 12)->select();
-        } else {
-            $article = Db::query(
-                'SELECT
-                  a.title,
-                  a.id,
-                  a.cover,
-                  a.content,
-                  a.issuing_time,
-                  u.nick_name,
-                COUNT( c.article_id ) AS collectNum 
-                FROM
-                   article AS a
-                LEFT JOIN collect AS c ON a.id = c.article_id
-                LEFT JOIN `user` AS u ON a.customer_id = u.id 
-                WHERE
-                   a.review_status = 1 
-                GROUP BY
-                   a.id 
-                ORDER BY
-                   issuing_time DESC,
-                   collectNum DESC
-                   LIMIT 12');
-        }
-        $userId = Cookie::get("id");
-        $id = Session::get($userId);
-        $user = Base::getUser($id)[0];
-        $userArt = Base::getUserArt($id);
-        $userCollectArt = Base::getUserCollectArt($id);
-        $this->assign("user", $user);
-        $this->assign('userArt',$userArt);
-        $this->assign('userCollect',$userCollectArt);
-        $this->assign('article',$article);
-        $this->assign('page', $page + 1);
-        return view('artList/artList');
-    }
 }

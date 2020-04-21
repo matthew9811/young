@@ -47,7 +47,7 @@
                                     <a href="/index/Index/index">首页</a>
                                 </li>
                                 <li>
-                                    <a href='/index/Person/toArtList'>日记</a>
+                                    <a href="{:url('/index/Article/toArtList?page=0')}">日记</a>
                                 </li>
                                 <li>
                                     <a href="/index/Article/toAddition">分享</a>
@@ -126,10 +126,16 @@
             <!-- PAGINATION -->
             <div class="eskimo-pager">
                 <ul class='pagination flex-wrap'>
-                    <li class='page-item'><a id="left" class='page-link' href="{:url('/index/Index/getArtList?type=1&page=')}{$page-2}"><i class="fa fa-chevron-left"></i></a>
+                    <li class='page-item'>
+                        <a id="left" class='page-link' href="{:url('/index/Article/getArtList?type=1&page=')}{$page-2}">
+                            <i class="fa fa-chevron-left"></i>
+                        </a>
                     </li>
-                    <li class='page-item'><a id="right" class='page-link' href="{:url('/index/Index/getArtList?type=1&page=')}{$page}"><i
-                            class="fa fa-chevron-right"></i></a></li>
+                    <li class='page-item'>
+                        <a id="right" class='page-link' href="{:url('/index/Article/getArtList?type=1&page=')}{$page}">
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div class="clearfix"></div>
@@ -155,12 +161,15 @@
                 <h3><span>{$user.nick_name}</span></h3>
                 <p class="eskimo-author-description">{$user.signature}</p>
                 <div class="eskimo-author-box-btn">
-                    <a class="btn btn-default" href="/index/Index/toMine">修改资料</a>
+                    <a class="btn btn-default" href="/index/Person/toMine">修改资料</a>
                 </div>
             </div>
             <!-- SELF POSTS -->
             <div class="eskimo-recent-entries eskimo-widget">
-                <h5 class="eskimo-title-with-border"><a href="/index/Person/toMineArtList">个人豆蔻</a></h5>
+                <h5 class="eskimo-title-with-border">
+                    <a href="{:url('/index/Person/toMineArtList?page=0')}">个人豆蔻</a>
+
+                </h5>
                 <ul>
                     {notempty name="userArt"}
                     {volist name="userArt" id="item"}
@@ -175,7 +184,9 @@
 
             <!-- LOVE POSTS -->
             <div class="eskimo-recent-entries eskimo-widget">
-                <h5 class="eskimo-title-with-border"><a href="/index/Person/toLikeArtList">收藏豆蔻</a></h5>
+                <h5 class="eskimo-title-with-border">
+                    <a href="{:url('/index/Person/toLikeArtList?page=0')}">收藏豆蔻</a>
+                </h5>
                 <ul>
                     {notempty name="userCollect"}
                     {volist name="userCollect" id="item"}
@@ -233,15 +244,12 @@
     $(function () {
         let page = {$page};
         if (page == 1) {
-            let aHtml = $('#left').html();
-            aHtml.css("cursor", "default");
-            aHtml.attr('href', '#');
+            console.log("===");
+            $("#left").attr("disabled",true).css("pointer-events","none");
         }
         let content = {:json_encode($article)};
         if (content == null || content == undefined || content == ''){
-            let aHtml = $('#right').html();
-            aHtml.css("cursor", "default");
-            aHtml.attr('href', '#');
+             $("#right").attr("disabled",true).css("pointer-events","none");
         }
     });
     //获取搜索框输入值

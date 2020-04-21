@@ -18,24 +18,10 @@ use app\common\util\CosUtil;
 
 class Person extends CheckLogin
 {
-
-    public function toArtList()
-    {
-        $id = Session::get(Cookie::get("id"));
-        $user = Base::getUser($id)[0];
-        $userArt = Base::getUserArt($id);
-        $userCollectArt = Base::getUserCollectArt($id);
-        $article = Db::table('article')->where('review_status','1')
-            ->order('issuing_time desc')->limit(12)->select();
-        $this->assign('article',$article);
-        $this->assign('user',$user);
-        $this->assign('userArt',$userArt);
-        $this->assign('userCollect',$userCollectArt);
-        return view('artList/artList');
-    }
-
+    //跳转个人信息修改页
     public function toMine()
     {
+        //获取当前用户信息
         $id = Session::get(Cookie::get("id"));
         $user = Base::getUser($id)[0];
         $userArt = Base::getUserArt($id);
@@ -77,42 +63,60 @@ class Person extends CheckLogin
     //跳转他人主页
     public function toOther()
     {
-        $id = input()['id'];
-        $user = Base::getUser($id);
-        $user = $user[0];
-        $article = Base::getUserArt($id);
+        //获取当前用户信息
+        $id = Session::get(Cookie::get("id"));
+        $user = Base::getUser($id)[0];
+        $userArt = Base::getUserArt($id);
+        $userCollectArt = Base::getUserCollectArt($id);
+        $this->assign("user", $user);
+        $this->assign('userArt',$userArt);
+        $this->assign('userCollect',$userCollectArt);
+        //获取他人用户信息
+        $otherid = input()['id'];
+        $other = Base::getUser($otherid)[0];
+        $article = Base::getUserArt($otherid);
         $this->assign('article',$article);
-        $this->assign('user',$user);
+        $this->assign('other',$other);
         return view('person/other');
     }
 
     //个人收藏列表页
     public function toLikeArtList()
     {
-        $id = Session::get("id");
+        $page = input()['page'];
+        //获取当前用户的信息
+        $userId = Cookie::get("id");
+        $id = Session::get($userId);
         $user = Base::getUser($id)[0];
         $userArt = Base::getUserArt($id);
         $userCollectArt = Base::getUserCollectArt($id);
-        $article = $this->getCollectArt($id);
+        //获取个人收藏文章列表
+        $article = $this->getCollectArt($id,$page);
         $this->assign("user", $user);
         $this->assign('userArt',$userArt);
         $this->assign('userCollect',$userCollectArt);
         $this->assign('article',$article);
+        $this->assign('page', $page + 1);
         return view('artList/likeArtList');
     }
 
     //个人文章列表页
     public function toMineArtList()
     {
-        $id = Session::get("id");
+        $page = input()['page']; //获取页码
+        //获取当前用户的信息
+        $userId = Cookie::get("id");
+        $id = Session::get($userId);
         $user = Base::getUser($id)[0];
         $userArt = Base::getUserArt($id);
         $userCollectArt = Base::getUserCollectArt($id);
-        $article = $this->getArt($id);
+        //获取用户的个人文章列表
+        $article = $this->getArt($id,$page);
         $this->assign("user", $user);
         $this->assign("other", $user);
         $this->assign('userArt',$userArt);
         $this->assign('userCollect',$userCollectArt);
+        $this->assign('page', $page + 1);
         $this->assign('article',$article);
         return view('artList/mineArtList');
     }
@@ -120,37 +124,42 @@ class Person extends CheckLogin
     //跳转他人文章页
     public function toOtherArtList()
     {
-        $id = Session::get("id");
+        $page = input()['page']; //获取页码
+        //获取当前用户的信息
+        $userId = Cookie::get("id");
+        $id = Session::get($userId);
         $user = Base::getUser($id)[0];
         $userArt = Base::getUserArt($id);
         $userCollectArt = Base::getUserCollectArt($id);
+        //获取他人id
         $otherId = input()['id'];
         $other = Base::getUser($otherId)[0];
-        $article = $this->getArt($otherId);
+        $article = $this->getArt($otherId,$page);
         $this->assign("other", $other);
         $this->assign("user", $user);
         $this->assign('userArt',$userArt);
         $this->assign('userCollect',$userCollectArt);
         $this->assign('article',$article);
-        return view('artList/mineArtList');
+        $this->assign('page', $page + 1);
+        return view('artList/otherArtList');
     }
 
-    //获取用户个人文章
-    protected function getArt($id)
+    //获取id对应的个人文章列表
+    protected function getArt($id,$page)
     {;
         $article = model("common/Article")->where("customer_id", $id)
             ->where("review_status",'1')->order('issuing_time desc')
-            ->limit(12)->select();
+            ->limit($page*12,12)->select();
         return $article;
     }
 
-    //获取用户收藏文章
-    protected function getCollectArt($id)
+    //获取id对应用户收藏的文章列表
+    protected function getCollectArt($id,$page)
     {
         $article = DB::table("collect")->alias('c')
             ->join([['article a', 'c.article_id = a.id']])->where("c.customer_id", $id)
             ->field(['a.id,a.title,a.content,a.issuing_time'])
-            ->order('issuing_time desc')->limit(12)
+            ->order('issuing_time desc')->limit($page*12,12)
             ->select();
         return $article;
     }
