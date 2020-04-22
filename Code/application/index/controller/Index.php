@@ -4,14 +4,10 @@ namespace app\index\controller;
 
 use app\common\model\User;
 use app\index\controller\common\Base;
-use app\index\controller\common\CheckLogin;
 use think\Cookie;
 use think\Db;
 use think\Request;
-use think\Response;
 use think\Session;
-use app\common\util\CosUtil;
-use app\common\model\Article;
 
 class Index extends Base
 {

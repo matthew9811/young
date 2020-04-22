@@ -5,6 +5,7 @@ namespace app\index\controller;
 
 use app\common\model\Collect;
 use app\common\util\CosUtil;
+use app\common\util\JsonUtil;
 use app\index\controller\common\Base;
 use app\index\controller\common\CheckLogin;
 use think\Db;
@@ -15,6 +16,33 @@ use think\Cookie;
 
 class Article extends CheckLogin
 {
+
+
+    public function searchArtList()
+    {
+        $page = input()['page'];
+        //标题
+        $searchConditions = input()['conditions'];
+        //获取当前用户信息
+        $id = Session::get(Cookie::get("id"));
+        $user = Base::getUser($id)[0];
+        $userArt = Base::getUserArt($id);
+        $userCollectArt = Base::getUserCollectArt($id);
+        //获取文章信息，一页12篇
+        $map['review_status'] = array('=', '1');
+        $map['title'] = array('like', "%" . $searchConditions . "%");
+        $article = Db::table('article')->where($map)
+            ->order('issuing_time desc')->limit($page * 12, 12)->select();
+        $this->assign("sql", Db::table('article')->getLastSql());
+        $this->assign('user', $user);
+        $this->assign('userArt', $userArt);
+        $this->assign('userCollect', $userCollectArt);
+        $this->assign('page', $page + 1);
+        $this->assign('article', $article);
+        $this->assign("conditions", $searchConditions);
+        return view('artList/searchList');
+    }
+
     //跳转日记页，获取文章列表
     public function toArtList()
     {
@@ -25,13 +53,13 @@ class Article extends CheckLogin
         $userArt = Base::getUserArt($id);
         $userCollectArt = Base::getUserCollectArt($id);
         //获取文章信息，一页12篇
-        $article = Db::table('article')->where('review_status','1')
-            ->order('issuing_time desc')->limit($page*12, 12)->select();
-        $this->assign('user',$user);
-        $this->assign('userArt',$userArt);
-        $this->assign('userCollect',$userCollectArt);
+        $article = Db::table('article')->where('review_status', '1')
+            ->order('issuing_time desc')->limit($page * 12, 12)->select();
+        $this->assign('user', $user);
+        $this->assign('userArt', $userArt);
+        $this->assign('userCollect', $userCollectArt);
         $this->assign('page', $page + 1);
-        $this->assign('article',$article);
+        $this->assign('article', $article);
         return view('artList/artList');
     }
 
@@ -40,10 +68,9 @@ class Article extends CheckLogin
     {
         $page = input()['page'];
         //获取文章列表
-        if (input()['type'] == '1')
-        {
-            $article = Db::table('article')->where('review_status','1')
-                ->order('issuing_time desc')->limit($page*12, 12)->select();
+        if (input()['type'] == '1') {
+            $article = Db::table('article')->where('review_status', '1')
+                ->order('issuing_time desc')->limit($page * 12, 12)->select();
         } else { //提示：下面的sql需要分页
             $article = Db::query(
                 'SELECT
@@ -74,9 +101,9 @@ class Article extends CheckLogin
         $userArt = Base::getUserArt($id);
         $userCollectArt = Base::getUserCollectArt($id);
         $this->assign("user", $user);
-        $this->assign('userArt',$userArt);
-        $this->assign('userCollect',$userCollectArt);
-        $this->assign('article',$article);
+        $this->assign('userArt', $userArt);
+        $this->assign('userCollect', $userCollectArt);
+        $this->assign('article', $article);
         $this->assign('page', $page + 1);
         return view('artList/artList');
     }
@@ -106,7 +133,9 @@ class Article extends CheckLogin
         sleep(0.01);
         $contentKey = str_replace('.', '', uniqid('', true)) . '.html';
         $cos = new CosUtil();
-        $cos->uploadString($fileKey, $file);
+        $base64 = new JsonUtil();
+        $base64File = tmpfile();
+        $cos->uploadString($fileKey, $base64->base64_image_content($file));
         $cos->uploadString($contentKey, $content);
         $article = new \app\common\model\Article();
         $article->customer_id = Session::get("id");
@@ -133,7 +162,7 @@ class Article extends CheckLogin
         $userCollectArt = Base::getUserCollectArt($id);
         //根据跳转的文章id获取文章详情
         $articleId = input()['id'];
-        $article = Db::table('article')->where('id',$articleId)->select();
+        $article = Db::table('article')->where('id', $articleId)->select();
         $article = $article[0];
         //获取文章作者信息
         $customerId = $article['customer_id'];
@@ -147,10 +176,10 @@ class Article extends CheckLogin
             $article['collect'] = 2;
         }
         $this->assign("user", $user);
-        $this->assign('userArt',$userArt);
-        $this->assign('userCollect',$userCollectArt);
-        $this->assign('article',$article);
-        $this->assign('customer',$customer[0]);
+        $this->assign('userArt', $userArt);
+        $this->assign('userCollect', $userCollectArt);
+        $this->assign('article', $article);
+        $this->assign('customer', $customer[0]);
         return view('article/article');
     }
 
@@ -174,8 +203,8 @@ class Article extends CheckLogin
     {
         $article_id = input()['id'];//获取文章id
         $customer_id = Session::get(Cookie::get("id"));//获取当前用户id
-        $result = Db::table("collect")->where("article_id",$article_id)
-            ->where("customer_id",$customer_id)->delete();
+        $result = Db::table("collect")->where("article_id", $article_id)
+            ->where("customer_id", $customer_id)->delete();
         if ($result) {
             return json('success');
         } else {
