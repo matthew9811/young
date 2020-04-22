@@ -202,6 +202,7 @@
 
 <div id="eskimo-panels">
     <aside id="eskimo-panel" class="eskimo-panel">
+        <!--{if condition="empty($Request.cookie.nickname) eq false"}-->
         {if condition="empty($user) neq true"}
         <div class="eskimo-panel-inner">
             <!-- CLOSE SLIDE PANEL BUTTON -->
@@ -253,7 +254,7 @@
             </div>
         </div>
         {/if}
-        {if condition="empty($user) neq false"}
+        {if condition="empty($Request.cookie.nickname) eq true"}
         <div class="eskimo-panel-inner">
             <!-- CLOSE SLIDE PANEL BUTTON -->
             <a href="#" class="eskimo-panel-close"><i class="fa fa-times"></i></a>

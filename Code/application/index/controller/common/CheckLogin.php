@@ -35,10 +35,12 @@ class CheckLogin extends Base
              * 清空session中当前用户的信息
              * 实现登出
              */
-//            session('nickName', null);
-            Session::delete($nickname);
-            Session::delete($loginTime);
+            Session::delete(Cookie::get("nickname"));
             Session::delete(Cookie::get("id"));
+            Session::delete(Cookie::get("loginTime"));
+            Cookie::delete("nickname");
+            Cookie::delete("id");
+            Cookie::delete("loginTime");
             Cookie::clear();
             $this->error('当前用户未登录或登录超时，请重新登录', url('/index/Index/toLogin'));
         } else {
