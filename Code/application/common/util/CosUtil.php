@@ -48,8 +48,18 @@ class CosUtil extends Utils
     }
 
 
-    function download()
+    function download($key)
     {
-
+        try {
+            $result = $this->init()->getObject(array(
+                'Bucket' => '47-1256569009',
+                'Key' => $key
+            ));
+            // 请求成功
+            return $result['Body'];
+        } catch (\Exception $e) {
+            // 请求失败
+            echo($e);
+        }
     }
 }

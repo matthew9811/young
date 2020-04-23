@@ -59,6 +59,7 @@ class Article extends CheckLogin
         $this->assign('userCollect', $userCollectArt);
         $this->assign('page', $page + 1);
         $this->assign('article', $article);
+
         return view('artList/artList');
     }
 
@@ -173,6 +174,10 @@ class Article extends CheckLogin
         } else {
             $article['collect'] = 2;
         }
+        $cos = new CosUtil();
+        $image = $cos->download($article['cover']);
+        $this->assign('image', $image);
+        $this->assign('content', $cos->download($article['content']));
         $this->assign("user", $user);
         $this->assign('userArt', $userArt);
         $this->assign('userCollect', $userCollectArt);
