@@ -13,12 +13,17 @@ class Index extends Base
 {
     public function index()
     {
-        //提示：需要判断用户是否登录
-//        $userId = Cookie::get("id");
-//        $id = Session::get($userId);
-//        $user = Base::getUser($id)[0];
-//        $userArt = Base::getUserArt($id);
-//        $userCollectArt = Base::getUserCollectArt($id);
+        //判断用户是否登录
+        $userId = Cookie::get("id");
+        if ($userId != '') {
+            $id = Session::get($userId);
+            $user = Base::getUser($id)[0];
+            $userArt = Base::getUserArt($id);
+            $userCollectArt = Base::getUserCollectArt($id);
+            $this->assign('user',$user);
+            $this->assign('userArt',$userArt);
+            $this->assign('userCollect',$userCollectArt);
+        }
         $newArt = model("common/Article")->where("review_status", '1')
             ->order('issuing_time desc')->limit(5)->select();
         for ($i = 0; $i < count($newArt); $i++) {
@@ -70,9 +75,6 @@ class Index extends Base
                    issuing_time DESC,
                    collectNum DESC
                    LIMIT 5');
-//        $this->assign('user',$user);
-//        $this->assign('userArt',$userArt);
-//        $this->assign('userCollect',$userCollectArt);
         $this->assign('newArt',$newArt);
         $this->assign('collectArt',$collectArt);
         $this->assign('collectArtList',$collectArtList);
@@ -156,6 +158,60 @@ class Index extends Base
         Cookie::delete("id");
         Cookie::delete("loginTime");
         Cookie::clear();
+        $newArt = model("common/Article")->where("review_status", '1')
+            ->order('issuing_time desc')->limit(5)->select();
+        for ($i = 0; $i < count($newArt); $i++) {
+            $customerId = $newArt[$i]->customer_id;
+            $articleId = $newArt[$i]->id;
+            $newArt[$i]['customer'] = Db::table('user')
+                ->where('id', $customerId)->value('nick_name');
+            $collect = Db::table('collect')->where('article_id', $articleId)->select();
+            $newArt[$i]['collect'] = count($collect);
+        }
+        $collectArt = Db::query(
+            'SELECT
+                  a.title,
+                  a.id,
+                  a.cover,
+                  a.content,
+                  a.issuing_time,
+                  u.nick_name,
+                COUNT( c.article_id ) AS collectNum 
+                FROM
+                  article AS a
+                LEFT JOIN collect AS c ON a.id = c.article_id
+                LEFT JOIN `user` AS u ON a.customer_id = u.id 
+                WHERE
+                  a.review_status = 1 
+                GROUP BY
+                  a.id 
+                ORDER BY
+                collectNum DESC
+                LIMIT 5');
+        $collectArtList = Db::query(
+            'SELECT
+                  a.title,
+                  a.id,
+                  a.cover,
+                  a.content,
+                  a.issuing_time,
+                  u.nick_name,
+                COUNT( c.article_id ) AS collectNum 
+                FROM
+                   article AS a
+                LEFT JOIN collect AS c ON a.id = c.article_id
+                LEFT JOIN `user` AS u ON a.customer_id = u.id 
+                WHERE
+                   a.review_status = 1 
+                GROUP BY
+                   a.id 
+                ORDER BY
+                   issuing_time DESC,
+                   collectNum DESC
+                   LIMIT 5');
+        $this->assign('newArt',$newArt);
+        $this->assign('collectArt',$collectArt);
+        $this->assign('collectArtList',$collectArtList);
         return view("index/index");
     }
 

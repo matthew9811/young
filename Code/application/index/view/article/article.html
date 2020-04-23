@@ -217,14 +217,14 @@
     <div id="eskimo-fullscreen-search">
         <div id="eskimo-fullscreen-search-content">
             <a href="#" id="eskimo-close-search"><i class="fa fa-times"></i></a>
-            <form role="search" method="get" action="search.html" class="eskimo-lg-form">
+            <div  class="eskimo-lg-form" style="width: 600px">
                 <div class="input-group">
-                    <input type="text" id="searchText" class="form-control form-control-lg" placeholder="关键字" name="s" />
+                    <input type="text" id="searchText" class="form-control form-control-lg" placeholder="关键字" name="s"/>
                     <div class="input-group-append">
                         <button id="search" type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
     <!-- JS FILES -->
@@ -242,7 +242,8 @@
             $("#search").click(function () {
                 let search = $('#searchText').val();
                 console.log(search);
-            })
+                location.href = "{:url('/index/Article/searchArtList?type=1&page=0&conditions=')}" + search;
+            });
         });
         function onloadCollect(id, collect) {
             console.log(id);
