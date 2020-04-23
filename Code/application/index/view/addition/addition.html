@@ -205,18 +205,19 @@
                 alert("标题不可为空");
                 return;
             }
+            let data = {title: title, code: code, file: file};
             $.ajax({
                 url: "/index/Article/addition",
                 type: 'post',
-                data: {title: title, code: code, file: file},
-                success: function (data) {
-                    console.log(data);
-                    if (data.code == 1) {
+                data: data,
+                success: function (result) {
+                    console.log(result);
+                    if (result.code == 1) {
                         alert('上传成功，等待管理员审核');
                     }
                 },
-                error: function (data) {
-                    console.log(data);
+                error: function (re) {
+                    console.log(re);
                 }
             });
         });

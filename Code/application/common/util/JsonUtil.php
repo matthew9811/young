@@ -25,13 +25,15 @@ class JsonUtil extends Utils
     /**  base64格式编码转换为图片并保存对应文件夹 */
     function base64_image_content($base64_image_content)
     {
-        //匹配出图片的格式
-        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
-            $type = $result[2];
-            $new_file = tmpfile(str_replace('.', '', uniqid('', true)) . ".{$type}");
-            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                echo $new_file;
-                return $new_file;
+//        $base64_image = str_replace(' ', '+', $base64);
+        //post的数据里面，加号会被替换为空格，需要重新替换回来，如果不是post的数据，则注释掉这一行
+        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $this->base64_image_content(), $result)) {
+            //匹配成功
+            $image_name = uniqid() . '.' . $result[2];
+            $image_file = "./Public/Personal/{$image_name}";
+            //服务器文件存储路径
+            if (file_put_contents($image_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                return '/Public/Personal/' . $image_name;
             } else {
                 return false;
             }

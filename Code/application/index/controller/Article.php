@@ -129,27 +129,26 @@ class Article extends CheckLogin
         $content = $post['code'];
         //封面base64
         $file = $post['file'];
-        $fileKey = str_replace('.', '', uniqid('', true)) . '.html';
-        sleep(0.01);
-        $contentKey = str_replace('.', '', uniqid('', true)) . '.html';
-        $cos = new CosUtil();
-        $base64 = new JsonUtil();
-        $base64File = tmpfile();
-        $cos->uploadString($fileKey, $base64->base64_image_content($file));
-        $cos->uploadString($contentKey, $content);
-        $article = new \app\common\model\Article();
-        $article->customer_id = Session::get("id");
-        $article->content = $contentKey;
-        $article->cover = $fileKey;
-        $article->title = $title;
-        $article->issuing_time = date('Y-m-d H:i:s', time());
-        $article->review_status = '2';
-        $result = $article->save();
-        if ($result) {
-            return $this->success('success');
-        } else {
-            return $this->error("error");
-        }
+//        $fileKey = str_replace('.', '', uniqid('', true)) . '.html';
+//        sleep(0.01);
+//        $contentKey = str_replace('.', '', uniqid('', true)) . '.html';
+//        $cos = new CosUtil();
+//        $cos->uploadString($contentKey, $content);
+//        $article = new \app\common\model\Article();
+//        $article->customer_id = Session::get("id");
+//        $article->content = $contentKey;
+//        $article->cover = $fileKey;
+//        $article->title = $title;
+//        $article->issuing_time = date('Y-m-d H:i:s', time());
+//        $article->review_status = '2';
+//        $result = $article->save();
+//        if ($result) {
+//            return $this->success('success');
+//        } else {
+//            return $this->error("error");
+//        }
+        return json(['file', $file]);
+
     }
 
     //文章详情页
