@@ -27,7 +27,7 @@ class JsonUtil extends Utils
     {
 //        $base64_image = str_replace(' ', '+', $base64);
         //post的数据里面，加号会被替换为空格，需要重新替换回来，如果不是post的数据，则注释掉这一行
-        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $this->base64_image_content(), $result)) {
+        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
             //匹配成功
             $image_name = uniqid() . '.' . $result[2];
             $image_file = "./Public/Personal/{$image_name}";

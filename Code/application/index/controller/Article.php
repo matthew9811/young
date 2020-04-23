@@ -33,7 +33,6 @@ class Article extends CheckLogin
         $map['title'] = array('like', "%" . $searchConditions . "%");
         $article = Db::table('article')->where($map)
             ->order('issuing_time desc')->limit($page * 12, 12)->select();
-        $this->assign("sql", Db::table('article')->getLastSql());
         $this->assign('user', $user);
         $this->assign('userArt', $userArt);
         $this->assign('userCollect', $userCollectArt);
@@ -129,25 +128,25 @@ class Article extends CheckLogin
         $content = $post['code'];
         //封面base64
         $file = $post['file'];
-//        $fileKey = str_replace('.', '', uniqid('', true)) . '.html';
-//        sleep(0.01);
-//        $contentKey = str_replace('.', '', uniqid('', true)) . '.html';
-//        $cos = new CosUtil();
-//        $cos->uploadString($contentKey, $content);
-//        $article = new \app\common\model\Article();
-//        $article->customer_id = Session::get("id");
-//        $article->content = $contentKey;
-//        $article->cover = $fileKey;
-//        $article->title = $title;
-//        $article->issuing_time = date('Y-m-d H:i:s', time());
-//        $article->review_status = '2';
-//        $result = $article->save();
-//        if ($result) {
-//            return $this->success('success');
-//        } else {
-//            return $this->error("error");
-//        }
-        return json(['file', $file]);
+        $fileKey = str_replace('.', '', uniqid('', true)) . '.html';
+        sleep(0.01);
+        $contentKey = str_replace('.', '', uniqid('', true)) . '.html';
+        $cos = new CosUtil();
+        $cos->uploadString($fileKey, $file);
+        $cos->uploadString($contentKey, $content);
+        $article = new \app\common\model\Article();
+        $article->customer_id = Session::get("id");
+        $article->content = $contentKey;
+        $article->cover = $fileKey;
+        $article->title = $title;
+        $article->issuing_time = date('Y-m-d H:i:s', time());
+        $article->review_status = '2';
+        $result = $article->save();
+        if ($result) {
+            return $this->success('success');
+        } else {
+            return $this->error("error");
+        }
 
     }
 
