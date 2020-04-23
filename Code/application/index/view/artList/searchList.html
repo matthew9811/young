@@ -93,7 +93,7 @@
             <div class="clearfix"></div>
             <!-- PAGE TITLE -->
             <div class="eskimo-page-title">
-                <h1 class="no-border">豆蔻精选</h1>
+                <h1 class="no-border">豆蔻搜索</h1>
             </div>
             <!-- BLOG POSTS -->
             <div class="eskimo-masonry-grid small-masonry">
@@ -223,7 +223,7 @@
 <div id="eskimo-fullscreen-search">
     <div id="eskimo-fullscreen-search-content">
         <a href="#" id="eskimo-close-search"><i class="fa fa-times"></i></a>
-        <div  class="eskimo-lg-form">
+        <div  class="eskimo-lg-form" style="width: 600px">
             <div class="input-group">
                 <input type="text" id="searchText" class="form-control form-control-lg" placeholder="关键字" name="s"/>
                 <div class="input-group-append">
@@ -243,6 +243,7 @@
 <script type="text/javascript">
     $(function () {
         let page = {$page};
+        console.log(page);
         let content = {:json_encode($article)};
         if (page == 1) {
             $("#left").attr("disabled", true).css("pointer-events", "none");
@@ -250,13 +251,13 @@
         if (content == null || content == undefined || content == '') {
             $("#right").attr("disabled", true).css("pointer-events", "none");
         }
-        console.log({$sql});
     });
     //获取搜索框输入值
     $("#search").click(function () {
         let search = $('#searchText').val();
         location.href = "{:url('/index/Article/searchArtList?type=1&page=0&conditions=')}" + search;
     });
+
 </script>
 </body>
 
