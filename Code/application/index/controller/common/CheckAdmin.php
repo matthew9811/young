@@ -22,9 +22,9 @@ class CheckAdmin extends Base
     public function _initialize()
     {
 
-        $nowTime = time();
-        $nickname = Cookie::get("nickname");
-        $loginTime = Cookie::get("loginTime");
+        $nowTime = mktime();
+        $nickname = Cookie::get("adminName");
+        $loginTime = Cookie::get("adminTime");
         $s_time = Session::get($loginTime);
         parent::_initialize();
         if (!Session::has($nickname)) {
@@ -40,9 +40,9 @@ class CheckAdmin extends Base
              * 清空session中当前用户的信息
              * 实现登出
              */
-            Session::delete(Cookie::get("nickname"));
-            Session::delete(Cookie::get("id"));
-            Session::delete(Cookie::get("loginTime"));
+            Session::delete(Cookie::get("adminName"));
+            Session::delete(Cookie::get("adminId"));
+            Session::delete(Cookie::get("adminTime"));
             Cookie::delete("nickname");
             Cookie::delete("id");
             Cookie::delete("loginTime");

@@ -17,7 +17,7 @@ class CheckLogin extends Base
     public function _initialize()
     {
 
-        $nowTime = time();
+        $nowTime = mktime();
         $nickname = Cookie::get("nickname");
         $loginTime = Cookie::get("loginTime");
         $s_time = Session::get($loginTime);
