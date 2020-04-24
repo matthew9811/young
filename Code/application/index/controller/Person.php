@@ -63,6 +63,7 @@ class Person extends CheckLogin
     //跳转他人主页
     public function toOther()
     {
+        $cos = new CosUtil();
         //获取当前用户信息
         $id = Session::get(Cookie::get("id"));
         $user = Base::getUser($id)[0];
@@ -75,6 +76,9 @@ class Person extends CheckLogin
         $otherid = input()['id'];
         $other = Base::getUser($otherid)[0];
         $article = Base::getUserArt($otherid);
+        for ($i = 0; $i < count($article); $i++) {
+            $article[$i]['cover'] = $cos->download($article[$i]['cover']);
+        }
         $this->assign('article',$article);
         $this->assign('other',$other);
         return view('person/other');
@@ -83,6 +87,7 @@ class Person extends CheckLogin
     //个人收藏列表页
     public function toLikeArtList()
     {
+        $cos = new CosUtil();
         $page = input()['page'];
         //获取当前用户的信息
         $userId = Cookie::get("id");
@@ -92,6 +97,9 @@ class Person extends CheckLogin
         $userCollectArt = Base::getUserCollectArt($id);
         //获取个人收藏文章列表
         $article = $this->getCollectArt($id,$page);
+        for ($i = 0; $i < count($article); $i++) {
+            $article[$i]['cover'] = $cos->download($article[$i]['cover']);
+        }
         $this->assign("user", $user);
         $this->assign('userArt',$userArt);
         $this->assign('userCollect',$userCollectArt);
@@ -103,6 +111,7 @@ class Person extends CheckLogin
     //个人文章列表页
     public function toMineArtList()
     {
+        $cos = new CosUtil();
         $page = input()['page']; //获取页码
         //获取当前用户的信息
         $userId = Cookie::get("id");
@@ -112,6 +121,9 @@ class Person extends CheckLogin
         $userCollectArt = Base::getUserCollectArt($id);
         //获取用户的个人文章列表
         $article = $this->getArt($id,$page);
+        for ($i = 0; $i < count($article); $i++) {
+            $article[$i]['cover'] = $cos->download($article[$i]['cover']);
+        }
         $this->assign("user", $user);
         $this->assign("other", $user);
         $this->assign('userArt',$userArt);
@@ -124,6 +136,7 @@ class Person extends CheckLogin
     //跳转他人文章页
     public function toOtherArtList()
     {
+        $cos = new CosUtil();
         $page = input()['page']; //获取页码
         //获取当前用户的信息
         $userId = Cookie::get("id");
@@ -135,6 +148,9 @@ class Person extends CheckLogin
         $otherId = input()['id'];
         $other = Base::getUser($otherId)[0];
         $article = $this->getArt($otherId,$page);
+        for ($i = 0; $i < count($article); $i++) {
+            $article[$i]['cover'] = $cos->download($article[$i]['cover']);
+        }
         $this->assign("other", $other);
         $this->assign("user", $user);
         $this->assign('userArt',$userArt);
@@ -158,7 +174,7 @@ class Person extends CheckLogin
     {
         $article = DB::table("collect")->alias('c')
             ->join([['article a', 'c.article_id = a.id']])->where("c.customer_id", $id)
-            ->field(['a.id,a.title,a.content,a.issuing_time'])
+            ->field(['a.id,a.title,a.content,a.issuing_time,a.cover'])
             ->order('issuing_time desc')->limit($page*12,12)
             ->select();
         return $article;

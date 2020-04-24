@@ -29,7 +29,7 @@ class CheckLogin extends Base
         /**
          * 判断登录时间
          */
-        if (($nowTime - $s_time) > 36000) {
+        if (($nowTime - $s_time) > 7200) {
             /*
              * session('loginTime', null);
              * 清空session中当前用户的信息

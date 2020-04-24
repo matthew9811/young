@@ -101,7 +101,7 @@
                     <div>
                         <a class="eskimo-slider-img" href="{:url('/index/Article/toArticle?id='.$item['id'])}"></a>
                         <div class="clearfix"></div>
-                        <img src="/common/uploads/2018/05/blog4-1-1200x600.jpg" alt="Ketchup Flavored Ice Cream!"/>
+                        <img src="{$item.cover}" alt="{$item.title}"/>
                         <div class="eskimo-slider-desc">
                             <div class="eskimo-slider-desc-inner">
                                 <h2 class="card-title">{$item.title}</h2>
@@ -138,7 +138,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-horizontal-right" data-img="/common/uploads/2018/05/blog18-1024x682.jpg">
+                    <div class="card-horizontal-right" data-img="{$item.cover}">
                         <a class="card-featured-img" href="{:url('/index/Article/toArticle?id='.$item['id'])}"></a>
                     </div>
                 </div>
@@ -171,8 +171,8 @@
                         <div class="card-masonry card-small">
                             <div class="card">
                                 <a href="{:url('/index/Article/toArticle?id='.$item['id'])}">
-                                    <img class="card-vertical-img" src="/common/uploads/2018/05/blog4-1-900x600.jpg"
-                                         alt="Ketchup Flavored Ice Cream!"/>
+                                    <img class="card-vertical-img" src="{$item.cover}"
+                                         alt="{$item.title}"/>
                                 </a>
                                 <div class="card-border">
                                     <div class="card-body">

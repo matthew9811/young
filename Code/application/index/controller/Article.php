@@ -16,10 +16,10 @@ use think\Cookie;
 
 class Article extends CheckLogin
 {
-
-
+    //搜索标题
     public function searchArtList()
     {
+        $cos = new CosUtil();
         $page = input()['page'];
         //标题
         $searchConditions = input()['conditions'];
@@ -33,6 +33,9 @@ class Article extends CheckLogin
         $map['title'] = array('like', "%" . $searchConditions . "%");
         $article = Db::table('article')->where($map)
             ->order('issuing_time desc')->limit($page * 12, 12)->select();
+        for ($i = 0; $i < count($article); $i++) {
+            $article[$i]['cover'] = $cos->download($article[$i]['cover']);
+        }
         $this->assign('user', $user);
         $this->assign('userArt', $userArt);
         $this->assign('userCollect', $userCollectArt);
@@ -45,6 +48,7 @@ class Article extends CheckLogin
     //跳转日记页，获取文章列表
     public function toArtList()
     {
+        $cos = new CosUtil();
         $page = input()['page'];
         //获取当前用户信息
         $id = Session::get(Cookie::get("id"));
@@ -54,6 +58,9 @@ class Article extends CheckLogin
         //获取文章信息，一页12篇
         $article = Db::table('article')->where('review_status', '1')
             ->order('issuing_time desc')->limit($page * 12, 12)->select();
+        for ($i = 0; $i < count($article); $i++) {
+            $article[$i]['cover'] = $cos->download($article[$i]['cover']);
+        }
         $this->assign('user', $user);
         $this->assign('userArt', $userArt);
         $this->assign('userCollect', $userCollectArt);

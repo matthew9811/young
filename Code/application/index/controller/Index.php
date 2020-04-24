@@ -9,6 +9,7 @@ use think\Cookie;
 use think\Db;
 use think\Request;
 use think\Session;
+use app\common\util\CosUtil;
 
 class Index extends Base
 {
@@ -16,6 +17,7 @@ class Index extends Base
     {
         //判断用户是否登录
         $userId = Cookie::get("id");
+        $cos = new CosUtil();
         if ($userId != '') {
             $id = Session::get($userId);
             $user = Base::getUser($id)[0];
@@ -34,6 +36,7 @@ class Index extends Base
                 ->where('id', $customerId)->value('nick_name');
             $collect = Db::table('collect')->where('article_id', $articleId)->select();
             $newArt[$i]['collect'] = count($collect);
+            $newArt[$i]['cover'] = $cos->download($newArt[$i]['cover']);
         }
         $collectArt = Db::query(
             'SELECT
@@ -76,6 +79,12 @@ class Index extends Base
                    issuing_time DESC,
                    collectNum DESC
                    LIMIT 5');
+        for ($i = 0; $i < count($collectArt); $i++) {
+            $collectArt[$i]['cover'] = $cos->download($collectArt[$i]['cover']);
+        }
+        for ($i = 0; $i < count($collectArtList); $i++) {
+            $collectArtList[$i]['cover'] = $cos->download($collectArtList[$i]['cover']);
+        }
         $this->assign('newArt',$newArt);
         $this->assign('collectArt',$collectArt);
         $this->assign('collectArtList',$collectArtList);
