@@ -2,6 +2,7 @@
 
 namespace app\index\controller;
 
+use app\common\model\Manger;
 use app\common\model\User;
 use app\index\controller\common\Base;
 use think\Cookie;
@@ -102,6 +103,36 @@ class Index extends Base
     public function adminLogin()
     {
         return view('loginReg/adminLogin');
+    }
+
+
+    //管理员登录
+    public function admin(Request $request)
+    {
+        $manger = new Manger();
+        $post = $request->post();
+        $req = Request::instance();
+        /**当登录成功
+         * 将用户的nickname存进session
+         * 为校验数据进行
+         */
+        $result = $manger->where('nick_Name', $post['nickName'])->select();
+        //存在数据
+        $result = $result[0];
+        if ($result) {
+            if ($result['password'] == $post['password']) {
+                Session::set($result[0]['nick_name'], $result[0]['nick_name']);
+                Session::set($result[0]['nick_name'].":id", $result[0]['id']);
+                session($result[0]['nick_name'].'loginTime', time());
+                //登录成功
+                Cookie::set("nickname", $result[0]['nick_name']);
+                Cookie::set("id", $result[0]['nick_name'].":id");
+                Cookie::set("loginTime", $result[0]['nick_name'].'loginTime');
+                //登录成功
+                return json('success');
+            }
+        }
+        return json("账号密码错误");
     }
 
     //用户登录

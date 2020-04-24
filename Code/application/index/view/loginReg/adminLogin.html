@@ -5,7 +5,8 @@
     <title>Eskimo - HTML Template</title>
     <!-- META TAGS -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <!-- CSS FILES -->
@@ -33,7 +34,7 @@
                     <!-- LOGO -->
                     <div id="eskimo-logo-cell" class="w-100">
                         <a class="eskimo-logo-link" href="/index/Index/index">
-                            <img src="/common/image/logo.png" class="eskimo-logo" alt="eskimo" />
+                            <img src="/common/image/logo.png" class="eskimo-logo" alt="eskimo"/>
                         </a>
                     </div>
                     <!-- MENU CONTAINER -->
@@ -66,7 +67,7 @@
                     <div id="eskimo-social-cell" class="mt-auto w-100">
                         <div id="eskimo-social-inner">
                             <ul class="eskimo-social-icons">
-                               {if condition="empty($Request.cookie.nickname) eq true"}
+                                {if condition="empty($Request.cookie.nickname) eq true"}
                                 <li><a href='/index/Index/toLogin'>登录</a></li>
                                 <li><a style="color: #FFFFFF">/</a></li>
                                 <li><a href='/index/Index/toReg'>注册</a></li>
@@ -87,17 +88,20 @@
                 <div class="row">
                     <div class="col-12 col-lg-6">
                         <p>
-                            <label>用户名</label><br />
-                            <input type="text" name="nickName" id="nickName" class="form-control" required="required" maxlength="17" />
+                            <label>用户名</label><br/>
+                            <input type="text" name="nickName" id="nickName" class="form-control" required="required"
+                                   maxlength="17"/>
                         </p>
                         <p>
-                            <label>密码</label><br />
-                            <input type="password" name="password" id="password" class="form-control" required="required" maxlength="17" />
+                            <label>密码</label><br/>
+                            <input type="password" name="password" id="password" class="form-control"
+                                   required="required" maxlength="17"/>
                         </p>
                         <button id="sendbutton" type="submit" class="btn btn-lg w-100">登录</button>
                     </div>
                     <div class="col-12 col-lg-4">
-                        <img src="/common/image/young.jpg" alt="Jane Doe" class="img-fluid mx-auto d-block eskimo-img-shadow" />
+                        <img src="/common/image/young.jpg" alt="Jane Doe"
+                             class="img-fluid mx-auto d-block eskimo-img-shadow"/>
                     </div>
                 </div>
             </div>
@@ -127,7 +131,7 @@
             };
             console.log(data);
             $.ajax({
-                url: "/index/Admin/adminLogin",
+                url: "/index/Index/admin",
                 type: 'post',
                 data: data,
                 success: function (data) {
