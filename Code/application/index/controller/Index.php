@@ -123,7 +123,7 @@ class Index extends Base
             if ($result['password'] == $post['password']) {
                 Session::set($result[0]['nick_name'], $result[0]['nick_name']);
                 Session::set($result[0]['nick_name'].":id", $result[0]['id']);
-                session($result[0]['nick_name'].'loginTime', mktime());
+                session($result[0]['nick_name'].'loginTime', time());
                 //登录成功
                 Cookie::set("adminName", $result[0]['nick_name']);
                 Cookie::set("adminId", $result[0]['nick_name'].":id");
@@ -151,7 +151,7 @@ class Index extends Base
             if ($result[0]['pwd'] == $post['password']) {
                 Session::set($result[0]['nick_name'], $result[0]['nick_name']);
                 Session::set($result[0]['nick_name'].":id", $result[0]['id']);
-                session($result[0]['nick_name'].'loginTime', mktime());
+                session($result[0]['nick_name'].'loginTime', time());
                 //登录成功
                 Cookie::set("nickname", $result[0]['nick_name']);
                 Cookie::set("id", $result[0]['nick_name'].":id");

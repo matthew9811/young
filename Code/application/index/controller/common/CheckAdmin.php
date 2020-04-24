@@ -22,7 +22,7 @@ class CheckAdmin extends Base
     public function _initialize()
     {
 
-        $nowTime = mktime();
+        $nowTime = time();
         $nickname = Cookie::get("adminName");
         $loginTime = Cookie::get("adminTime");
         $s_time = Session::get($loginTime);
