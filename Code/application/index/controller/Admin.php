@@ -39,6 +39,7 @@ class Admin extends CheckAdmin
             ->where('id',$customerId)->select();
         $this->assign('article',$article);
         $this->assign('customer',$customer[0]);
+        $this->assign('content', $cos->download($article['content']));
         return view('audit/auditArt');
     }
 

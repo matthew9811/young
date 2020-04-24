@@ -104,11 +104,11 @@
             </div>
             <!-- FEATURED IMAGE -->
             <div class="eskimo-featured-img">
-                <img src="https://47-1256569009.cos-website.ap-chengdu.myqcloud.com/{$article.cover}" alt="" />
+                <img src="{$article.cover}" alt="{$article.title}" />
             </div>
             <!-- POST CONTENT -->
             <div class="eskimo-page-content">
-                <iframe src="https://47-1256569009.cos-website.ap-chengdu.myqcloud.com/{$article.content}"></iframe>
+                {$content}
                 <div class="clearfix"></div>
 
                 <p>
