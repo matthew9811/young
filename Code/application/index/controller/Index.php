@@ -125,9 +125,9 @@ class Index extends Base
                 Session::set($result[0]['nick_name'].":id", $result[0]['id']);
                 session($result[0]['nick_name'].'loginTime', time());
                 //登录成功
-                Cookie::set("nickname", $result[0]['nick_name']);
-                Cookie::set("id", $result[0]['nick_name'].":id");
-                Cookie::set("loginTime", $result[0]['nick_name'].'loginTime');
+                Cookie::set("adminName", $result[0]['nick_name']);
+                Cookie::set("adminId", $result[0]['nick_name'].":id");
+                Cookie::set("adminTime", $result[0]['nick_name'].'loginTime');
                 //登录成功
                 return json('success');
             }

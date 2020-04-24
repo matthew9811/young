@@ -13,6 +13,11 @@ class CheckAdmin extends Base
     /**
      * 可以定义控制器初始化方法_initialize，在该控制器的方法调用之前首先执行
      * 这样就不需要在其他controller在书写执行代码了
+     * Cookie::set("adminName", $result[0]['nick_name']);
+     * Cookie::set("adminId", $result[0]['nick_name'].":id");
+     * Cookie::set("adminTime", $result[0]['nick_name'].'loginTime');
+     *
+     *
      */
     public function _initialize()
     {
