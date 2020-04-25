@@ -122,9 +122,10 @@
                     <div class="card-horizontal-left">
                         <h3 class="card-title"><a href="{:url('/index/Article/toArticle?id='.$item['id'])}">{$item.title}</a>
                         </h3>
-                        <div class="card-excerpt">
-                            {$item.content}
-                        </div>
+                        <!--<div class="card-excerpt"-->
+                             <!--style="max-width: 100%;display: inline-block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">-->
+                            <!--{$item.content}-->
+                        <!--</div>-->
                         <div class="card-horizontal-meta">
                             <div class="eskimo-author-meta">
                                 By <a class="author-meta"
@@ -199,7 +200,6 @@
 <!-- SLIDE PANEL OVERLAY -->
 <div id="eskimo-overlay"></div>
 <!-- SLIDE PANEL -->
-
 <div id="eskimo-panels">
     <aside id="eskimo-panel" class="eskimo-panel">
         <!--{if condition="empty($Request.cookie.nickname) eq false"}-->
@@ -210,7 +210,7 @@
             <!-- AUTHOR BOX -->
             <div class="eskimo-author-box eskimo-widget">
                 <div class="eskimo-author-img">
-                    <img src="/common/uploads/2018/05/img.jpg" alt="JOHN DOE"/>
+                    <img src="{$user.photo}" alt="{$user.nick_name}"/>
                 </div>
                 <h3><span>{$user.nick_name}</span></h3>
                 <p class="eskimo-author-description">{$user.signature}</p>

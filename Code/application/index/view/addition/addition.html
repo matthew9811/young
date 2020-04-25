@@ -206,6 +206,7 @@
                 return;
             }
             let data = {title: title, code: code, file: file};
+            console.log(data);
             $.ajax({
                 url: "/index/Article/addition",
                 type: 'post',
@@ -214,6 +215,7 @@
                     console.log(result);
                     if (result.code == 1) {
                         alert('上传成功，等待管理员审核');
+                        location.href = '/index/Article/toAddition';
                     }
                 },
                 error: function (re) {

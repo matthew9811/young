@@ -37,6 +37,7 @@ class Index extends Base
             $collect = Db::table('collect')->where('article_id', $articleId)->select();
             $newArt[$i]['collect'] = count($collect);
             $newArt[$i]['cover'] = $cos->download($newArt[$i]['cover']);
+            $newArt[$i]['content'] = $cos->download($newArt[$i]['content']);
         }
         $collectArt = Db::query(
             'SELECT
@@ -198,61 +199,20 @@ class Index extends Base
         Cookie::delete("id");
         Cookie::delete("loginTime");
         Cookie::clear();
-        $newArt = model("common/Article")->where("review_status", '1')
-            ->order('issuing_time desc')->limit(5)->select();
-        for ($i = 0; $i < count($newArt); $i++) {
-            $customerId = $newArt[$i]->customer_id;
-            $articleId = $newArt[$i]->id;
-            $newArt[$i]['customer'] = Db::table('user')
-                ->where('id', $customerId)->value('nick_name');
-            $collect = Db::table('collect')->where('article_id', $articleId)->select();
-            $newArt[$i]['collect'] = count($collect);
-        }
-        $collectArt = Db::query(
-            'SELECT
-                  a.title,
-                  a.id,
-                  a.cover,
-                  a.content,
-                  a.issuing_time,
-                  u.nick_name,
-                COUNT( c.article_id ) AS collectNum 
-                FROM
-                  article AS a
-                LEFT JOIN collect AS c ON a.id = c.article_id
-                LEFT JOIN `user` AS u ON a.customer_id = u.id 
-                WHERE
-                  a.review_status = 1 
-                GROUP BY
-                  a.id 
-                ORDER BY
-                collectNum DESC
-                LIMIT 5');
-        $collectArtList = Db::query(
-            'SELECT
-                  a.title,
-                  a.id,
-                  a.cover,
-                  a.content,
-                  a.issuing_time,
-                  u.nick_name,
-                COUNT( c.article_id ) AS collectNum 
-                FROM
-                   article AS a
-                LEFT JOIN collect AS c ON a.id = c.article_id
-                LEFT JOIN `user` AS u ON a.customer_id = u.id 
-                WHERE
-                   a.review_status = 1 
-                GROUP BY
-                   a.id 
-                ORDER BY
-                   issuing_time DESC,
-                   collectNum DESC
-                   LIMIT 5');
-        $this->assign('newArt', $newArt);
-        $this->assign('collectArt', $collectArt);
-        $this->assign('collectArtList', $collectArtList);
-        return view("index/index");
+        $this->redirect('index/index');
+    }
+
+    //用户退出登录，清除数据
+    public function toAdminOut()
+    {
+        Session::delete(Cookie::get("adminName"));
+        Session::delete(Cookie::get("adminId"));
+        Session::delete(Cookie::get("adminTime"));
+        Cookie::delete("adminName");
+        Cookie::delete("adminId");
+        Cookie::delete("adminTime");
+        Cookie::clear();
+        $this->redirect('index/index');
     }
 
 }

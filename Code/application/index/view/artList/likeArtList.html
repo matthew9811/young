@@ -147,6 +147,7 @@
 <!-- SLIDE PANEL -->
 <div id="eskimo-panels">
     <aside id="eskimo-panel" class="eskimo-panel">
+        <!--{if condition="empty($Request.cookie.nickname) eq false"}-->
         {if condition="empty($user) neq true"}
         <div class="eskimo-panel-inner">
             <!-- CLOSE SLIDE PANEL BUTTON -->
@@ -154,7 +155,7 @@
             <!-- AUTHOR BOX -->
             <div class="eskimo-author-box eskimo-widget">
                 <div class="eskimo-author-img">
-                    <img src="/common/uploads/2018/05/img.jpg" alt="JOHN DOE"/>
+                    <img src="{$user.photo}" alt="{$user.nick_name}"/>
                 </div>
                 <h3><span>{$user.nick_name}</span></h3>
                 <p class="eskimo-author-description">{$user.signature}</p>
@@ -198,7 +199,7 @@
             </div>
         </div>
         {/if}
-        {if condition="empty($user) neq false"}
+        {if condition="empty($Request.cookie.nickname) eq true"}
         <div class="eskimo-panel-inner">
             <!-- CLOSE SLIDE PANEL BUTTON -->
             <a href="#" class="eskimo-panel-close"><i class="fa fa-times"></i></a>

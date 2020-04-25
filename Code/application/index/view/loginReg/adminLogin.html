@@ -136,7 +136,8 @@
                 success: function (re) {
                     console.log(re);
                     if (re == 'success') {
-                        window.location.href = '/index/Admin/toAuditList';
+                        window.location.href = "{:url('/index/Admin/toAuditList?page=0')}";
+
                     } else {
                         console.log(re);
                     }

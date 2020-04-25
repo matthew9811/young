@@ -7,6 +7,7 @@ use app\index\controller\common\CheckAdmin;
 use think\Db;
 use think\Request;
 use think\Session;
+use think\Cookie;
 use app\common\util\CosUtil;
 
 class Admin extends CheckAdmin
@@ -17,11 +18,16 @@ class Admin extends CheckAdmin
     public function toAuditList()
     {
         $cos = new CosUtil();
+        $page = input()['page'];
+        $adminId = Session::get(Cookie::get("adminId"));
+        $admin = Db::table('manger')->where("id", $adminId)->select();
         $audit = Db::table('article')->where('review_status','2')
-            ->order('issuing_time desc')->select();
+            ->order('issuing_time desc')->limit($page * 12, 12)->select();
         for ($i = 0; $i < count($audit); $i++) {
             $audit[$i]['cover'] = $cos->download($audit[$i]['cover']);
         }
+        $this->assign('page', $page + 1);
+        $this->assign('admin',$admin[0]);
         $this->assign('audit',$audit);
         return view('audit/audit');
     }
@@ -37,6 +43,9 @@ class Admin extends CheckAdmin
         $customerId = $article['customer_id'];
         $customer = Db::table('user')
             ->where('id',$customerId)->select();
+        $adminId = Session::get(Cookie::get("adminId"));
+        $admin = Db::table('manger')->where("id", $adminId)->select();
+        $this->assign('admin',$admin[0]);
         $this->assign('article',$article);
         $this->assign('customer',$customer[0]);
         $this->assign('content', $cos->download($article['content']));
@@ -47,7 +56,7 @@ class Admin extends CheckAdmin
     public function passArt()
     {
         $id = input()['id'];
-        $reviewer = Session::get("adminId");
+        $reviewer = Session::get(Cookie::get("adminId"));
         $result = Db::table("article")->where("id",$id)
             ->setField(["review_status"=>'1',"reviewer"=>$reviewer]);
         if ($result){
@@ -61,7 +70,7 @@ class Admin extends CheckAdmin
     public function rejectArt()
     {
         $id = input()['id'];
-        $reviewer = Session::get("adminId");
+        $reviewer = Session::get(Cookie::get("adminId"));
         $result = Db::table("article")->where("id",$id)
             ->setField(["review_status"=>'0',"reviewer"=>$reviewer]);
         if ($result){
@@ -78,7 +87,8 @@ class Admin extends CheckAdmin
         $list = $req['listId'];
         for ($i = 0; $i < count($list);$i++) {
             Db::table('article')->where('id',$list[$i])
-                ->setField(['review_status' => '1',"reviewer"=>Session::get("adminId")]);
+                ->setField(['review_status' => '1',
+                    "reviewer"=>Session::get(Cookie::get("adminId"))]);
         }
         return json('success');
     }
@@ -90,7 +100,8 @@ class Admin extends CheckAdmin
         $list = $req['listId'];
         for ($i = 0; $i < count($list);$i++) {
             Db::table('article')->where('id',$list[$i])
-                ->setField(['review_status' => '0',"reviewer"=>Session::get("adminId")]);
+                ->setField(['review_status' => '0',
+                    "reviewer"=>Session::get(Cookie::get("adminId"))]);
         }
         return json('success');
     }
