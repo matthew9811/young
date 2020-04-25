@@ -23,9 +23,9 @@ class Index extends Base
             $user = Base::getUser($id)[0];
             $userArt = Base::getUserArt($id);
             $userCollectArt = Base::getUserCollectArt($id);
-            $this->assign('user',$user);
-            $this->assign('userArt',$userArt);
-            $this->assign('userCollect',$userCollectArt);
+            $this->assign('user', $user);
+            $this->assign('userArt', $userArt);
+            $this->assign('userCollect', $userCollectArt);
         }
         $newArt = model("common/Article")->where("review_status", '1')
             ->order('issuing_time desc')->limit(5)->select();
@@ -85,9 +85,9 @@ class Index extends Base
         for ($i = 0; $i < count($collectArtList); $i++) {
             $collectArtList[$i]['cover'] = $cos->download($collectArtList[$i]['cover']);
         }
-        $this->assign('newArt',$newArt);
-        $this->assign('collectArt',$collectArt);
-        $this->assign('collectArtList',$collectArtList);
+        $this->assign('newArt', $newArt);
+        $this->assign('collectArt', $collectArt);
+        $this->assign('collectArtList', $collectArtList);
         return view("index/index");
     }
 
@@ -130,13 +130,13 @@ class Index extends Base
         $result = $result[0];
         if ($result) {
             if ($result['password'] == $post['password']) {
-                Session::set($result[0]['nick_name'], $result[0]['nick_name']);
-                Session::set($result[0]['nick_name'].":id", $result[0]['id']);
-                session($result[0]['nick_name'].'loginTime', time());
+                Session::set($result['nick_name'], $result['nick_name']);
+                Session::set($result['nick_name'] . ":id", $result['id']);
+                session($result['nick_name'] . 'loginTime', time());
                 //登录成功
-                Cookie::set("adminName", $result[0]['nick_name']);
-                Cookie::set("adminId", $result[0]['nick_name'].":id");
-                Cookie::set("adminTime", $result[0]['nick_name'].'loginTime');
+                Cookie::set("adminName", $result['nick_name']);
+                Cookie::set("adminId", $result['nick_name'] . ":id");
+                Cookie::set("adminTime", $result['nick_name'] . 'loginTime');
                 //登录成功
                 return json('success');
             }
@@ -159,12 +159,12 @@ class Index extends Base
         if ($result[0]) {
             if ($result[0]['pwd'] == $post['password']) {
                 Session::set($result[0]['nick_name'], $result[0]['nick_name']);
-                Session::set($result[0]['nick_name'].":id", $result[0]['id']);
-                session($result[0]['nick_name'].'loginTime', time());
+                Session::set($result[0]['nick_name'] . ":id", $result[0]['id']);
+                session($result[0]['nick_name'] . 'loginTime', time());
                 //登录成功
                 Cookie::set("nickname", $result[0]['nick_name']);
-                Cookie::set("id", $result[0]['nick_name'].":id");
-                Cookie::set("loginTime", $result[0]['nick_name'].'loginTime');
+                Cookie::set("id", $result[0]['nick_name'] . ":id");
+                Cookie::set("loginTime", $result[0]['nick_name'] . 'loginTime');
                 return json('success');
             }
         }
@@ -249,9 +249,9 @@ class Index extends Base
                    issuing_time DESC,
                    collectNum DESC
                    LIMIT 5');
-        $this->assign('newArt',$newArt);
-        $this->assign('collectArt',$collectArt);
-        $this->assign('collectArtList',$collectArtList);
+        $this->assign('newArt', $newArt);
+        $this->assign('collectArt', $collectArt);
+        $this->assign('collectArtList', $collectArtList);
         return view("index/index");
     }
 

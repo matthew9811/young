@@ -34,7 +34,7 @@ class CheckAdmin extends Base
         /**
          * 判断登录时间
          */
-        if (($nowTime - $s_time) > 36000) {
+        if (($nowTime - $s_time) > 3600) {
             /*
              * session('loginTime', null);
              * 清空session中当前用户的信息

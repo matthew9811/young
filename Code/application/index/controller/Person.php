@@ -43,9 +43,9 @@ class Person extends CheckLogin
         if ($req["file"] != '0') {
             $photo = $req["file"];
             $fileKey = str_replace('.', '', uniqid('', true)) . '.html';
-            sleep(0.01);
             $cos = new CosUtil();
             $cos->uploadString($fileKey, $photo);
+
             $result = Db::table("user")->where("id",$id)
                 ->setField(["nick_name"=>$nick_name,"signature"=>$signature,"pwd"=>$pwd,"photo"=>$fileKey]);
         } else {

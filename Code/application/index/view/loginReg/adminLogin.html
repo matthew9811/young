@@ -123,27 +123,26 @@
 <script>
     (function ($) {
         $("#sendbutton").on("click", function () {
-            var nickName = $("#login-form input[name=nickName]").val();//用户名
-            var password = $("#login-form input[name=password]").val();//密码
-            var data = {
+            let nickName = $("#login-form input[name=nickName]").val();//用户名
+            let password = $("#login-form input[name=password]").val();//密码
+            let data = {
                 nickName: nickName,
                 password: password
             };
-            console.log(data);
             $.ajax({
                 url: "/index/Index/admin",
                 type: 'post',
                 data: data,
-                success: function (data) {
-                    console.log(data);
-                    if (data == 'success') {
+                success: function (re) {
+                    console.log(re);
+                    if (re == 'success') {
                         window.location.href = '/index/Admin/toAuditList';
                     } else {
-                        alert(data);
+                        console.log(re);
                     }
                 },
-                error: function (data) {
-                    alert(data);
+                error: function (re) {
+                    console.log(re)
                 }
             });
         })

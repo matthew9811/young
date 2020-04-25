@@ -137,7 +137,7 @@ class Article extends CheckLogin
         //封面base64
         $file = $post['file'];
         $fileKey = str_replace('.', '', uniqid('', true)) . '.html';
-        sleep(0.01);
+
         $contentKey = str_replace('.', '', uniqid('', true)) . '.html';
         $cos = new CosUtil();
         $cos->uploadString($fileKey, $file);

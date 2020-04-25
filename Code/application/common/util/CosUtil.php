@@ -25,6 +25,7 @@ class CosUtil extends Utils
                 'credentials' => array(
                     'secretId' => $secretId,
                     'secretKey' => $secretKey)));
+        sleep(0.01);
         return $cosClient;
     }
 
@@ -41,6 +42,7 @@ class CosUtil extends Utils
                 'Bucket' => $bucket,
                 'Key' => $key,
                 'Body' => $str));
+            sleep(0.01);
             return ($result);
         } catch (\Exception $e) {
             echo "$e\n";
