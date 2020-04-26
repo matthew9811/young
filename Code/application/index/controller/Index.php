@@ -18,7 +18,7 @@ class Index extends Base
         //判断用户是否登录
         $userId = Cookie::get("id");
         $cos = new CosUtil();
-        if ($userId != '') {
+        if ($userId && Session::get($userId) != '') {
             $id = Session::get($userId);
             $user = Base::getUser($id)[0];
             $userArt = Base::getUserArt($id);
