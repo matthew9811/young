@@ -143,7 +143,7 @@ class Article extends CheckLogin
         $cos->uploadString($fileKey, $file);
         $cos->uploadString($contentKey, $content);
         $article = new \app\common\model\Article();
-        $article->customer_id = Session::get("id");
+        $article->customer_id = Session::get(Cookie::get("id"));
         $article->content = $contentKey;
         $article->cover = $fileKey;
         $article->title = $title;

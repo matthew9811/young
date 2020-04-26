@@ -27,6 +27,7 @@ class Person extends CheckLogin
         $userArt = Base::getUserArt($id);
         $userCollectArt = Base::getUserCollectArt($id);
         $this->assign("user", $user);
+        $this->assign("photo",$user['photo']);
         $this->assign('userArt',$userArt);
         $this->assign('userCollect',$userCollectArt);
         return view('person/mine');

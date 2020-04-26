@@ -43,41 +43,11 @@
                         <!-- MENU -->
                         <nav id="eskimo-main-menu" class="menu-main-menu-container">
                             <ul class="eskimo-menu-ul">
-                                <li>
-                                    <a href="/index/Index/index">首页</a>
-                                </li>
-                                <li>
-                                    <a href="{:url('/index/Article/toArtList?page=0')}">日记</a>
-                                </li>
-                                <li>
-                                    <a href="/index/Article/toAddition">分享</a>
-                                </li>
-                                <li>
-                                    <a href="/index/Person/toMine">修改资料</a>
-                                </li>
-
-                                <li>
-                                    <a href="/index/Index/adminLogin">管理入口</a>
-                                </li>
+                                {if condition="empty($Request.cookie.adminName) neq true"}
+                                <li><a href='/index/Index/toAdminOut'>退出管理员登录</a></li>
+                                {/if}
                             </ul>
                         </nav>
-                    </div>
-                    <!-- SOCIAL MEDIA ICONS -->
-                    <div id="eskimo-social-cell" class="mt-auto w-100">
-                        <div id="eskimo-social-inner">
-                            <ul class="eskimo-social-icons">
-                               {if condition="empty($Request.cookie.nickname) eq true"}
-                                <li><a href='/index/Index/toLogin'>登录</a></li>
-                                <li><a style="color: #FFFFFF">/</a></li>
-                                <li><a href='/index/Index/toReg'>注册</a></li>
-                                {/if}
-                                {if condition="empty($Request.cookie.nickname) neq true"}
-                                <li><a href='/index/Index/toOut'>{$Request.cookie.nickname}注销</a></li>
-                                {/if}
-
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -133,10 +103,16 @@
             <!-- PAGINATION -->
             <div class="eskimo-pager">
                 <ul class='pagination flex-wrap'>
-                    <li class='page-item active'><a class='page-link' href='#'>1</a></li>
-                    <li class='page-item'><a class='page-link' href='#'>2</a></li>
-                    <li class='page-item'><a class='page-link' href='#'>3</a></li>
-                    <li class='page-item'><a class='page-link' href="#"><i class="fa fa-chevron-right"></i></a></li>
+                    <li class='page-item'>
+                        <a id="left" class='page-link' href="{:url('/index/Admin/toAuditList?page=')}{$page-2}">
+                            <i class="fa fa-chevron-left"></i>
+                        </a>
+                    </li>
+                    <li class='page-item'>
+                        <a id="right" class='page-link' href="{:url('/index/Admin/toAuditList?page=')}{$page}">
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div class="clearfix"></div>
@@ -158,27 +134,38 @@
     let Id = [];
     $(function () {
 
-        $("#reject").click(function () {
-            $.ajax({
-                url: '/index/Admin/rejectList',
-                type: 'post',
-                data: {listId: Id},
-                success: function (res) {
-                    alert(res);
-                }
-            })
-        });
+        let page = {$page};
+        if (page == 1) {
+            console.log("===");
+            $("#left").attr("disabled",true).css("pointer-events","none");
+        }
+        let content = {:json_encode($audit)};
+        if (content == null || content == undefined || content == ''){
+            $("#right").attr("disabled",true).css("pointer-events","none");
+        }
+    });
 
-        $("#pass").click(function () {
-            $.ajax({
-                url: '/index/Admin/passList',
-                type: 'post',
-                data: {listId: Id},
-                success: function (res) {
-                    alert('审核' + res);
-                    window.location.href = '/index/Admin/toAuditList';
-                }
-            })
+    $("#reject").click(function () {
+        $.ajax({
+            url: '/index/Admin/rejectList',
+            type: 'post',
+            data: {listId: Id},
+            success: function (res) {
+                alert(res);
+                window.location.href = "{:url('/index/Admin/toAuditList?page=0')}";
+            }
+        })
+    });
+
+    $("#pass").click(function () {
+        $.ajax({
+            url: '/index/Admin/passList',
+            type: 'post',
+            data: {listId: Id},
+            success: function (res) {
+                alert('审核' + res);
+                window.location.href = "{:url('/index/Admin/toAuditList?page=0')}";
+            }
         })
     });
 

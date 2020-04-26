@@ -44,60 +44,22 @@
                         <!-- MENU -->
                         <nav id="eskimo-main-menu" class="menu-main-menu-container">
                             <ul class="eskimo-menu-ul">
-                                <li>
-                                    <a href="/index/Index/index">首页</a>
-                                </li>
-                                <li>
-                                    <a href="{:url('/index/Article/toArtList?page=0')}">日记</a>
-                                </li>
-                                <li>
-                                    <a href="/index/Article/toAddition">分享</a>
-                                </li>
-                                <li>
-                                    <a href="/index/Person/toMine">修改资料</a>
-                                </li>
-
-                                <li>
-                                    <a href="/index/Index/adminLogin">管理入口</a>
-                                </li>
+                                {if condition="empty($Request.cookie.adminName) neq true"}
+                                <li><a href='/index/Index/toAdminOut'>退出管理员登录</a></li>
+                                {/if}
                             </ul>
                         </nav>
                     </div>
-                    <!-- SOCIAL MEDIA ICONS -->
-                    <div id="eskimo-social-cell" class="mt-auto w-100">
-                        <div id="eskimo-social-inner">
-                            <ul class="eskimo-social-icons">
-                               {if condition="empty($Request.cookie.nickname) eq true"}
-                                <li><a href='/index/Index/toLogin'>登录</a></li>
-                                <li><a style="color: #FFFFFF">/</a></li>
-                                <li><a href='/index/Index/toReg'>注册</a></li>
-                                {/if}
-                                {if condition="empty($Request.cookie.nickname) neq true"}
-                                <li><a href='/index/Index/toOut'>{$Request.cookie.nickname}注销</a></li>
-                                {/if}
-
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
                 </div>
             </div>
-            <!-- TOP ICONS -->
-            <ul class="eskimo-top-icons">
-                <li id="eskimo-panel-icon">
-                    <a href="#eskimo-panel" class="eskimo-panel-open"><i class="fa fa-bars"></i></a>
-                </li>
-                <li id="eskimo-search-icon">
-                    <a id="eskimo-open-search" href="#"><i class="fa fa-search"></i></a>
-                </li>
-            </ul>
+
             <div class="clearfix"></div>
             <!-- PAGE TITLE -->
             <div class="eskimo-page-title">
                 <h1><span>{$article.title}</span></h1>
                 <div class="eskimo-page-title-meta">
                     <div class="eskimo-author-meta">
-                        By <a class="author-meta" href="{:url('/index/Person/toOther?id='.$customer['id'])}">{$customer.nick_name}</a>
+                        By <div class="author-meta">{$customer.nick_name}</div>
                     </div>
                     <div class="eskimo-date-meta">{$article.issuing_time}</div>
                 </div>
@@ -126,93 +88,6 @@
 <a id="eskimo-gototop" href="#"><i class="fa fa-chevron-up"></i></a>
 <!-- SLIDE PANEL OVERLAY -->
 <div id="eskimo-overlay"></div>
-<!-- SLIDE PANEL -->
-<div id="eskimo-panels">
-    <aside id="eskimo-panel" class="eskimo-panel">
-        <div class="eskimo-panel-inner">
-            <!-- CLOSE SLIDE PANEL BUTTON -->
-            <a href="#" class="eskimo-panel-close"><i class="fa fa-times"></i></a>
-            <!-- AUTHOR BOX -->
-            <div class="eskimo-author-box eskimo-widget">
-                <div class="eskimo-author-img">
-                    <img src="/common/uploads/2018/05/img.jpg" alt="JOHN DOE" />
-                </div>
-                <h3><span>无心人</span></h3>
-                <p class="eskimo-author-description">个性签名</p>
-                <div class="eskimo-author-box-btn">
-                    <a class="btn btn-default" href="/index/Index/toMine">修改资料</a>
-                </div>
-            </div>
-            <!-- SELF POSTS -->
-            <div class="eskimo-recent-entries eskimo-widget">
-                <h5 class="eskimo-title-with-border"><a href="/index/Index/toMineArtList">个人豆蔻</a></h5>
-                <ul>
-                    <li>
-                        <a href="/index/Index/toArticle">Ketchup Flavored Ice Cream!</a>
-                        <span class="post-date">May 28, 2018</span>
-                    </li>
-                    <li>
-                        <a href="/index/Index/toArticle">Hair You've Always Dreamed Of</a>
-                        <span class="post-date">May 27, 2018</span>
-                    </li>
-                    <li>
-                        <a href="single-post.html">15 Of The World's Best Carnivals</a>
-                        <span class="post-date">May 25, 2018</span>
-                    </li>
-                    <li>
-                        <a href="single-post.html">5 Ways to a Healthy Lifestyle</a>
-                        <span class="post-date">May 25, 2018</span>
-                    </li>
-                    <li>
-                        <a href="single-post.html">Best Breakfast In The World</a>
-                        <span class="post-date">May 23, 2018</span>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- LOVE POSTS -->
-            <div class="eskimo-recent-entries eskimo-widget">
-                <h5 class="eskimo-title-with-border"><a href="/index/Index/toLikeArtList">收藏豆蔻</a></h5>
-                <ul>
-                    <li>
-                        <a href="single-post.html">Ketchup Flavored Ice Cream!</a>
-                        <span class="post-date">May 28, 2018</span>
-                    </li>
-                    <li>
-                        <a href="single-post.html">Hair You've Always Dreamed Of</a>
-                        <span class="post-date">May 27, 2018</span>
-                    </li>
-                    <li>
-                        <a href="single-post.html">15 Of The World's Best Carnivals</a>
-                        <span class="post-date">May 25, 2018</span>
-                    </li>
-                    <li>
-                        <a href="single-post.html">5 Ways to a Healthy Lifestyle</a>
-                        <span class="post-date">May 25, 2018</span>
-                    </li>
-                    <li>
-                        <a href="single-post.html">Best Breakfast In The World</a>
-                        <span class="post-date">May 23, 2018</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </aside>
-</div>
-<!-- FULLSCREEN SEARCH -->
-<div id="eskimo-fullscreen-search">
-    <div id="eskimo-fullscreen-search-content">
-        <a href="#" id="eskimo-close-search"><i class="fa fa-times"></i></a>
-        <form role="search" method="get" action="search.html" class="eskimo-lg-form">
-            <div class="input-group">
-                <input type="text" id="searchText" class="form-control form-control-lg" placeholder="关键字" name="s" />
-                <div class="input-group-append">
-                    <button id="search" type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
 <!-- JS FILES -->
 <script src="/common/js/jquery-3.3.1.min.js"></script>
 <script src="/common/js/bootstrap.min.js"></script>

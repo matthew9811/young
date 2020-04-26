@@ -4,6 +4,7 @@ namespace app\index\controller\common;
 
 use think\Controller;
 use think\Db;
+use app\common\util\CosUtil;
 
 /**
  * 用于书写一些通用的方法
@@ -17,6 +18,12 @@ class Base extends Controller
     public function getUser($id)
     {
         $user = model("common/User")->where("id", $id)->select();
+        $cos = new CosUtil();
+        if ($user[0]['photo'] != '') {
+            $user[0]['photo'] = $cos->download($user[0]['photo']);
+        } else {
+            $user[0]['photo'] = '/common/uploads/2018/05/img.jpg';
+        }
         return $user;
     }
 

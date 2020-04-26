@@ -67,15 +67,9 @@
                     <div id="eskimo-social-cell" class="mt-auto w-100">
                         <div id="eskimo-social-inner">
                             <ul class="eskimo-social-icons">
-                                {if condition="empty($Request.cookie.nickname) eq true"}
                                 <li><a href='/index/Index/toLogin'>登录</a></li>
                                 <li><a style="color: #FFFFFF">/</a></li>
                                 <li><a href='/index/Index/toReg'>注册</a></li>
-                                {/if}
-                                {if condition="empty($Request.cookie.nickname) neq true"}
-                                <li><a href='/index/Index/toOut'>{$Request.cookie.nickname}注销</a></li>
-                                {/if}
-
                             </ul>
                             <div class="clearfix"></div>
                         </div>
