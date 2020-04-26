@@ -117,6 +117,7 @@
                             点击图像上传头像
                             <div id="drop_area"></div>
                         </div>
+                        <img id="photo" src="{$photo}" width="0px" height="0px">
                     </div>
                 </div>
                 <!-- DIVIDER -->
@@ -227,8 +228,7 @@
     <script type="text/javascript">
         $(function () {
             let file;
-            let photo = '';
-            photo = "\'" + {$photo} + "\'";
+            let photo = $("#photo")[0].src;
             console.log(photo);
             new DragImgUpload("#drop_area",{
                 callback:function (files) {
