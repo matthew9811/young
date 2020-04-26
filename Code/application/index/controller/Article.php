@@ -99,7 +99,7 @@ class Article extends CheckLogin
                 ORDER BY
                    issuing_time DESC,
                    collectNum DESC
-                   LIMIT 12');
+                   LIMIT ' . $page * 12 . ',' . 12);
         }
         //获取当前用户信息
         $userId = Cookie::get("id");
