@@ -101,6 +101,10 @@ class Article extends CheckLogin
                    collectNum DESC
                    LIMIT ' . $page * 12 . ',' . 12);
         }
+        $cos = new CosUtil();
+        for ($i = 0; $i < count($article); $i++) {
+            $article[$i]['cover'] = $cos->download($article[$i]['cover']);
+        }
         //获取当前用户信息
         $userId = Cookie::get("id");
         $id = Session::get($userId);
